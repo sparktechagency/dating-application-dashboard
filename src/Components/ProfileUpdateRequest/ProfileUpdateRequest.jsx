@@ -1,56 +1,72 @@
 import { Modal, Table } from 'antd';
 import React, { useState } from 'react'
+import { LuCalendarClock } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 
 const ProfileUpdateRequest = ({ dataSource }) => {
-    // console.log(pagination)
 
    
 
     const columns = [
         {
-            title: "SL no.",
+            title: "Podcast ID",
             dataIndex: "key",
             key: "key",
         },
         {
-            title: "Event Name",
-            dataIndex: "eventName",
-            key: "eventName",
+            title: "Perticipant-1",
+            dataIndex: "perticipant1",
+            key: "perticipant1",
+            render : (_,record)=>(
+                <div className='flex  items-center gap-2'>
+                    <img src={record?.perticipant1Img} alt="" />
+                    <p className='font-medium'>{record?.perticipant1}</p>
+                </div>
+            )
           
         },
         {
-            title: "User",
-            dataIndex: "user",
-            key: "user",
+            title: "Perticipant-2",
+            dataIndex: "perticipant2",
+            key: "perticipant2",
+            render : (_,record)=>(
+                <div className='flex  items-center gap-2'>
+                    <img src={record?.perticipant2Img} alt="" />
+                    <p className='font-medium'>{record?.perticipant1}</p>
+                </div>
+            )
         },
 
         {
-            title: "Start Time",
-            dataIndex: "startTime",
-            key: "startTime",
-        },
-        {
-            title: "End Time",
-            dataIndex: "endTime",
-            key: "endTime",
-        },
-        {
-            title: "Price",
-            dataIndex: "price",
-            key: "price  ",
-        },
-        {
-            title: "Status",
-            dataIndex: "status",
-            key: "status",
+            title: "Perticipant-3",
+            dataIndex: "perticipant3",
+            key: "perticipant3",
             render : (_,record)=>(
-                <div className={`bg-[#E6E7F4] text-[#000B90] max-w-[60%] text-center py-1 rounded-sm 
-                ${record?.status === "Reserved" ? "bg-[#E6E7F4] text-[#00A991]" : ""}
-                ${record?.status === "Canceled" ? "bg-[#E6E7F4] text-[#D7263D]" : ""}
-                `} >
-                    {/* {record?.status === "Complete" ? "" : ""} */}
-                    {record?.status}
+                <div className='flex  items-center gap-2'>
+                    <img src={record?.perticipant3Img} alt="" />
+                    <p className='font-medium'>{record?.perticipant1}</p>
+                </div>
+            )
+        },
+        {
+            title: "Perticipant-4",
+            dataIndex: "perticipant4",
+            key: "perticipant4",
+            render : (_,record)=>(
+                <div className='flex  items-center gap-2'>
+                    <img src={record?.perticipant4Img} alt="" />
+                    <p className='font-medium'>{record?.perticipant4}</p>
+                </div>
+            )
+        },
+       
+        {
+            title: "Set Schedule",
+            dataIndex: "schedule",
+            key: "schedule",
+            render : (_,record)=>(
+                <div className='bg-[#FFA175] text-white inline-block text-center p-1 rounded-md cursor-pointer'>
+                    <LuCalendarClock size={22} />
                 </div>
             )
         },

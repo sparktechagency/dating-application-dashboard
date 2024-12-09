@@ -3,14 +3,14 @@ import IncomeOverview from './Components/IncomeOverview/IncomeOverview'
 import { Link } from 'react-router-dom'
 import ProfileUpdateRequest from './Components/ProfileUpdateRequest/ProfileUpdateRequest'
 import './app.css'
-import { MdLocalBar } from 'react-icons/md'
-import { FaRegUser } from 'react-icons/fa'
-import { RiMovie2Line } from 'react-icons/ri'
-import PopularEventChart from './Components/PopularEventChart/PopularEventChart'
 import profile from './assets/images/profileuser.png'
 import medal from './assets/images/medal.png'
 import profit from './assets/images/profits.png'
 import mic from './assets/images/microphone.png'
+import img from './assets/images/user1.png'
+import img2 from './assets/images/user2.png'
+import img3 from './assets/images/user3.png'
+import img4 from './assets/images/user4.png'
 function App() {
 
   // 
@@ -42,39 +42,41 @@ function App() {
   // table data 
   const dataSource = [
     {
-      key: "#12333",
-      eventName: "Holiday Parties",
-      startTime: 324189454648487,
-      user: 'Jhon Smith',
-      startTime: "15/04/24",
-      endTime: "12/03/24",
-      price: "$124",
-      status: "Complete",
+      key: "#12331",
+      perticipant1: "Holiday Parties",
+      perticipant1Img : img,
+      perticipant2Img : img2,
+      perticipant3Img : img3,
+      perticipant4Img : img4,
+      perticipant2: 'Jhon Smith',
+      perticipant3: "Wade Warren",
+      perticipant4: "Danne Rusell",
+     
     },
-   
     {
       key: "#12333",
-      eventName: "Holiday Parties",
-      startTime: 324189454648487,
-      user: 'car',
-      startTime: "A 23445355",
-      endTime: "12/03/24",
-      price: "124",
-      status: "Reserved",
+      perticipant1: "Holiday Parties",
+      perticipant1Img : img,
+      perticipant2Img : img2,
+      perticipant3Img : img3,
+      perticipant4Img : img4,
+      perticipant2: 'Jhon Smith',
+      perticipant3: "Wade Warren",
+      perticipant4: "Danne Rusell",
+     
     },
-   
     {
-      key: "#12333",
-      eventName: "Holiday Parties",
-      startTime: 324189454648487,
-      user: 'car',
-      startTime: "A 23445355",
-      endTime: "12/03/24",
-      price: "124",
-      status: "Canceled",
+      key: "#12334",
+      perticipant1: "Holiday Parties",
+      perticipant1Img : img,
+      perticipant2Img : img2,
+      perticipant3Img : img3,
+      perticipant4Img : img4,
+      perticipant2: 'Jhon Smith',
+      perticipant3: "Wade Warren",
+      perticipant4: "Danne Rusell",
+     
     },
-   
-
 
   ];
 
@@ -103,21 +105,12 @@ function App() {
         </div>
         <div className='w-full h-full bg-white p-4 rounded-md'>
           <div>
-            <p className='text-[#EFC11F] text-2xl'>Most Popular Event</p>
+            <p className=' text-2xl'>User Growth</p>
           </div>
-          <PopularEventChart />
           <div className='flex justify-center gap-5 items-center text-xl'>
 
-            <div>
 
-              <div className='text-[#0088FE] flex items-center gap-2'> <div className='h-4 bg-[#0088FE] w-4 rounded-full'></div> Holiday Parties</div>
-              <div className='text-[#00C49F] flex items-center gap-2'> <div className='h-4 bg-[#00C49F] w-4 rounded-full'></div>Tattoo Parties</div>
-            </div>
-            <div>
-
-              <div className='text-[#FFBB28] flex items-center gap-2'> <div className='h-4 bg-[#FFBB28] w-4 rounded-full'></div>Big Events</div>
-              <div className='text-[#FF8042] flex items-center gap-2'> <div className='h-4 bg-[#FF8042] w-4 rounded-full'></div>Park Event</div>
-            </div>
+            
           </div>
         </div>
       </div>
@@ -127,7 +120,7 @@ function App() {
       <div className="mt-5 bg-[white] p-5 rounded-md">
 
         <div className='flex justify-between items-center gap-2 mb-3 p-5'>
-          <p className='text-2xl font-semibold'>Event Status</p> <Link className='border-b border-black' to={`/profile-update-request`}>
+          <p className='text-2xl font-semibold'>Podcast Schedule Request</p> <Link className='border-b border-black' to={`/profile-update-request`}>
             View all
           </Link>
         </div>

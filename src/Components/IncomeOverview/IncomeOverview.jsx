@@ -81,21 +81,8 @@ const IncomeOverview = () => {
         <>
             <div className='flex justify-between items-center'>
                 <div className='ml-6'>
-                    <p className='text-xl font-semibold mb-2 '>Earning Overview</p>
-                    {/* <div className='flex items-center gap-5 my-2'>
-                        <div>
-                            <p>Yearly Growth</p>
-                            <p className='font-medium'>48.08%</p>
-                        </div>
-                        <div>
-                            <p>Monthly</p>
-                            <p className='font-medium'>24.36%</p>
-                        </div>
-                        <div>
-                            <p>Daily</p>
-                            <p className='font-medium'>66.36%</p>
-                        </div>
-                    </div> */}
+                    <p className='text-xl font-semibold mb-2 '>Subscription Growth</p>
+                   
                 </div>
                 <Select
                     defaultValue="2024"
@@ -121,7 +108,7 @@ const IncomeOverview = () => {
                         <XAxis dataKey="name" />
                         <YAxis />
                         <Tooltip />
-                        <Area type="monotone" dataKey="uv" stroke="#EFC11F" opacity={1} fillOpacity={1} fill="#EFC11F" />
+                        <Area type="monotone" dataKey="uv" stroke="#FFA175" opacity={1} fillOpacity={1} fill="#FFA175" />
                     </AreaChart>
                 </ResponsiveContainer>
             </div>
