@@ -11,6 +11,7 @@ import img from './assets/images/user1.png'
 import img2 from './assets/images/user2.png'
 import img3 from './assets/images/user3.png'
 import img4 from './assets/images/user4.png'
+import UserGrowthChart from './Components/UserGrowthChart/UserGrowthChart'
 function App() {
 
   // 
@@ -44,38 +45,38 @@ function App() {
     {
       key: "#12331",
       perticipant1: "Holiday Parties",
-      perticipant1Img : img,
-      perticipant2Img : img2,
-      perticipant3Img : img3,
-      perticipant4Img : img4,
+      perticipant1Img: img,
+      perticipant2Img: img2,
+      perticipant3Img: img3,
+      perticipant4Img: img4,
       perticipant2: 'Jhon Smith',
       perticipant3: "Wade Warren",
       perticipant4: "Danne Rusell",
-     
+
     },
     {
       key: "#12333",
       perticipant1: "Holiday Parties",
-      perticipant1Img : img,
-      perticipant2Img : img2,
-      perticipant3Img : img3,
-      perticipant4Img : img4,
+      perticipant1Img: img,
+      perticipant2Img: img2,
+      perticipant3Img: img3,
+      perticipant4Img: img4,
       perticipant2: 'Jhon Smith',
       perticipant3: "Wade Warren",
       perticipant4: "Danne Rusell",
-     
+
     },
     {
       key: "#12334",
       perticipant1: "Holiday Parties",
-      perticipant1Img : img,
-      perticipant2Img : img2,
-      perticipant3Img : img3,
-      perticipant4Img : img4,
+      perticipant1Img: img,
+      perticipant2Img: img2,
+      perticipant3Img: img3,
+      perticipant4Img: img4,
       perticipant2: 'Jhon Smith',
       perticipant3: "Wade Warren",
       perticipant4: "Danne Rusell",
-     
+
     },
 
   ];
@@ -104,14 +105,10 @@ function App() {
 
         </div>
         <div className='w-full h-full bg-white p-4 rounded-md'>
-          <div>
-            <p className=' text-2xl'>User Growth</p>
-          </div>
-          <div className='flex justify-center gap-5 items-center text-xl'>
+          
 
+            <UserGrowthChart />
 
-            
-          </div>
         </div>
       </div>
 
