@@ -195,7 +195,7 @@ const Profile = () => {
                                             width: 197,
                                             height: 48,
                                             color: "#FCFCFC",
-                                            backgroundColor : "#020123"
+                                            backgroundColor : "#FFA175"
                                         }}
                                         className='font-normal text-[16px] leading-6  rounded-full'
                                     >
@@ -307,9 +307,9 @@ const Profile = () => {
                                             width: 197,
                                             height: 48,
                                             color: "#FFFFFF",
-                                            backgroundColor : "#020123"
+                                            backgroundColor : "#FFA175"
                                         }}
-                                        className='font-normal text-[16px] leading-6 bg-[var(--primary-color)] rounded-full'
+                                        className='font-normal text-[16px] leading-6 bg-[#FFA175] rounded-full'
                                     >
                                         Save Changes
                                     </Button>

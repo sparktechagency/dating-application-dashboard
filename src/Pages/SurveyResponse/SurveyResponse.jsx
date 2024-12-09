@@ -44,7 +44,7 @@ const SurveyResponse = () => {
           <textarea
             // value={formData.feedback}
             readOnly
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded border-[#FFA175]"
             rows="4"
           />
         </div>
@@ -87,7 +87,7 @@ const SurveyResponse = () => {
           <textarea
             // value={formData.feedback}
             readOnly
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded border-[#FFA175]"
             rows="4"
           />
         </div>
@@ -133,7 +133,7 @@ const SurveyResponse = () => {
           <textarea 
             // value={formData.feedback}
             readOnly
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded border-[#FFA175]"
             rows="4"
           />
         </div>
@@ -172,7 +172,7 @@ const SurveyResponse = () => {
           <textarea 
             // value={formData.feedback}
             readOnly
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded border-[#FFA175]"
             rows="4"
           />
         </div>
@@ -209,7 +209,7 @@ const SurveyResponse = () => {
           <textarea 
             // value={formData.feedback}
             readOnly
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded border-[#FFA175]"
             rows="4"
           />
         </div>
@@ -225,7 +225,7 @@ const SurveyResponse = () => {
           <textarea 
             // value={formData.feedback}
             readOnly
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded border-[#FFA175]"
             rows="4"
           />
         </div>
@@ -235,7 +235,7 @@ const SurveyResponse = () => {
           <textarea 
             // value={formData.feedback}
             readOnly
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded border-[#FFA175]"
             rows="4"
           />
         </div>
@@ -250,7 +250,7 @@ const SurveyResponse = () => {
           <textarea 
             // value={formData.feedback}
             readOnly
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded border-[#FFA175]"
             rows="4"
           />
         </div>
