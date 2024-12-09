@@ -8,6 +8,7 @@ import { MdCategory, MdOutlineDashboard, MdOutlineWorkspacePremium, MdPodcasts }
 import { NavLink, useLocation } from 'react-router-dom'
 import img from '../../assets/images/logo.png'
 import { RiMovie2Line } from 'react-icons/ri'
+import { FiAward } from 'react-icons/fi'
 const Sidebar = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -38,6 +39,12 @@ const Sidebar = () => {
       path: '/premium-subscriber',
       label: 'Premium Subscribers',
       icon: <MdOutlineWorkspacePremium  size={25} />,
+      sub_menu: false
+    },
+    {
+      path: '/subscriptions',
+      label: 'Subscriptions',
+      icon: <FiAward size={25} />,
       sub_menu: false
     },
     

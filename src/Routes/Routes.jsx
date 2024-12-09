@@ -14,6 +14,7 @@ import Otp from "../Pages/Otp/Otp";
 import UpdatePassword from "../Pages/UpdatePassword/UpdatePassword";
 import Notification from "../Pages/Notification/Notification";
 import SurveyResponse from "../Pages/SurveyResponse/SurveyResponse";
+import Subscriptions from "../Pages/Subscriptions/Subscriptions";
 
 export const router = createBrowserRouter([
     {
@@ -37,7 +38,10 @@ export const router = createBrowserRouter([
                 path: '/premium-subscriber',
                 element: <Transaction />
             },
-            
+            {
+                path : '/subscriptions',
+                element : <Subscriptions/>
+            },
            
             {
                 path: '/profile',
