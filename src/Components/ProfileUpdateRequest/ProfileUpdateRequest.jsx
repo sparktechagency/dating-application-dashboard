@@ -2,9 +2,10 @@ import { Modal, Table } from 'antd';
 import React, { useState } from 'react'
 import { LuCalendarClock } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
+import ScheduleModal from '../ScheduleModal/ScheduleModal';
 
 const ProfileUpdateRequest = ({ dataSource }) => {
-
+    const [openScheduleModal, setScheduleModal]  = useState(false)
    
 
     const columns = [
@@ -65,7 +66,7 @@ const ProfileUpdateRequest = ({ dataSource }) => {
             dataIndex: "schedule",
             key: "schedule",
             render : (_,record)=>(
-                <div className='bg-[#FFA175] text-white inline-block text-center p-1 rounded-md cursor-pointer'>
+                <div onClick={()=> setScheduleModal(true)} className='bg-[#FFA175] text-white inline-block text-center p-1 rounded-md cursor-pointer'>
                     <LuCalendarClock size={22} />
                 </div>
             )
@@ -74,7 +75,7 @@ const ProfileUpdateRequest = ({ dataSource }) => {
     return (
         <div className=''>
             <Table dataSource={dataSource} columns={columns} className="custom-pagination" pagination={false} />
-           
+            <ScheduleModal openScheduleModal={openScheduleModal} setScheduleModal={setScheduleModal} />
         </div>
     )
 }
