@@ -117,7 +117,7 @@ function App() {
       <div className="mt-5 bg-[white] p-5 rounded-md">
 
         <div className='flex justify-between items-center gap-2 mb-3 p-5'>
-          <p className='text-2xl font-semibold'>Podcast Schedule Request</p> <Link className='border-b border-black' to={`/profile-update-request`}>
+          <p className='text-2xl font-semibold'>Podcast Schedule Request</p> <Link className='text-[#2757A6]' to={`/schedule-request`}>
             View all
           </Link>
         </div>

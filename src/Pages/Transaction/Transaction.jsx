@@ -9,44 +9,45 @@ import { FaArrowLeft } from 'react-icons/fa'
 const Transaction = () => {
   const columns = [
     {
-      title: "Invoice",
+      title: "SL no",
       dataIndex: "key",
       key: "key",
     },
     {
-      title: "Time",
-      dataIndex: "time",
-      key: "time",
+      title: "Full Name",
+      dataIndex: "name",
+      key: "name",
+      render : (_, record)=>(
+        <div className='flex items-center gap-2'>
+          <img src={record?.img} alt="" />
+          <p>{record?.name}</p>
+        </div>
+      )
+    },
+    {
+      title: "Joining Date",
+      dataIndex: "joining",
+      key: "joining",
+    },
+    {
+      title: "Subscription Plan",
+      dataIndex: "subscription",
+      key: "subscription",
+    },
 
-    },
     {
-      title: "Guest",
-      dataIndex: "guest",
-      key: "guest",
-    },
-    {
-      title: "Hired",
-      dataIndex: "hired",
-      key: "hired",
-    },
-
-    {
-      title: "Fee",
+      title: "Subscription Fee",
       dataIndex: "fee",
       key: "fee",
     },
 
-    {
-      title: "Commission",
-      dataIndex: "commission",
-      key: "commission",
-    },
+   
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
       render: (_, record) => (
-        <div className={`bg-[#E6F6F4] text-[#00A991] w-[60%] text-center rounded-sm py-1 ${record?.status === "Pending" ? "bg-red-100 text-[#D7263D]" : ""}`}>
+        <div className={`rounded-full text-[#00A991] w-[60%] text-center  py-1 ${record?.status === "Due" ? "border border-[#F3A211] rounded-full text-[#F3A211]" : "border border-[#00A991] "}`}>
           {record?.status}
         </div>
       )
@@ -60,52 +61,57 @@ const Transaction = () => {
   const dataSource = [
     {
       key: "#12333",
-      time: "18 Jul, 2023",
-      guest: "Jhon Smith",
+      joining: "12/01/24",
+      name: "Jhon Smith",
+      img: img1,
       hired: "Josep lucial",
       fee: '$500',
-      commission: '$50',
-      status: "Pending"
+      subscription : "Speaker",
+      status: "Due"
     },
 
     {
       key: "#12333",
-      time: "22 Jul, 2023",
-      guest: "Jhon Smith",
+      joining: "12/01/24",
+      img: img2,
+      name: "Jhon Smith",
       hired: "Josep lucial",
       fee: '$500',
-      commission: '$50',
-      status: "Complete"
+      subscription : "Speaker",
+      status: "Paid"
     },
 
     {
       key: "#12333",
-      time: "18 Jul, 2023",
-      guest: "Jhon Smith",
+      joining: "12/01/24",
+      img: img1,
+      name: "Jhon Smith",
       hired: "Josep lucial",
       fee: '$500',
-      commission: '$50',
-      status: "Pending"
+      subscription : "Speaker",
+      status: "Due"
     },
 
     {
       key: "#12333",
-      time: "18 Jul, 2023",
-      guest: "Jhon Smith",
+      joining: "12/01/24",
+      name: "Jhon Smith",
+      img: img2,
       hired: "Josep lucial",
       fee: '$500',
-      commission: '$50',
-      status: "Complete"
+      subscription : "Speaker",
+      status: "Paid"
     },
 
     {
       key: "#12333",
-      time: "18 Jul, 2023",
-      guest: "Jhon Smith",
+      joining: "12/01/24",
+      name: "Jhon Smith",
       hired: "Josep lucial",
+      img: img1,
       fee: '$500',
-      commission: '$50',
-      status: "Pending"
+      subscription : "Speaker",
+      status: "Due"
     },
 
 
@@ -117,17 +123,17 @@ const Transaction = () => {
       <div className="flex justify-between item-center ">
         <div className="flex items-center gap-2">
           <Link to={-1}><FaArrowLeft size={18} className='text-[var(--primary-color)] ' /></Link>
-          <span className='font-semibold text-[20px]'>Earning</span></div>
+          <span className='font-semibold text-[20px]'>Premium Subscribers</span></div>
         <div>
           <div className="relative">
             <input
               type="text"
               placeholder="Search here..."
-              className="w-full pl-10 pr-4 py-1 rounded-md border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-1 "
+              className="w-full pl-10 pr-4 py-1 rounded-md border border-[#FFA175] focus:border-[#FFA175] focus:outline-none "
             />
             <span className="absolute left-3 top-2.5 text-gray-400">
 
-              <CiSearch />
+              <CiSearch className='text-[#FFA175]' />
             </span>
           </div>
         </div>

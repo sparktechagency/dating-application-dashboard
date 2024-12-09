@@ -13,11 +13,7 @@ import ForgetPassword from "../Pages/ForgetPassword/ForgetPassword";
 import Otp from "../Pages/Otp/Otp";
 import UpdatePassword from "../Pages/UpdatePassword/UpdatePassword";
 import Notification from "../Pages/Notification/Notification";
-import HostManagement from "../Pages/HostManagement/HostManagement";
-import Category from "../Components/Category/Category";
-import DjManagement from "../Pages/DjManagement/DjManagement";
-import BarTender from "../Pages/BarTender/BarTender";
-import BottleGirl from "../Pages/BottleGirl/BottleGirl";
+import SurveyResponse from "../Pages/SurveyResponse/SurveyResponse";
 
 export const router = createBrowserRouter([
     {
@@ -29,38 +25,23 @@ export const router = createBrowserRouter([
                 element: <App />
             },
             {
-                path: '/guest',
+                path: '/user-management',
                 element: <DeliveryDetails />
             },
             {
-                path: '/host',
-                element: <HostManagement/>
+                path: '/survey-response',
+                element: <SurveyResponse/>
             },
+           
             {
-                path: '/earning',
+                path: '/premium-subscriber',
                 element: <Transaction />
             },
-            {
-                path: '/dj',
-                element: <DjManagement/>
-            },
-
-            {
-                path: '/bartender',
-                element: <BarTender/>
-            },
-            {
-                path: '/bottle-girls',
-                element: <BottleGirl/>
-            },
+            
            
             {
                 path: '/profile',
                 element: <Profile />
-            },
-            {
-                path: '/category',
-                element: <Category/>
             },
             {
                 path: '/terms-condition',
@@ -71,7 +52,7 @@ export const router = createBrowserRouter([
                 element: <FAQ />
             },
             {
-                path: '/profile-update-request',
+                path: '/schedule-request',
                 element: <ProfileUpdatePage />
             },
             {

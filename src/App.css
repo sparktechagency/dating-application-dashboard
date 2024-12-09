@@ -35,8 +35,8 @@
 
 
 .custom-checkbox .ant-checkbox-checked .ant-checkbox-inner {
-  background-color: #EFC11F;
-  border-color: #EFC11F;
+  background-color: #FFA175;
+  border-color: #FFA175;
 }
 
 
@@ -48,8 +48,8 @@
 
 :where(.css-dev-only-do-not-override-11lehqq).ant-pagination .ant-pagination-item-active {
   font-weight: 600;
-  background-color: #EFC11F;
-  border-color: #EFC11F;
+  background-color: #FFA175;
+  border-color: #FFA175;
 }
 :where(.css-dev-only-do-not-override-11lehqq).ant-pagination .ant-pagination-item-active a {
   color: white;

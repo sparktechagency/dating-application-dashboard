@@ -4,7 +4,7 @@ import { FaArrowTrendUp, FaSackDollar } from 'react-icons/fa6'
 import { IoIosArrowForward } from 'react-icons/io'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { LiaCubeSolid, LiaUserCogSolid } from 'react-icons/lia'
-import { MdCategory, MdOutlineDashboard } from 'react-icons/md'
+import { MdCategory, MdOutlineDashboard, MdOutlineWorkspacePremium, MdPodcasts } from 'react-icons/md'
 import { NavLink, useLocation } from 'react-router-dom'
 import img from '../../assets/images/logo.png'
 import { RiMovie2Line } from 'react-icons/ri'
@@ -23,49 +23,24 @@ const Sidebar = () => {
       sub_menu: false
     },
     {
-      path: '/guest',
-      label: 'Guest',
+      path: '/user-management',
+      label: 'User Management',
       icon: <FaRegUserCircle size={25} />,
       sub_menu: false
     },
     {
-      path: '/earning',
-      label: 'Earning',
-      icon: <FaSackDollar size={25} />,
+      path: '/podcast-management',
+      label: 'Podcast Management',
+      icon: <MdPodcasts size={25} />,
       sub_menu: false
     },
     {
-      path: '/host',
-      label: 'Host',
-      icon: <LiaCubeSolid size={25} />,
+      path: '/premium-subscriber',
+      label: 'Premium Subscribers',
+      icon: <MdOutlineWorkspacePremium  size={25} />,
       sub_menu: false
     },
-    {
-      path: '/dj',
-      label: 'DJ',
-      icon: <RiMovie2Line size={25} />,
-      sub_menu: false
-    },
-
-    {
-      path: '/bartender',
-      label: 'Bartender',
-      icon: <LiaUserCogSolid size={25} />,
-      sub_menu: false
-    },
-    {
-      path: '/bottle-girls',
-      label: 'Bottle Girl',
-      icon: <LiaUserCogSolid size={25} />,
-      sub_menu: false
-    },
-    {
-      path: '/category',
-      label: 'Category',
-      icon: <MdCategory size={25} />,
-      sub_menu: false
-    },
-
+    
     {
       path: '#',
       label: 'Setting',

@@ -20,7 +20,8 @@ const DeliveryDetails = () => {
       dob: "1/04/22",
       contact: "+8802154852",
       email: "shukumar542@gmail.com",
-      license: "6427461554554",
+      gender: "Male",
+      age : 32
 
     },
     {
@@ -31,7 +32,8 @@ const DeliveryDetails = () => {
       dob: "1/04/22",
       contact: "+8802154852",
       email: "shukumar542@gmail.com",
-      license: "6427461554554",
+      gender: "Female",
+      age : 28
 
     },
     {
@@ -42,7 +44,8 @@ const DeliveryDetails = () => {
       dob: "1/04/22",
       contact: "+8802154852",
       email: "shukumar542@gmail.com",
-      license: "6427461554554",
+      gender: "Male",
+      age : 32
 
     },
     {
@@ -53,7 +56,8 @@ const DeliveryDetails = () => {
       dob: "1/04/22",
       contact: "+8802154852",
       email: "shukumar542@gmail.com",
-      license: "6427461554554",
+      gender: "Male",
+      age : 28
 
     },
    
@@ -64,17 +68,17 @@ const DeliveryDetails = () => {
       <div className="flex justify-between item-center ">
         <div className="flex items-center gap-2">
           <Link to={-1}><FaArrowLeft size={18} className='text-[var(--primary-color)] ' /></Link>
-          <span className='font-semibold text-[20px]'>Guest Management</span></div>
+          <span className='font-semibold text-[20px]'>User Management</span></div>
         <div>
           <div className="relative">
             <input
               type="text"
               placeholder="Search here..."
-              className="w-full pl-10 pr-4 py-1 rounded-md border border-gray-300 focus:border-blue-500 focus:outline-none focus:ring-1 "
+              className="w-full pl-10 pr-4 py-1 rounded-md border border-[#FFA175] focus:border-[#FFA175] focus:outline-none "
             />
             <span className="absolute left-3 top-2.5 text-gray-400">
 
-              <CiSearch />
+              <CiSearch className='text-[#FFA175]' />
             </span>
           </div>
         </div>
