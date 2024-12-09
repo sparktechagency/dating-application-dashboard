@@ -15,6 +15,7 @@ import UpdatePassword from "../Pages/UpdatePassword/UpdatePassword";
 import Notification from "../Pages/Notification/Notification";
 import SurveyResponse from "../Pages/SurveyResponse/SurveyResponse";
 import Subscriptions from "../Pages/Subscriptions/Subscriptions";
+import PodcastManagement from "../Pages/PodcastManagement/PodcastManagement";
 
 export const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ export const router = createBrowserRouter([
             {
                 path : '/subscriptions',
                 element : <Subscriptions/>
+            },
+            {
+                path : '/podcast-management',
+                element : <PodcastManagement/>
             },
            
             {
