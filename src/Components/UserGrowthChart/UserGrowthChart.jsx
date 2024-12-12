@@ -5,19 +5,18 @@ import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis
 const UserGrowthChart = () => {
     const chartData =[
         {
-            name : "jan",uv:12,  
-        },
-        { name : "feb",uv:8},
-        { name : "mar",uv:5},
-        { name : "apr",uv:9},
-        { name : "may",uv:11},
-        { name : "jun",uv:8},
-        { name : "jul",uv:6},
-        { name : "aug",uv:4},
-        { name : "sep",uv:5},
-        { name : "oct",uv:5},
-        { name : "nov",uv:2},
-        { name : "dec",uv:8},
+         name : "jan",active:8,cancel: 10},
+        { name : "feb",active:7,cancel: 8},
+        { name : "mar",active:5,cancel: 1},
+        { name : "apr",active:7,cancel: 9},
+        { name : "may",active:4,cancel: 8},
+        { name : "jun",active:3,cancel: 6},
+        { name : "jul",active:8,cancel: 11},
+        { name : "aug",active:9,cancel: 10},
+        { name : "sep",active:6,cancel: 11},
+        { name : "oct",active:5,cancel: 8},
+        { name : "nov",active:4,cancel: 7},
+        { name : "dec",active:2,cancel: 6},
     ]
     return (
         <>
@@ -35,15 +34,15 @@ const UserGrowthChart = () => {
                         height={500}
                         data={chartData}
                         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                        barSize={20}
+                        barSize={12}
                     >
                         <CartesianGrid strokeDasharray="1 1" />
                         <XAxis dataKey="name" />
                         <YAxis />
                         <Tooltip />
                         <Legend />
-                        {/* <Bar dataKey="pv" stackId="a" fill="#8884d8" /> */}
-                        <Bar dataKey="uv" stackId="a" fill="#FFA175" radius={[25, 25, 0, 0]} />
+                        <Bar dataKey="active" fill="#FFA175" radius={[25, 25, 0, 0]} />
+                        <Bar dataKey="cancel" fill="#6E8EC3" radius={[25, 25, 0, 0]} />
                     </BarChart>
                 </ResponsiveContainer>
             </div>
