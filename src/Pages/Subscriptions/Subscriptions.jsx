@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 const Subscriptions = () => {
     const [openModal, setOpenModal] = useState(false)
+    const [openDescriptionModal, setOpenDescriptionModal] = useState(false)
     const data = [
         {
             key: '12345',
@@ -48,6 +49,16 @@ const Subscriptions = () => {
             key: 'fee'
         },
         {
+            title: 'Description',
+            dataIndex: "description",
+            key: 'description',
+            render: (_, record) => (
+                <div>
+                    <p onClick={() => setOpenDescriptionModal(true)} className='text-[#FFA175] cursor-pointer'>View</p>
+                </div>
+            )
+        },
+        {
             title: 'Action',
             dataIndex: "action",
             key: 'action',
@@ -84,6 +95,23 @@ const Subscriptions = () => {
                         <button className='w-full bg-[#FFA175] py-[5px] text-[18px] text-white rounded-sm'>Update</button>
                     </div>
                 </Form>
+            </Modal>
+            <Modal centered footer={false} onCancel={() => setOpenDescriptionModal(false)} open={openDescriptionModal}>
+                <p className='text-xl font-medium text-center'>Description</p>
+                <div className='my-2'>
+                    Everything in the Listener package, plus:
+                    <ul className='mt-5'>
+                        <li>More Matches: Meet three matches instead of two.</li>
+                        <li>Extended Chat: Access chat with your match for up to one week.</li>
+                        <li> More Matches: Meet three matches instead of two.</li>
+                        <li>Exclusive Content: Access to curated dating tips, insights, and advice not available to free-tier users.</li>
+                        <li>Second Chance: Users can be matched again if their first match doesn't work out, providing another chance at connection</li>
+                    </ul>
+                    
+                    
+                    
+
+                </div>
             </Modal>
         </div>
     )
