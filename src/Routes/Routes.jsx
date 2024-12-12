@@ -16,6 +16,8 @@ import Notification from "../Pages/Notification/Notification";
 import SurveyResponse from "../Pages/SurveyResponse/SurveyResponse";
 import Subscriptions from "../Pages/Subscriptions/Subscriptions";
 import PodcastManagement from "../Pages/PodcastManagement/PodcastManagement";
+import Support from "../Pages/Support/Support";
+import Administrator from "../Pages/Administrator/Administrator";
 
 export const router = createBrowserRouter([
     {
@@ -71,6 +73,14 @@ export const router = createBrowserRouter([
             {
                 path : "/notification",
                 element : <Notification/>
+            },
+            {
+                path :  '/support',
+                element : <Support/>
+            },
+            {
+                path :  '/administrator',
+                element : <Administrator/>
             }
 
 

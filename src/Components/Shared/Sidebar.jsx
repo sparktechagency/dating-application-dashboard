@@ -4,11 +4,12 @@ import { FaArrowTrendUp, FaSackDollar } from 'react-icons/fa6'
 import { IoIosArrowForward } from 'react-icons/io'
 import { IoSettingsOutline } from 'react-icons/io5'
 import { LiaCubeSolid, LiaUserCogSolid } from 'react-icons/lia'
-import { MdCategory, MdOutlineDashboard, MdOutlineWorkspacePremium, MdPodcasts } from 'react-icons/md'
+import { MdCategory, MdOutlineDashboard, MdOutlineWorkspacePremium, MdPodcasts, MdSupport } from 'react-icons/md'
 import { NavLink, useLocation } from 'react-router-dom'
 import img from '../../assets/images/logo.png'
 import { RiMovie2Line } from 'react-icons/ri'
 import { FiAward } from 'react-icons/fi'
+import { GrUserAdmin } from 'react-icons/gr'
 const Sidebar = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
@@ -45,6 +46,18 @@ const Sidebar = () => {
       path: '/subscriptions',
       label: 'Subscriptions',
       icon: <FiAward size={25} />,
+      sub_menu: false
+    },
+    {
+      path: '/administrator',
+      label: 'Administrator',
+      icon: <GrUserAdmin size={25} />,
+      sub_menu: false
+    },
+    {
+      path: '/support',
+      label: 'Support',
+      icon: <MdSupport  size={25} />,
       sub_menu: false
     },
     
