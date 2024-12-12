@@ -1,4 +1,4 @@
-import { Form, Input, Modal, Select } from 'antd'
+import { Checkbox, Form, Input, Modal, Select } from 'antd'
 import React, { useState } from 'react'
 import { CiCamera, CiSearch } from 'react-icons/ci'
 import { FaArrowLeft, FaRegCalendarAlt } from 'react-icons/fa'
@@ -7,6 +7,16 @@ import { Link } from 'react-router-dom'
 import img from '../../assets/images/admin.png'
 const Administrator = () => {
     const [openModal, setOpenModal] = useState(false)
+
+
+    const options = [
+        "Dashboard",
+        "User Management",
+        "Podcast Management",
+        "Subscriptions",
+        "Support",
+        "Settings",
+    ];
 
     return (
         <div className='bg-white p-4 rounded-md'>
@@ -35,7 +45,7 @@ const Administrator = () => {
                 <div className='relative'>
                     <img className='h-16 mx-auto' src={img} alt="" />
                     <p className='absolute top-[54%] left-[54%] '>
-                        <CiCamera size={20} className='inline-block  bg-[#FFA175]  rounded-md' />
+                        <CiCamera size={20} className='inline-block  bg-[#FFA175] text-white  rounded-md' />
                     </p>
                 </div>
                 <Form layout='vertical'>
@@ -61,10 +71,27 @@ const Administrator = () => {
                     </Form.Item>
                     <Form.Item>
                         <Select className='border-[#FFA175] hover:border-[#FFA175]' defaultValue={["host"]} options={[
-                            {name : "host" , value :'host'},
-                            {name : "Admin" , value :'Admin'}
+                            { name: "host", value: 'host' },
+                            { name: "Admin", value: 'Admin' }
                         ]} />
                     </Form.Item>
+                    <div className="max-w-md mx-auto">
+                        <h3 className="text-lg font-semibold mb-2">Give Access To</h3>
+                        <Checkbox
+                            // onChange={handleCheckAll}
+                            // checked={checkAll}
+                            className="mb-2"
+                        >
+                            All
+                        </Checkbox>
+                        <Checkbox.Group
+                            options={options}
+                            // value={checkedList}
+                            // onChange={handleChange}
+                            className="flex flex-col gap-2"
+                        />
+                    </div>
+                    <button className='bg-[#FFA175] w-full mt-2 rounded-sm  text-white py-2'>Save</button>
                 </Form>
             </Modal>
         </div>
