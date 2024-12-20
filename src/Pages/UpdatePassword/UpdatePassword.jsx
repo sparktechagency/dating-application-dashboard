@@ -18,7 +18,7 @@ const UpdatePassword = () => {
         <div
             style={{
                 width: "100%",
-                background: "#2AB9A4",
+                background: "#FFE2D4",
                 height: "100vh",
                 display: "flex",
                 alignItems: "center",
@@ -102,9 +102,9 @@ const UpdatePassword = () => {
                         style={{
                             border: "none",
                             height: "51px",
-                            background: "#2AB9A4",
+                            background: "#FFA175",
                             color: "white",
-                            borderRadius: "30px",
+                            borderRadius: "10px",
                             outline: "none",
                             marginTop: ""
                         }}

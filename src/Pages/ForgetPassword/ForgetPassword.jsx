@@ -11,7 +11,7 @@ const ForgetPassword = () => {
         <div className="bg-white flex justify-center items-center gap-0 "
             style={{
                 width: "100%",
-                background: "#2AB9A4",
+                background: "#FFE2D4",
                 height: "100vh",
             }}
         >
@@ -64,13 +64,13 @@ const ForgetPassword = () => {
                         <Button
                             type="primary"
                             htmlType="submit"
-                            className="login-form-button rounded-3xl"
+                            className="login-form-button rounded-xl"
                             block
                             style={{
                                 height: "45px",
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#2AB9A4",
+                                background: "#FFA175",
                                 color: "white",
                                 alignSelf: "bottom",
                                 marginTop: "30px",
@@ -81,7 +81,7 @@ const ForgetPassword = () => {
                                 style={{ color: "#FFF" }}
                                 to="/auth/otp"
                             >
-                                Countinue
+                                Continue
                             </Link>
 
                         </Button>

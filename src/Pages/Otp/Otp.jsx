@@ -18,7 +18,7 @@ const Otp = () => {
         <div
             style={{
                 width: "100%",
-                background: "#2AB9A4",
+                background: "#FFE2D4",
                 height: "100vh",
                 display: "flex",
                 alignItems: "center",
@@ -58,12 +58,12 @@ const Otp = () => {
                         fontWeight: "400px",
                         fontSize: "18px",
                         color: "white",
-                        background: "#2AB9A4",
+                        background: "#FFA175",
                         marginTop: "30px",
                         border: "none",
                         outline: "none",
                         marginBottom: "20px",
-                        borderRadius : '30px'
+                        borderRadius : '10px'
                     }}
                 >
 
@@ -73,12 +73,12 @@ const Otp = () => {
                         style={{ color: "#FFF" }}
                         to="/auth/update-password"
                     >
-                        Countinue
+                        Continue
                     </Link>
                 </Button>
                 <p className='flex  justify-center gap-2'>
                     Didn’t receive code?
-                    <p onClick={handleResendCode} style={{ color: "#2AB9A4", textDecoration: "underline", cursor: "pointer" }}>Resend </p>
+                    <p onClick={handleResendCode} style={{ color: "#FFA175", textDecoration: "underline", cursor: "pointer" }}>Resend </p>
                 </p>
             </div>
         </div>

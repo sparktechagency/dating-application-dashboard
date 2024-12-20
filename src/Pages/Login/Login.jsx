@@ -13,7 +13,7 @@ const Login = () => {
             className="gap-0 flex-col flex justify-center items-center"
             style={{
                 width: "100%",
-                background: "#2AB9A4",
+                background: "#FFE2D4",
                 height: "100vh",
             }}
         >
@@ -121,7 +121,7 @@ const Login = () => {
                         <Link
                             className="login-form-forgot "
                             style={{ }}
-                            to="/auth/forgot-password"
+                            to="/auth/forget-password"
                         >
                             Forgot Password
                         </Link>
@@ -131,13 +131,13 @@ const Login = () => {
                         <Button
                             type="primary"
                             htmlType="submit"
-                            className="login-form-button rounded-3xl"
+                            className="login-form-button rounded-xl"
                             block
                             style={{
                                 height: "52px",
                                 fontWeight: "400px",
                                 fontSize: "18px",
-                                background: "#2AB9A4",
+                                background: "#FFA175",
                                 marginTop: "56px",
                                 
                             }}
