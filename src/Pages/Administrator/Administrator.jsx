@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom'
 import img from '../../assets/images/admin.png'
 import user from '../../assets/images/user1.png'
 import user1 from '../../assets/images/user2.png'
+import { MdOutlineEdit } from 'react-icons/md'
+import { RiDeleteBinLine } from 'react-icons/ri'
 const Administrator = () => {
     const [openModal, setOpenModal] = useState(false)
 
@@ -31,7 +33,15 @@ const Administrator = () => {
         {
             title: 'Name',
             dataIndex: "name",
-            key: 'name'
+            key: 'name',
+            render : (_,record)=>{
+                return(
+                    <div className='flex items-center gap-2'>
+                        <img src={record?.img} alt="" />
+                        <p>{record?.name}</p>
+                    </div>
+                )
+            }
         },
         {
             title: 'Email',
@@ -51,13 +61,33 @@ const Administrator = () => {
         {
             title: 'Action',
             dataIndex: "action",
-            key: 'action'
+            key: 'action',
+            render: () => ( 
+                <div className='flex items-center gap-2'>
+                    <button onClick={() => setOpenModal(true)}  className='bg-[#2757A6] text-white p-2 rounded-md'><MdOutlineEdit size={22}  /></button>
+                    <button className='bg-[#DC4600] text-white p-2 rounded-md'><RiDeleteBinLine size={25} /></button>
+                </div>
+        )
         },
     ]
     const tableData = [
         {
-            key : '#1245',
-            name : ''
+            key: '#1245',
+            name: 'Kathryn Murp',
+            email: 'blockely@gmail.com',
+            img: user,
+            contact: '(201) 55-01234',
+            access: "User Management",
+            
+        },
+        {
+            key: '#1246',
+            name: 'Devon Lane',
+            email: 'devon@gmail.com',
+            img: user1,
+            contact: '(201) 55-01234',
+            access: "Auction Management",
+            
         }
     ]
 
