@@ -1,91 +1,56 @@
 
 import { Select } from 'antd';
+import { useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { useIncomeGrowthQuery } from '../../redux/api/DahsboardHomeApi';
 
 const IncomeOverview = () => {
+    const [year , setYear] = useState("2025")
+    const {data : incomeGrowth} = useIncomeGrowthQuery(year)
+    
+
+
     const items = [
-        {
-            label: 2023,
-            key: "2023",
-        },
+       
         {
             label: 2024,
-            key: "2024",
+            value: "2024",
         },
         {
             label: 2025,
-            key: "2025",
+            value: "2025",
         },
         {
             label: 2026,
-            key: "2026",
-        },
-    ];
-    const data = [
-        {
-            name: 'Jan',
-            uv: 20,
-            mt: 10,
+            value: "2026",
         },
         {
-            name: 'Feb',
-            uv: 20,
-            mt: 20,
-        },
-        {
-            name: 'Mar',
-            uv: 40,
-            mt: 30,
-        },
-        {
-            name: 'Apr',
-            uv: 50,
-            mt: 40,
-        },
-        {
-            name: 'May',
-            uv: 30,
-            mt: 50,
-        },
-        {
-            name: 'Jun',
-            uv: 10,
-            mt: 20,
-        },
-        {
-            name: 'Aug',
-            uv: 15,
-            mt: 70,
-        },
-        {
-            name: 'Sep',
-            uv: 20,
-            mt: 80,
-        },
-        {
-            name: 'Nov',
-            uv: 30,
-            mt: 90,
-        },
-        {
-            name: 'Dec',
-            uv: 10,
-            mt: 100,
+            label: 2027,
+            value: "2027",
         },
     ];
 
+    const dataMonth = incomeGrowth?.data?.map((mon , i)=>{
+        return (
+            {
+                name : mon?.month,
+                uv: mon?.income
+            }
+        )
+    })
+ 
     const handleChange = (value) => {
-        console.log(`selected ${value}`);
+        setYear(value)
     };
     return (
         <>
             <div className='flex justify-between items-center'>
                 <div className='ml-6'>
-                    <p className='text-xl font-semibold mb-2 '>Subscription Growth</p>
+                    <p className='text-xl font-semibold mb-2 '>Income Growth</p>
                    
                 </div>
                 <Select
-                    defaultValue="2024"
+                    defaultValue="2025"
                     style={{ width: 120 }}
                     onChange={handleChange}
                     options={items}
@@ -96,7 +61,7 @@ const IncomeOverview = () => {
                     <AreaChart
                         width={400}
                         height={400}
-                        data={data}
+                        data={dataMonth}
                         margin={{
                             top: 10,
                             right: 30,

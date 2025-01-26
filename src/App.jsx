@@ -12,29 +12,32 @@ import img2 from './assets/images/user2.png'
 import img3 from './assets/images/user3.png'
 import img4 from './assets/images/user4.png'
 import UserGrowthChart from './Components/UserGrowthChart/UserGrowthChart'
+import { useGetAnalyticsQuery } from './redux/api/DahsboardHomeApi'
 function App() {
+  // All APIs
+  const {data : getAnalytics} =useGetAnalyticsQuery()
 
   // 
   const data = [
     {
       title: 'Total Users',
       icon: profile,
-      count: "83250",
+      count: getAnalytics?.data?.users,
     },
     {
       title: 'Premium Users',
       icon: medal,
-      count: "8,650",
+      count: getAnalytics?.data?.premiumUsers,
     },
     {
       title: 'Total Income',
       icon: profit,
-      count: "52,650",
+      count: getAnalytics?.data?.totalIncome,
     },
     {
       title: 'Total Podcast',
       icon: mic,
-      count: "82,650",
+      count: getAnalytics?.data?.totalPodcast,
     }
   ]
 
