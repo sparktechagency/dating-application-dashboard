@@ -29,8 +29,42 @@ const settingApi = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags : ['FAQ']
+        }),
+        getTermsCondition :  builder.query({
+            query : ()=>{
+                return {
+                    url : '/tac',
+                    method : 'GET'
+                }
+            }
+        }),
+        getPrivacy :  builder.query({
+            query : ()=>{
+                return {
+                    url : '/privacy',
+                    method : 'GET'
+                }
+            }
+        }),
+        updateTerms : builder.mutation({
+            query : (data)=>{
+                return {
+                    url  : '/tac/update',
+                    method : "PUT",
+                    body : data
+                }
+            }
+        }),
+        updatePrivacy : builder.mutation({
+            query : (data)=>{
+                return {
+                    url  : '/privacy/update',
+                    method : "PUT",
+                    body : data
+                }
+            }
         })
     })
 })
 
-export const { useGetAllFaqQuery , useCreateFaqMutation  , useDeleteFaqMutation} = settingApi;
+export const { useGetAllFaqQuery , useCreateFaqMutation  , useDeleteFaqMutation, useGetTermsConditionQuery , useUpdateTermsMutation , useGetPrivacyQuery , useUpdatePrivacyMutation} = settingApi;
