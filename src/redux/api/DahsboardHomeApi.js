@@ -26,8 +26,16 @@ const dashboardApi = baseApi.injectEndpoints({
                     method : 'GET'
                 }
             }
+        }),
+        getAllPodcast : builder.query({
+            query : ()=>{
+                return {
+                    url : '/podcast/get-new-podcasts?page=1&limit=10',
+                    method : 'GET'
+                }
+            }
         })
 
     })
 })
-export const { useGetAnalyticsQuery , useIncomeGrowthQuery , useSubscriptionGrowthQuery} = dashboardApi;
+export const { useGetAnalyticsQuery , useIncomeGrowthQuery , useSubscriptionGrowthQuery , useGetAllPodcastQuery} = dashboardApi;

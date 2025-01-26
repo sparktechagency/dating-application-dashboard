@@ -3,11 +3,12 @@ import React, { useState } from 'react'
 import { LuCalendarClock } from 'react-icons/lu';
 import { Link } from 'react-router-dom';
 import ScheduleModal from '../ScheduleModal/ScheduleModal';
+import { place } from '../../redux/api/baseApi';
 
 const ProfileUpdateRequest = ({ dataSource }) => {
     const [openScheduleModal, setScheduleModal]  = useState(false)
    
-
+console.log(dataSource);
     const columns = [
         {
             title: "Podcast ID",
@@ -20,7 +21,10 @@ const ProfileUpdateRequest = ({ dataSource }) => {
             key: "perticipant1",
             render : (_,record)=>(
                 <div className='flex  items-center gap-2'>
-                    <img src={record?.perticipant1Img} alt="" />
+                    {
+                       record?.perticipant1Img ?  <img className='h-12 w-12'  src={record?.perticipant1Img} alt="" /> : <img  className='h-12 w-12'  src={place} alt="" />
+                    }
+                    
                     <p className='font-medium'>{record?.perticipant1}</p>
                 </div>
             )
@@ -32,8 +36,11 @@ const ProfileUpdateRequest = ({ dataSource }) => {
             key: "perticipant2",
             render : (_,record)=>(
                 <div className='flex  items-center gap-2'>
+                    {
+                        record?.perticipant2Img ?  <img className='h-12 w-12' src={record?.perticipant2Img} alt="" /> : <img className='h-12 w-12'  src={place} alt="" />
+                    }
                     <img src={record?.perticipant2Img} alt="" />
-                    <p className='font-medium'>{record?.perticipant1}</p>
+                    <p className='font-medium'>{record?.perticipant2}</p>
                 </div>
             )
         },
@@ -44,8 +51,11 @@ const ProfileUpdateRequest = ({ dataSource }) => {
             key: "perticipant3",
             render : (_,record)=>(
                 <div className='flex  items-center gap-2'>
+                    {
+                        record?.perticipant3Img ? <img  className='h-12 w-12' src={record?.perticipant3Img} alt="" /> : <img className='h-12 w-12' src={place} alt="" />
+                    }
                     <img src={record?.perticipant3Img} alt="" />
-                    <p className='font-medium'>{record?.perticipant1}</p>
+                    <p className='font-medium'>{record?.perticipant3}</p>
                 </div>
             )
         },
@@ -55,7 +65,10 @@ const ProfileUpdateRequest = ({ dataSource }) => {
             key: "perticipant4",
             render : (_,record)=>(
                 <div className='flex  items-center gap-2'>
-                    <img src={record?.perticipant4Img} alt="" />
+                    {
+                        record?.perticipant4Img ?  <img className='h-12 w-12' src={record?.perticipant4Img} alt="" /> : <img className='h-12 w-12' src={place} alt="" />
+                    }
+                    
                     <p className='font-medium'>{record?.perticipant4}</p>
                 </div>
             )

@@ -35,7 +35,6 @@ const UserGrowthChart = () => {
             }
         )
     })
-    console.log(data);
 
  
     const handleYearChange = (value)=>{

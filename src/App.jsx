@@ -12,10 +12,13 @@ import img2 from './assets/images/user2.png'
 import img3 from './assets/images/user3.png'
 import img4 from './assets/images/user4.png'
 import UserGrowthChart from './Components/UserGrowthChart/UserGrowthChart'
-import { useGetAnalyticsQuery } from './redux/api/DahsboardHomeApi'
+import { useGetAllPodcastQuery, useGetAnalyticsQuery } from './redux/api/DahsboardHomeApi'
 function App() {
   // All APIs
   const {data : getAnalytics} = useGetAnalyticsQuery()
+  const {data : getAllPodcast} = useGetAllPodcastQuery()
+
+  // console.log(getAllPodcast?.data?.podcasts);
  
 
   // 
@@ -43,47 +46,26 @@ function App() {
   ]
 
 
+  const formattedData = getAllPodcast?.data?.podcasts?.map((pod , i)=>{
+    console.log(pod);
+    return (
+      {
+        key: i + 1,
+        perticipant2: pod?.participant1?.name,
+        perticipant1: pod?.primaryUser?.name,
+        perticipant1Img:  pod?.primaryUser?.avatar,
+        perticipant2Img:  pod?.participant1?.avatar,
+        perticipant3Img:  pod?.participant2?.avatar,
+        perticipant4Img:  pod?.participant3?.avatar,
+        perticipant3: pod?.participant2?.name,
+        perticipant4: pod?.participant3?.name,
+  
+      }
+    )
+  })
 
-  // table data 
-  const dataSource = [
-    {
-      key: "#12331",
-      perticipant1: "Holiday Parties",
-      perticipant1Img: img,
-      perticipant2Img: img2,
-      perticipant3Img: img3,
-      perticipant4Img: img4,
-      perticipant2: 'Jhon Smith',
-      perticipant3: "Wade Warren",
-      perticipant4: "Danne Rusell",
 
-    },
-    {
-      key: "#12333",
-      perticipant1: "Holiday Parties",
-      perticipant1Img: img,
-      perticipant2Img: img2,
-      perticipant3Img: img3,
-      perticipant4Img: img4,
-      perticipant2: 'Jhon Smith',
-      perticipant3: "Wade Warren",
-      perticipant4: "Danne Rusell",
 
-    },
-    {
-      key: "#12334",
-      perticipant1: "Holiday Parties",
-      perticipant1Img: img,
-      perticipant2Img: img2,
-      perticipant3Img: img3,
-      perticipant4Img: img4,
-      perticipant2: 'Jhon Smith',
-      perticipant3: "Wade Warren",
-      perticipant4: "Danne Rusell",
-
-    },
-
-  ];
 
   return (
     <div>
@@ -126,7 +108,7 @@ function App() {
           </Link>
         </div>
 
-        <ProfileUpdateRequest dataSource={dataSource} />
+        <ProfileUpdateRequest dataSource={formattedData} />
       </div>
 
 
