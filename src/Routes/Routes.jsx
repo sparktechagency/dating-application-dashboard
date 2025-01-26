@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
                 element: <DeliveryDetails />
             },
             {
-                path: '/survey-response',
+                path: '/survey-response/:id',
                 element: <SurveyResponse/>
             },
            

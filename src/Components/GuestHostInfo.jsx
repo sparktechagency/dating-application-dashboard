@@ -82,7 +82,7 @@ const GuestHostInfo = ({ dataSource }) => {
       render: (_, record) => (
         <div className="flex justify-center">
           <Link
-            to={"/survey-response"}
+            to={`/survey-response/${record?.id}`}
             className="bg-[#2757A6] inline-block text-white p-1 rounded-sm "
           >
             <RiBarChartFill size={22} />
