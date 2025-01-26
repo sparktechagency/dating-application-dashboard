@@ -7,10 +7,6 @@ import profile from './assets/images/profileuser.png'
 import medal from './assets/images/medal.png'
 import profit from './assets/images/profits.png'
 import mic from './assets/images/microphone.png'
-import img from './assets/images/user1.png'
-import img2 from './assets/images/user2.png'
-import img3 from './assets/images/user3.png'
-import img4 from './assets/images/user4.png'
 import UserGrowthChart from './Components/UserGrowthChart/UserGrowthChart'
 import { useGetAllPodcastQuery, useGetAnalyticsQuery } from './redux/api/DahsboardHomeApi'
 function App() {
@@ -18,8 +14,6 @@ function App() {
   const {data : getAnalytics} = useGetAnalyticsQuery()
   const {data : getAllPodcast} = useGetAllPodcastQuery()
 
-  // console.log(getAllPodcast?.data?.podcasts);
- 
 
   // 
   const data = [
@@ -46,10 +40,10 @@ function App() {
   ]
 
 
-  const formattedData = getAllPodcast?.data?.podcasts?.map((pod , i)=>{
-    console.log(pod);
+  const formattedData = getAllPodcast?.data?.podcasts?.slice(0,4)?.map((pod , i)=>{
     return (
       {
+        id : pod?._id,
         key: i + 1,
         perticipant2: pod?.participant1?.name,
         perticipant1: pod?.primaryUser?.name,
@@ -59,7 +53,8 @@ function App() {
         perticipant4Img:  pod?.participant3?.avatar,
         perticipant3: pod?.participant2?.name,
         perticipant4: pod?.participant3?.name,
-  
+        scheduleDate : pod?.schedule?.date,
+        scheduleTime : pod?.schedule?.time
       }
     )
   })

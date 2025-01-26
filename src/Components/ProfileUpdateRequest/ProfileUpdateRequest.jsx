@@ -7,6 +7,7 @@ import { place } from '../../redux/api/baseApi';
 
 const ProfileUpdateRequest = ({ dataSource }) => {
     const [openScheduleModal, setScheduleModal]  = useState(false)
+    const [podCastId , setPodCastId] = useState('')
    
 console.log(dataSource);
     const columns = [
@@ -73,13 +74,26 @@ console.log(dataSource);
                 </div>
             )
         },
+        {
+            title : 'Schedule Date & Time',
+            dataIndex : "datetime",
+            key : "datetime",
+            render : (_, record)=>(
+               
+                <p>{record?.scheduleDate || "Not Schedule"}  : {record?.scheduleTime}</p>
+            )
+        },
        
         {
             title: "Set Schedule",
             dataIndex: "schedule",
             key: "schedule",
             render : (_,record)=>(
-                <div onClick={()=> setScheduleModal(true)} className='bg-[#FFA175] text-white inline-block text-center p-1 rounded-md cursor-pointer'>
+                <div onClick={()=> {
+                    setScheduleModal(true)
+                    setPodCastId(record?.id)
+
+                }} className='bg-[#FFA175] text-white inline-block text-center p-1 rounded-md cursor-pointer'>
                     <LuCalendarClock size={22} />
                 </div>
             )
@@ -88,7 +102,7 @@ console.log(dataSource);
     return (
         <div className=''>
             <Table dataSource={dataSource} columns={columns} className="custom-pagination" pagination={false} />
-            <ScheduleModal openScheduleModal={openScheduleModal} setScheduleModal={setScheduleModal} />
+            <ScheduleModal openScheduleModal={openScheduleModal} setScheduleModal={setScheduleModal} podCastId={podCastId} />
         </div>
     )
 }

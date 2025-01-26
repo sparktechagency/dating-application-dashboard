@@ -5,6 +5,7 @@ import { IoArrowBackSharp } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import {
   useCreateFaqMutation,
+  useDeleteFaqMutation,
   useGetAllFaqQuery,
 } from "../../redux/api/SettingApi";
 import { toast } from "sonner";
@@ -14,30 +15,31 @@ const FAQ = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: getAllFaq } = useGetAllFaqQuery();
   const [createFaq] = useCreateFaqMutation();
+  const [deleteFaq] = useDeleteFaqMutation();
   console.log(getAllFaq?.data);
 
-  const faq = [
-    {
-      question: "How do I book an appointment?",
-      answer:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
-    },
-    {
-      question: "Can I cancel or reschedule an appointment?",
-      answer:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
-    },
-    {
-      question: "How do I join a telemedicine consultation?",
-      answer:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
-    },
-    {
-      question: "How do I access my medical records?",
-      answer:
-        "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
-    },
-  ];
+  // const faq = [
+  //   {
+  //     question: "How do I book an appointment?",
+  //     answer:
+  //       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
+  //   },
+  //   {
+  //     question: "Can I cancel or reschedule an appointment?",
+  //     answer:
+  //       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
+  //   },
+  //   {
+  //     question: "How do I join a telemedicine consultation?",
+  //     answer:
+  //       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
+  //   },
+  //   {
+  //     question: "How do I access my medical records?",
+  //     answer:
+  //       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
+  //   },
+  // ];
 
   // add question and answer modal function
   const handleAddFaq = () => {
@@ -52,6 +54,14 @@ const FAQ = () => {
         toast.success(payload?.message);
         setIsModalOpen(false);
       })
+      .catch((error) => toast.error(error?.data?.message));
+  };
+
+  const handleDeleteFaq = (id) => {
+    console.log(id);
+    deleteFaq(id)
+      .unwrap()
+      .then((payload) => toast.success(payload?.message))
       .catch((error) => toast.error(error?.data?.message));
   };
   return (
@@ -73,7 +83,12 @@ const FAQ = () => {
           <div key={i} className="p-2 ">
             <div className="flex items-center justify-between px-2">
               <p className="pb-3">Question no: {i + 1}</p>
-              <p className="cursor-pointer" ><RiDeleteBin5Line color="red" size={20} /></p>
+              <p
+                className="cursor-pointer"
+                onClick={() => handleDeleteFaq(que?._id)}
+              >
+                <RiDeleteBin5Line color="red" size={20} />
+              </p>
             </div>
             <div className="bg-[#F2F2F2] p-2 rounded-md">
               <p>{que?.question}</p>

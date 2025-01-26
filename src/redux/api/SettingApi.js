@@ -20,8 +20,17 @@ const settingApi = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags : ['FAQ']
+        }),
+        deleteFaq : builder.mutation({
+            query : (id)=>{
+                return {
+                    url : `/faq/delete/${id}`,
+                    method : 'DELETE'
+                }
+            },
+            invalidatesTags : ['FAQ']
         })
     })
 })
 
-export const { useGetAllFaqQuery , useCreateFaqMutation } = settingApi;
+export const { useGetAllFaqQuery , useCreateFaqMutation  , useDeleteFaqMutation} = settingApi;
