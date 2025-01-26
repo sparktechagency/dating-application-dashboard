@@ -1,3 +1,4 @@
+import img from '../../assets/images/placeholder.png'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const baseQuery = fetchBaseQuery({
@@ -19,3 +20,5 @@ export const baseApi = createApi({
 })
 // export const imageUrl = "http://10.0.60.118:5050"
 export const imageUrl = "http://10.0.60.41:7000"
+
+export const place = img;
