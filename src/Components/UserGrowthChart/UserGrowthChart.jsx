@@ -1,30 +1,55 @@
 import { Select, Tooltip } from 'antd'
-import React from 'react'
+import React, { useState } from 'react'
 import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis } from 'recharts'
+import { useSubscriptionGrowthQuery } from '../../redux/api/DahsboardHomeApi';
 
 const UserGrowthChart = () => {
-    const chartData =[
+    const [year , setYear] = useState('2025');
+    // All API
+    const {data : getSubscription} = useSubscriptionGrowthQuery(year)
+
+    const items = [
+       
         {
-         name : "jan",active:8,cancel: 10},
-        { name : "feb",active:7,cancel: 8},
-        { name : "mar",active:5,cancel: 1},
-        { name : "apr",active:7,cancel: 9},
-        { name : "may",active:4,cancel: 8},
-        { name : "jun",active:3,cancel: 6},
-        { name : "jul",active:8,cancel: 11},
-        { name : "aug",active:9,cancel: 10},
-        { name : "sep",active:6,cancel: 11},
-        { name : "oct",active:5,cancel: 8},
-        { name : "nov",active:4,cancel: 7},
-        { name : "dec",active:2,cancel: 6},
-    ]
+            label: 2024,
+            value: "2024",
+        },
+        {
+            label: 2025,
+            value: "2025",
+        },
+        {
+            label: 2026,
+            value: "2026",
+        },
+        {
+            label: 2027,
+            value: "2027",
+        },
+    ];
+
+    const data = getSubscription?.data?.map(item=>{
+        return (
+            {
+                name : item?.month ,active:item?.active,cancel: item?.cancel
+            }
+        )
+    })
+    console.log(data);
+
+ 
+    const handleYearChange = (value)=>{
+        setYear(value)
+    }
     return (
         <>
             <div className='flex justify-between items-center'>
-                <p className='text-xl font-medium'>User Growth</p>
+                <p className='text-xl font-medium'>Subscription Growth</p>
                 <Select
-                    defaultValue="2024"
+                    defaultValue="2025"
                     style={{ width: 120 }}
+                    options={items}
+                    onChange={handleYearChange}
                 />
             </div>
             <div className='w-full h-[400px]'>
@@ -32,7 +57,7 @@ const UserGrowthChart = () => {
                     <BarChart
                         width={400}
                         height={500}
-                        data={chartData}
+                        data={data}
                         margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
                         barSize={12}
                     >
