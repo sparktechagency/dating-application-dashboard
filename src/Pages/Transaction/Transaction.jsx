@@ -82,7 +82,6 @@ const Transaction = () => {
     };
   });
 
-  console.log(getAllPremiumUsers?.data?.pagination);
 
 
   return (
