@@ -1,11 +1,23 @@
-import { Form, Input, Modal, Radio, Select, Table } from 'antd'
-import React, { useState } from 'react'
-import { MdBlock, MdOutlineMessage } from 'react-icons/md';
-import { RiBarChartFill } from 'react-icons/ri';
-import { Link } from 'react-router-dom';
-const { TextArea } = Input
+import { Form, Input, Modal, Radio, Select, Table } from "antd";
+import React, { useState } from "react";
+import { MdBlock, MdOutlineMessage } from "react-icons/md";
+import { RiBarChartFill } from "react-icons/ri";
+import { Link } from "react-router-dom";
+import { place } from "../redux/api/baseApi";
+import {
+  useBlockUnblockUserMutation,
+  useSendMessageMutation,
+} from "../redux/api/userManagement";
+import { toast } from "sonner";
+const { TextArea } = Input;
 const GuestHostInfo = ({ dataSource }) => {
   const [openModal, setOpenModal] = useState(false);
+  const [userId, setUserId] = useState("");
+  // ALL APIs
+  const [sendMessage] = useSendMessageMutation();
+  const [blockUnblockUser] = useBlockUnblockUserMutation();
+
+  const [form] = Form.useForm();
   const columns = [
     {
       title: "SL no",
@@ -19,11 +31,19 @@ const GuestHostInfo = ({ dataSource }) => {
       render: (_, record) => {
         return (
           <div className="flex items-center gap-2">
-            <img
-              src={record?.img}
-              className="w-[40px] h-[40px] rounded-md"
-              alt=""
-            />
+            {record?.img ? (
+              <img
+                src={record?.img}
+                className="w-[40px] h-[40px] rounded-md"
+                alt=""
+              />
+            ) : (
+              <img
+                src={place}
+                className="w-[40px] h-[40px] rounded-md"
+                alt=""
+              />
+            )}
             <p className="font-medium">{record?.name}</p>
           </div>
         );
@@ -56,26 +76,35 @@ const GuestHostInfo = ({ dataSource }) => {
     },
 
     {
-      title: <p className='flex justify-center'>Survey Response</p>,
+      title: <p className="flex justify-center">Survey Response</p>,
       dataIndex: "survey",
       key: "survey",
       render: (_, record) => (
-        <div className='flex justify-center'>
-          <Link to={'/survey-response'} className='bg-[#2757A6] inline-block text-white p-1 rounded-sm '>
+        <div className="flex justify-center">
+          <Link
+            to={"/survey-response"}
+            className="bg-[#2757A6] inline-block text-white p-1 rounded-sm "
+          >
             <RiBarChartFill size={22} />
           </Link>
         </div>
-      )
+      ),
     },
     {
       title: "Message",
       dataIndex: "message",
       key: "message",
       render: (_, record) => (
-        <div onClick={() => setOpenModal(true)} className='bg-[#FFA175] cursor-pointer inline-block text-white p-1 rounded-sm '>
+        <div
+          onClick={() => {
+            setOpenModal(true);
+            setUserId(record?.id);
+          }}
+          className="bg-[#FFA175] cursor-pointer inline-block text-white p-1 rounded-sm "
+        >
           <MdOutlineMessage size={22} />
         </div>
-      )
+      ),
     },
     {
       title: "Action",
@@ -85,66 +114,109 @@ const GuestHostInfo = ({ dataSource }) => {
       render: (_, record) => {
         return (
           <div className="flex items-center justify-center gap-1">
-            <button className='bg-red-600 text-white p-2 rounded-md '>
+            <button
+              onClick={() => {
+                blockUnblockUser(record?.authId)
+                  .unwrap()
+                  .then((payload) => toast.success(payload?.message))
+                  .catch((error) => toast.error(error?.data?.message));
+              }}
+              className={`bg-red-600 text-white p-2 rounded-md  ${record?.isBlocked && "bg-gray-400"}`}
+            >
               <MdBlock size={20} />
             </button>
-
-
           </div>
         );
       },
       align: "center",
     },
   ];
+
+  // Handle toggle send message status
+
+  const handleSendMessage = (values) => {
+    const data = {
+      message: values?.message,
+      medium: values?.send,
+    };
+    if (values?.sendTo) {
+      data.isAll = true;
+    } else {
+      data.isAll = false;
+      data.userId = userId;
+    }
+
+    console.log(data);
+
+    sendMessage(data)
+      .unwrap()
+      .then((payload) => {
+        toast.success(payload?.message);
+        setOpenModal(false);
+        form.resetFields();
+      })
+      .catch((error) => toast.error(error?.data?.message));
+  };
+
   return (
     <div>
-      <Table dataSource={dataSource} columns={columns} className="custom-pagination" pagination={{
-        pageSize: 5,
-        showTotal: (total, range) => `Showing ${range[0]}-${range[1]} out of ${total}`,
-        locale: {
-          items_per_page: '',
-          prev_page: 'Previous',
-          next_page: 'Next',
-        },
-      }} />
-      <Modal centered footer={false} open={openModal} onCancel={() => setOpenModal(false)}>
-        <p className='text-xl font-medium text-center pb-8'>Message</p>
-        <Form layout='vertical'>
-          <Form.Item label="Send To">
+      <Table
+        dataSource={dataSource}
+        columns={columns}
+        className="custom-pagination"
+        pagination={false}
+      />
+      <Modal
+        centered
+        footer={false}
+        open={openModal}
+        onCancel={() => setOpenModal(false)}
+        form={form}
+      >
+        <p className="text-xl font-medium text-center pb-8">Message</p>
+        <Form layout="vertical" onFinish={handleSendMessage}>
+          <Form.Item label="Send To" name={"sendTo"}>
             <Select
-              // mode="multiple"
               placeholder="Please select"
-              defaultValue={["Only to user"]}
-              // onChange={handleChange}
+              name="sendTo"
+              defaultValue={"OnlyToUser"}
               style={{
-                width: '100%',
+                width: "100%",
               }}
               options={[
-                { value: 'Only to user', label: "Only to user" },
-                { value: 'all user', label: "all user" },
-                { value: 'listener', label: "listener" }
+                { value: "OnlyToUser", label: "Only to user" },
+                { value: "allUser", label: "all user" },
               ]}
             />
           </Form.Item>
-          <Form.Item label="Message">
+          <Form.Item name={"message"} label="Message">
             <TextArea rows={4} />
           </Form.Item>
-          <Form.Item label="Send : ">
-            <Radio.Group 
-            // onChange={onChange} value={value}
-            >
-              <Radio value={1}>Notification</Radio>
-              <Radio value={2}>Email</Radio>
+          <Form.Item name={"send"} label="Send : ">
+            <Radio.Group>
+              <Radio value={"Notification"}>Notification</Radio>
+              <Radio value={"Email"}>Email</Radio>
             </Radio.Group>
           </Form.Item>
-          <div className='flex items-center gap-4 justify-center'>
-            <button className='border border-[#FFE2D4] px-5 py-2 text-[#FFA175] rounded-sm w-full'>cancel</button>
-            <button className='bg-[#FFA175] px-5 py-2 text-white rounded-sm w-full'>Send</button>
+          <div className="flex items-center gap-4 justify-center">
+            <button
+              onClick={() => {
+                setOpenModal(false);
+                form.resetFields();
+              }}
+              type="button"
+              className="border border-[#FFE2D4] px-5 py-2 text-[#FFA175] rounded-sm w-full"
+            >
+              cancel
+            </button>
+            <button className="bg-[#FFA175] px-5 py-2 text-white rounded-sm w-full">
+              Send
+            </button>
           </div>
         </Form>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default GuestHostInfo
+export default GuestHostInfo;

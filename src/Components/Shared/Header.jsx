@@ -3,8 +3,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Badge } from 'antd';
 import { IoIosNotificationsOutline } from "react-icons/io";
 import img from '../../assets/images/profile.png'
+import { useGetAdminProfileQuery } from '../../redux/api/AuthApi';
 const Header = () => {
-  const navigate = useNavigate()
+  const {data : getUser} = useGetAdminProfileQuery()
+  console.log(getUser);
+    const navigate = useNavigate()
+
   return (
     <div className='w-full py-4 bg-[var(--primary-color)] flex justify-end items-center  gap-4'>
     <div>

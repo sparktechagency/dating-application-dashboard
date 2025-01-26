@@ -15,7 +15,8 @@ import UserGrowthChart from './Components/UserGrowthChart/UserGrowthChart'
 import { useGetAnalyticsQuery } from './redux/api/DahsboardHomeApi'
 function App() {
   // All APIs
-  const {data : getAnalytics} =useGetAnalyticsQuery()
+  const {data : getAnalytics} = useGetAnalyticsQuery()
+ 
 
   // 
   const data = [
