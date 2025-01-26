@@ -11,6 +11,25 @@ const authApis = baseApi.injectEndpoints({
                 }
             }
         }),
+        getAdminProfile : builder.query({
+            query : ()=>{
+                return{
+                    url : '/user',
+                    method :'GET'
+                }
+            },
+            providesTags : ['profile']
+        }),
+        updateAdminProfile : builder.mutation({
+            query : (data)=>{
+                return{
+                    url : '/user/update',
+                    method : 'PUT',
+                    body : data
+                }
+            },
+            invalidatesTags : ['profile']
+        }),
         changePassword :  builder.mutation({
             query : (data)=>{
                 return {
@@ -23,4 +42,4 @@ const authApis = baseApi.injectEndpoints({
     }) 
 })
 
-export const { useLoginAdminMutation , useChangePasswordMutation } = authApis;
+export const { useLoginAdminMutation , useChangePasswordMutation , useGetAdminProfileQuery , useUpdateAdminProfileMutation} = authApis;

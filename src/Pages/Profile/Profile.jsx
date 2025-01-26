@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
-import { CiEdit } from "react-icons/ci";
 import profile from "../../assets/images/admin.png";
 import { IoCameraOutline } from "react-icons/io5";
-import { useChangePasswordMutation } from "../../redux/api/AuthApi";
+import {
+  useChangePasswordMutation,
+  useGetAdminProfileQuery,
+  useUpdateAdminProfileMutation,
+} from "../../redux/api/AuthApi";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-const admin = false;
+import { imageUrl } from "../../redux/api/baseApi";
 const Profile = () => {
   // APIs
   const [changePassword] = useChangePasswordMutation();
-  const navigate = useNavigate()
+  const { data: getAdminProfile } = useGetAdminProfileQuery();
+  const [updateProfile] = useUpdateAdminProfileMutation();
+  const navigate = useNavigate();
 
   const [image, setImage] = useState();
   const [form] = Form.useForm();
@@ -30,6 +35,16 @@ const Profile = () => {
     setImage(file);
   };
 
+  useEffect(() => {
+    const data = {
+      name: getAdminProfile?.data?.name,
+      email: getAdminProfile?.data?.email,
+      contact: getAdminProfile?.data?.contact,
+      address: getAdminProfile?.data?.address || "N/A",
+    };
+    form.setFieldsValue(data);
+  }, [getAdminProfile]);
+
   // Handle change password function
   const onFinish = (values) => {
     const data = {
@@ -46,13 +61,27 @@ const Profile = () => {
       })
       .catch((error) => toast.error(error?.data?.message));
   };
+
+  //   Handle edit admin profile
   const onEditProfile = (values) => {
-    const data = {
-      profile_image: image,
-      name: values.fullName,
-      contact: values.mobileNumber,
-      address: values.address,
-    };
+    const formData = new FormData();
+    if (image) {
+      formData.append("avatar", image);
+    }
+    formData.append("name", values?.name);
+    formData.append("contact", values?.contact);
+    formData.append("address", values?.address);
+    // const data = {
+    //   profile_image: image,
+    //   name: values.name,
+    //   contact: values.contact,
+    //   address: values.address,
+    // };
+    updateProfile(formData)
+      .unwrap()
+      .then((payload) => toast.success(payload?.message))
+      .catch((error) => toast.error(error?.data?.message));
+
   };
 
   return (
@@ -68,7 +97,11 @@ const Profile = () => {
             />
             <img
               style={{ width: 140, height: 140, borderRadius: "100%" }}
-              src={profile}
+              src={`${
+                image
+                  ? URL.createObjectURL(image)
+                  : `${getAdminProfile?.data?.avatar}`
+              }`}
               alt=""
             />
 
@@ -128,7 +161,7 @@ const Profile = () => {
             </h1>
             <Form onFinish={onEditProfile} layout="vertical" form={form}>
               <Form.Item
-                name="fullName"
+                name="name"
                 label={<p className="text-[16px]  font-normal">User Name</p>}
               >
                 <Input
@@ -141,7 +174,7 @@ const Profile = () => {
                     outline: "none",
                   }}
                   className="text-[16px] leading-5 "
-                  placeholder="Asadujjaman"
+                  placeholder="Jhon doe"
                 />
               </Form.Item>
               <Form.Item
@@ -156,13 +189,14 @@ const Profile = () => {
                     color: "#919191",
                     outline: "none",
                   }}
-                  className="text-[16px] leading-5"
+                  disabled
+                  className="text-[16px] leading-5 "
                   placeholder={`xyz@gmail.com`}
                 />
               </Form.Item>
 
               <Form.Item
-                name="mobileNumber"
+                name="contact"
                 label={
                   <p className="text-[#919191] text-[16px] leading-5 font-normal">
                     Contact no
