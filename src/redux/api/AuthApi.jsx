@@ -5,7 +5,7 @@ const authApis = baseApi.injectEndpoints({
         loginAdmin : builder.mutation({
             query : (data)=>{
                 return {
-                    url : '/auth/login',
+                    url : '/admin/login',
                     method : 'POST',
                     body : data
                 }
@@ -14,7 +14,7 @@ const authApis = baseApi.injectEndpoints({
         getAdminProfile : builder.query({
             query : ()=>{
                 return{
-                    url : '/user',
+                    url : '/admin/info',
                     method :'GET'
                 }
             },
@@ -23,7 +23,7 @@ const authApis = baseApi.injectEndpoints({
         updateAdminProfile : builder.mutation({
             query : (data)=>{
                 return{
-                    url : '/user/update',
+                    url : '/admin/update',
                     method : 'PUT',
                     body : data
                 }
