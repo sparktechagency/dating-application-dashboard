@@ -40,6 +40,7 @@ const Administrator = () => {
   const [singleAdmin, setSingleAdmin] = useState({});
 
   const options = [
+    "All",
     "Dashboard",
     "User Management",
     "Podcast Management",
@@ -49,6 +50,7 @@ const Administrator = () => {
   ];
   const values = [
     "ALL",
+    "DASHBOARD",
     "USER_MANAGEMENT",
     "PODCAST_MANAGEMENT",
     "SUBSCRIPTIONS",
@@ -127,7 +129,6 @@ const Administrator = () => {
     },
   ];
 
-  console.log(getAllAdministrator?.data?.admins);
 
   const formattedTableDate = getAllAdministrator?.data?.admins?.map(
     (admin, i) => {
@@ -158,8 +159,10 @@ const Administrator = () => {
   const handleDeleteAdministrator = (id) => {
     deleteAdmin(id)
       .unwrap()
-      .then((payload) => console.log("fulfilled", payload))
-      .catch((error) => console.error("rejected", error));
+      .then((payload) => {
+        (payload?.message)
+      })
+      .catch((error) => toast.error(error?.data?.message));
   };
 
   const handleEditAdministrator = (values) => {

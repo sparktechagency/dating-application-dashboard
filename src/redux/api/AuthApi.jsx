@@ -38,8 +38,35 @@ const authApis = baseApi.injectEndpoints({
                     body : data
                 }
             }
+        }),
+        forgetPassword :  builder.mutation({
+            query : (data)=>{
+                return {
+                    url : '/admin/forgot-password',
+                    method :'POST',
+                    body : data
+                }
+            }
+        }),
+        verifyEmail : builder.mutation({
+            query : (data)=>{
+                return { 
+                    url : "/admin/verify-email",
+                    method :"POST",
+                    body : data
+                }
+            }
+        }),
+        resetPassword : builder.mutation({
+            query : (data)=>{
+                return {
+                    url : '/admin/reset-password',
+                    method : 'PUT',
+                    body : data,
+                }
+            }
         })
     }) 
 })
 
-export const { useLoginAdminMutation , useChangePasswordMutation , useGetAdminProfileQuery , useUpdateAdminProfileMutation} = authApis;
+export const { useLoginAdminMutation , useChangePasswordMutation , useGetAdminProfileQuery , useUpdateAdminProfileMutation , useForgetPasswordMutation , useVerifyEmailMutation , useResetPasswordMutation} = authApis;

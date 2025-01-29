@@ -1,20 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { FaRegUserCircle } from 'react-icons/fa'
-import { FaArrowTrendUp, FaSackDollar } from 'react-icons/fa6'
 import { IoIosArrowForward } from 'react-icons/io'
 import { IoSettingsOutline } from 'react-icons/io5'
-import { LiaCubeSolid, LiaUserCogSolid } from 'react-icons/lia'
-import { MdCategory, MdOutlineDashboard, MdOutlineWorkspacePremium, MdPodcasts, MdSupport } from 'react-icons/md'
+import {  MdOutlineDashboard, MdOutlineWorkspacePremium, MdPodcasts, MdSupport } from 'react-icons/md'
 import { NavLink, useLocation } from 'react-router-dom'
 import img from '../../assets/images/logo.png'
-import { RiMovie2Line } from 'react-icons/ri'
 import { FiAward } from 'react-icons/fi'
 import { GrUserAdmin } from 'react-icons/gr'
+import { useGetAdminProfileQuery } from '../../redux/api/AuthApi'
 const Sidebar = () => {
   const [openIndex, setOpenIndex] = useState(null);
 
   const contentRefs = useRef([]);
   const { pathname } = useLocation();
+  const {data : getProfile} = useGetAdminProfileQuery();
+  console.log(getProfile?.data?.access);
 
 
   const links = [
