@@ -41,7 +41,6 @@ function App() {
 
 
   const formattedData = getAllPodcast?.data?.podcasts?.slice(0,4)?.map((pod , i)=>{
-    console.log(pod?.participants[0]?.avatar);
     return (
       {
         id : pod?._id,
