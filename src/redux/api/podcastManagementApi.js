@@ -28,7 +28,7 @@ const podcastManagement = baseApi.injectEndpoints({
                     body : data
                 }
             },
-            invalidatesTags : ['schedule']
+            invalidatesTags : ['padCastManagement']
         }),
         podcastDone : builder.mutation({
             query : (data)=>{
