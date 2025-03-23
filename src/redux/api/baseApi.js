@@ -16,6 +16,7 @@ const baseQuery = fetchBaseQuery({
 export const baseApi = createApi({
     reducerPath : 'baseApi',
     baseQuery : baseQuery,
+    tagTypes : ["padCastManagement"],
     endpoints : ()=>({})
 })
 // export const imageUrl = "http://10.0.60.118:5050"

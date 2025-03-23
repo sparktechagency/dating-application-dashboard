@@ -37,7 +37,8 @@ const podcastManagement = baseApi.injectEndpoints({
                     method : 'POST',
                     body : data
                 }
-            }
+            },
+            invalidatesTags : ['padCastManagement']
         })
     })
 })

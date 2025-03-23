@@ -28,12 +28,13 @@ const dashboardApi = baseApi.injectEndpoints({
             }
         }),
         getAllPodcast : builder.query({
-            query : ()=>{
+            query : (page)=>{
                 return {
-                    url : '/podcast/get-new-podcasts?page=1&limit=10',
+                    url : `/podcast/get-new-podcasts?page=${page}&limit=5`,
                     method : 'GET'
                 }
-            }
+            },
+            providesTags : ["padCastManagement"]
         })
 
     })
