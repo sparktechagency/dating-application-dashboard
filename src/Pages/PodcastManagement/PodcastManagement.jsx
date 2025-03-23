@@ -22,9 +22,9 @@ const PodcastManagement = () => {
 
   const { data: getAllDonePodcast } = useGetAllDonePodCastQuery(page);
   const [selectedPartner] = useSelectPodCastPartnerMutation();
-  //   console.log(getAllDonePodcast?.data?.podcasts);
 
   const formattedData = getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
+    console.log(pod);
     return {
       key: i + 1,
       id: pod?._id,
@@ -39,7 +39,8 @@ const PodcastManagement = () => {
       perticipant4Img: pod?.participant3?.avatar,
       perticipant3: pod?.participant2?.name,
       perticipant4: pod?.participant3?.name,
-      date: pod?.schedule?.split("T")[0],
+      date: pod?.schedule?.date?.split("T")[0] || "NO Date",
+      record: pod?.recordingUrl,
     };
   });
 
@@ -173,7 +174,11 @@ const PodcastManagement = () => {
       key: "recording",
       render: (_, record) => (
         <div className="text-[#FFA175]  inline-block text-center p-1 rounded-md cursor-pointer">
-          <p>Download</p>
+          <a href={record?.record} target="_blank" rel="noopener noreferrer" >
+            <button className="bg-blue-500 text-white px-3 py-1 rounded-md">
+              Download
+            </button>
+          </a>
         </div>
       ),
     },

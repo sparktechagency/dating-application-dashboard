@@ -121,7 +121,7 @@ const GuestHostInfo = ({ dataSource }) => {
                   .then((payload) => toast.success(payload?.message))
                   .catch((error) => toast.error(error?.data?.message));
               }}
-              className={`bg-red-600 text-white p-2 rounded-md  ${record?.isBlocked && "bg-gray-400"}`}
+              className={` text-white p-2 rounded-md  ${record?.isBlocked ?  "bg-gray-400" : "bg-red-600"}`}
             >
               <MdBlock size={20} />
             </button>

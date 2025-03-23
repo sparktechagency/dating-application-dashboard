@@ -1,15 +1,14 @@
 import { Modal, Table } from 'antd';
 import React, { useState } from 'react'
 import { LuCalendarClock } from 'react-icons/lu';
-import { Link } from 'react-router-dom';
 import ScheduleModal from '../ScheduleModal/ScheduleModal';
 import { place } from '../../redux/api/baseApi';
+import { tileLayer } from 'leaflet';
 
 const ProfileUpdateRequest = ({ dataSource }) => {
     const [openScheduleModal, setScheduleModal]  = useState(false)
     const [podCastId , setPodCastId] = useState('')
    
-console.log(dataSource);
     const columns = [
         {
             title: "Podcast ID",
@@ -55,7 +54,6 @@ console.log(dataSource);
                     {
                         record?.perticipant3Img ? <img  className='h-12 w-12' src={record?.perticipant3Img} alt="" /> : <img className='h-12 w-12' src={place} alt="" />
                     }
-                    <img src={record?.perticipant3Img} alt="" />
                     <p className='font-medium'>{record?.perticipant3}</p>
                 </div>
             )
@@ -98,6 +96,14 @@ console.log(dataSource);
                 </div>
             )
         },
+        {
+            title : 'Done',
+            dataIndex : 'done',
+            key : 'done',
+            render : ()=>(
+                <button className='bg-[#FFA175] text-white px-2 py-1 rounded-md'>Done</button>
+            )
+        }
     ];
     return (
         <div className=''>

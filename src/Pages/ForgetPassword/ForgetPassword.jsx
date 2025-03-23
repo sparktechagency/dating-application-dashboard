@@ -5,7 +5,8 @@ import { Link, useNavigate } from "react-router-dom";
 const ForgetPassword = () => {
     const navigate = useNavigate();
     const onFinish = (values) => {
-        navigate("/auth/otp")
+        console.log(values);
+        // navigate("/auth/otp")
     };
     return (
         <div className="bg-white flex justify-center items-center gap-0 "

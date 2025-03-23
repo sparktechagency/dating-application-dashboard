@@ -79,7 +79,7 @@ const FAQ = () => {
       {/* all question and answer */}
 
       <div className="grid grid-cols-2 gap-5 mt-2">
-        {getAllFaq?.data.map((que, i) => (
+        {getAllFaq?.data?.map((que, i) => (
           <div key={i} className="p-2 ">
             <div className="flex items-center justify-between px-2">
               <p className="pb-3">Question no: {i + 1}</p>
