@@ -31,25 +31,25 @@ const ProfileUpdateRequest = ({ dataSource }) => {
       key: "key",
     },
     {
-      title: "Perticipant-1",
-      dataIndex: "perticipant1",
-      key: "perticipant1",
+      title: "Primary Participant",
+      dataIndex: "PrimaryParticipant",
+      key: "PrimaryParticipant",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.perticipant1Img ? (
-            <img className="h-12 w-12" src={record?.perticipant1Img} alt="" />
+          {record?.PrimaryParticipant ? (
+            <img className="h-12 w-12" src={record?.PrimaryParticipant} alt="" />
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
 
-          <p className="font-medium">{record?.perticipant1}</p>
+          <p className="font-medium">{record?.PrimaryParticipantName}</p>
         </div>
       ),
     },
     {
-      title: "Perticipant-2",
-      dataIndex: "perticipant2",
-      key: "perticipant2",
+      title: "Perticipant-1",
+      dataIndex: "perticipant1",
+      key: "perticipant1",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {record?.perticipant2Img ? (
@@ -57,16 +57,15 @@ const ProfileUpdateRequest = ({ dataSource }) => {
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
-          <img src={record?.perticipant2Img} alt="" />
+
           <p className="font-medium">{record?.perticipant2}</p>
         </div>
       ),
     },
-
     {
-      title: "Perticipant-3",
-      dataIndex: "perticipant3",
-      key: "perticipant3",
+      title: "Perticipant-2",
+      dataIndex: "perticipant2",
+      key: "perticipant2",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {record?.perticipant3Img ? (
@@ -78,10 +77,11 @@ const ProfileUpdateRequest = ({ dataSource }) => {
         </div>
       ),
     },
+
     {
-      title: "Perticipant-4",
-      dataIndex: "perticipant4",
-      key: "perticipant4",
+      title: "Perticipant-3",
+      dataIndex: "perticipant3",
+      key: "perticipant3",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {record?.perticipant4Img ? (
@@ -89,8 +89,23 @@ const ProfileUpdateRequest = ({ dataSource }) => {
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
-
           <p className="font-medium">{record?.perticipant4}</p>
+        </div>
+      ),
+    },
+    {
+      title: "Perticipant-4",
+      dataIndex: "perticipant4",
+      key: "perticipant4",
+      render: (_, record) => (
+        <div className="flex  items-center gap-2">
+          {record?.perticipant1Img ? (
+            <img className="h-12 w-12" src={record?.perticipant1Img} alt="" />
+          ) : (
+            <img className="h-12 w-12" src={place} alt="" />
+          )}
+
+          <p className="font-medium">{record?.perticipant1}</p>
         </div>
       ),
     },

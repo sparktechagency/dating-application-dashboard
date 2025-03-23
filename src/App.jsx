@@ -41,19 +41,21 @@ function App() {
 
 
   const formattedData = getAllPodcast?.data?.podcasts?.slice(0,4)?.map((pod , i)=>{
-
+    console.log(pod?.participants[0]?.avatar);
     return (
       {
         id : pod?._id,
         key: i + 1,
-        perticipant2: pod?.participant1?.name,
-        perticipant1: pod?.primaryUser?.name,
-        perticipant1Img:  pod?.primaryUser?.avatar,
-        perticipant2Img:  pod?.participant1?.avatar,
-        perticipant3Img:  pod?.participant2?.avatar,
-        perticipant4Img:  pod?.participant3?.avatar,
-        perticipant3: pod?.participant2?.name,
-        perticipant4: pod?.participant3?.name,
+        PrimaryParticipantName: pod?.primaryUser?.name,
+        PrimaryParticipant:  pod?.primaryUser?.avatar,
+        perticipant2:pod?.participants[0]?.name,
+        perticipant2Img:  pod?.participants[0]?.avatar,
+        perticipant3: pod?.participants[1]?.name,
+        perticipant3Img:  pod?.participants[1]?.avatar,
+        perticipant4: pod?.participants[2]?.name,
+        perticipant4Img:   pod?.participants[2]?.avatar,
+        perticipant1: pod?.participants[3]?.name,
+        perticipant1Img:   pod?.participants[3]?.avatar,
         scheduleDate : pod?.schedule?.date,
         scheduleTime : pod?.schedule?.time,
         scheduleDay : pod?.schedule?.day
