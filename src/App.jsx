@@ -41,7 +41,7 @@ function App() {
 
 
   const formattedData = getAllPodcast?.data?.podcasts?.slice(0,4)?.map((pod , i)=>{
-    
+
     return (
       {
         id : pod?._id,
@@ -55,7 +55,8 @@ function App() {
         perticipant3: pod?.participant2?.name,
         perticipant4: pod?.participant3?.name,
         scheduleDate : pod?.schedule?.date,
-        scheduleTime : pod?.schedule?.time
+        scheduleTime : pod?.schedule?.time,
+        scheduleDay : pod?.schedule?.day
       }
     )
   })

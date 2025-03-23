@@ -30,8 +30,17 @@ const podcastManagement = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags : ['schedule']
+        }),
+        podcastDone : builder.mutation({
+            query : (data)=>{
+                return {
+                    url : '/podcast/podcast-done',
+                    method : 'POST',
+                    body : data
+                }
+            }
         })
     })
 })
 
-export const { useGetAllDonePodCastQuery , useSelectPodCastPartnerMutation , useSchedulePodCastMutation } = podcastManagement;
+export const { useGetAllDonePodCastQuery , useSelectPodCastPartnerMutation , useSchedulePodCastMutation , usePodcastDoneMutation } = podcastManagement;

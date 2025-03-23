@@ -24,7 +24,6 @@ const PodcastManagement = () => {
   const [selectedPartner] = useSelectPodCastPartnerMutation();
 
   const formattedData = getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
-    console.log(pod);
     return {
       key: i + 1,
       id: pod?._id,

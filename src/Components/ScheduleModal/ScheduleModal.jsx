@@ -14,13 +14,16 @@ const ScheduleModal = ({ openScheduleModal, setScheduleModal, podCastId }) => {
 
     // Format the time in AM/PM
     const formattedTime = dayjs(selectedDateTime).format("hh:mm A");
+    const dayName = dayjs(selectedDateTime).format("dddd");
 
     const data = {
       podcastId: podCastId,
       date: formattedDate,
       time: formattedTime,
+      day : dayName
     };
-    console.log(data);
+
+
     schedulePodCast(data)
       .unwrap()
       .then((payload) => {

@@ -8,6 +8,12 @@ import { tileLayer } from 'leaflet';
 const ProfileUpdateRequest = ({ dataSource }) => {
     const [openScheduleModal, setScheduleModal]  = useState(false)
     const [podCastId , setPodCastId] = useState('')
+
+
+
+    const handleDonePodcast = ()=>{
+
+    }
    
     const columns = [
         {
@@ -78,7 +84,7 @@ const ProfileUpdateRequest = ({ dataSource }) => {
             key : "datetime",
             render : (_, record)=>(
                
-                <p>{record?.scheduleDate || "Not Schedule"}  : {record?.scheduleTime}</p>
+                <p>{record?.scheduleDate || "Not Schedule"}  : {record?.scheduleTime}  : {record?.scheduleDay}</p>
             )
         },
        
@@ -100,8 +106,11 @@ const ProfileUpdateRequest = ({ dataSource }) => {
             title : 'Done',
             dataIndex : 'done',
             key : 'done',
-            render : ()=>(
-                <button className='bg-[#FFA175] text-white px-2 py-1 rounded-md'>Done</button>
+            render : (_, record)=>(
+                <button onClick={()=>{
+                    setPodCastId(record?.id)
+                    handleDonePodcast()
+                }} className='bg-[#FFA175] text-white px-2 py-1 rounded-md'>Done</button>
             )
         }
     ];
