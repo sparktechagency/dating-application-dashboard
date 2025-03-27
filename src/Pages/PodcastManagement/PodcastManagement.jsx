@@ -52,9 +52,11 @@ const PodcastManagement = () => {
 
 
 
+  // console.log(chooseUser?.perticipant1Id);
+
   const participants = [
     {
-      id: chooseUser?.perticipant1,
+      id: chooseUser?.perticipant1Id,
       name: chooseUser?.perticipant1,
       img: chooseUser?.perticipant1Img,
     },
@@ -75,6 +77,8 @@ const PodcastManagement = () => {
     },
   ];
 
+
+  // console.log(participants);
   const handleSelectedParticipant = () => {
     const data = {
       podcastId: podCastId,

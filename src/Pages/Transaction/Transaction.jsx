@@ -11,8 +11,11 @@ import { place } from "../../redux/api/baseApi";
 const Transaction = () => {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
-  const { data: getAllPremiumUsers } = useGetPremiumUsersQuery({page,search});
-  console.log(getAllPremiumUsers?.data?.users);
+  const { data: getAllPremiumUsers } = useGetPremiumUsersQuery({
+    page,
+    search,
+  });
+  console.log(getAllPremiumUsers?.data?.subscriptionCounts);
   const columns = [
     {
       title: "SL no",
@@ -25,10 +28,12 @@ const Transaction = () => {
       key: "name",
       render: (_, record) => (
         <div className="flex items-center gap-2">
-          {
-            record?.img ? <img className="h-12 w-12" src={record?.img} alt="" /> : <img className="h-12 w-12" src={place} />
-          }
-          
+          {record?.img ? (
+            <img className="h-12 w-12" src={record?.img} alt="" />
+          ) : (
+            <img className="h-12 w-12" src={place} />
+          )}
+
           <p>{record?.name}</p>
         </div>
       ),
@@ -68,7 +73,7 @@ const Transaction = () => {
     },
   ];
 
-  const formattedData = getAllPremiumUsers?.data?.users?.map((item , i) => {
+  const formattedData = getAllPremiumUsers?.data?.users?.map((item, i) => {
     return {
       key: i + 1,
       joining: item?.subscription?.startedAt?.split("T")[0],
@@ -77,12 +82,9 @@ const Transaction = () => {
       hired: item?.subscription?.plan,
       fee: item?.subscription?.fee,
       subscription: item?.subscription?.plan,
-      status:  item?.subscription?.status,
-      
+      status: item?.subscription?.status,
     };
   });
-
-
 
   return (
     <div className="p-5 bg-white rounded-md">
@@ -108,8 +110,21 @@ const Transaction = () => {
         </div>
       </div>
 
-      <div></div>
       <div className="mt-5">
+        <div className="grid grid-cols-3 justify-center items-center gap-5">
+          {getAllPremiumUsers?.data?.subscriptionCounts?.map((item, index) => (
+            <div
+              className="w-full h-full flex justify-center items-center  flex-col gap-3 py-10 mb-5 bg-gray-200 p-2 rounded-md"
+              key={index}
+            >
+              <p className="text-2xl  font-medium">
+                {item?._id?.split(":")?.[0]}
+              </p>
+
+              <p className="text-3xl font-semibold">{item?.count}</p>
+            </div>
+          ))}
+        </div>
         <Table
           dataSource={formattedData}
           columns={columns}
@@ -118,13 +133,13 @@ const Transaction = () => {
         />
       </div>
       <div className="flex justify-center mt-5">
-          <Pagination
-            page={getAllPremiumUsers?.data?.pagination?.page}
-            total={getAllPremiumUsers?.data?.pagination?.totalUsers}
-            pageSize={getAllPremiumUsers?.data?.pagination?.limit}
-            onChange={(page) => setPage(page)}
-          />
-        </div>
+        <Pagination
+          page={getAllPremiumUsers?.data?.pagination?.page}
+          total={getAllPremiumUsers?.data?.pagination?.totalUsers}
+          pageSize={getAllPremiumUsers?.data?.pagination?.limit}
+          onChange={(page) => setPage(page)}
+        />
+      </div>
     </div>
   );
 };

@@ -28,7 +28,6 @@ const DeliveryDetails = () => {
     };
   });
 
-  console.log(getAllUser?.data?.pagination);
   return (
     <div className="p-5 bg-white rounded-md">
       <div className="flex justify-between item-center ">
@@ -57,10 +56,10 @@ const DeliveryDetails = () => {
         <GuestHostInfo dataSource={formattedTableData} />
         <div className="flex justify-center mt-5">
           <Pagination
-            current={page} // Current active page
-            total={getAllUser?.data?.pagination?.totalUsers} // Total number of users
-            pageSize={getAllUser?.data?.pagination?.limit} // Items per page
-            onChange={(page) => setPage(page)} // Handle page change
+            current={page}
+            total={getAllUser?.data?.pagination?.totalUsers}
+            pageSize={getAllUser?.data?.pagination?.limit}
+            onChange={(page) => setPage(page)}
           />
         </div>
       </div>
