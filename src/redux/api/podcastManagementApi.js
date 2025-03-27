@@ -4,8 +4,9 @@ const podcastManagement = baseApi.injectEndpoints({
     endpoints : (builder) =>({
         getAllDonePodCast : builder.query({
             query : (page)=>{
+                console.log("api",page);
                 return {
-                    url : `/podcast/get-done-podcasts?page=${page}`,
+                    url : `/podcast?status=done&page=${page}`,
                     method : 'GET'
                 }
             },

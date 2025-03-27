@@ -1,6 +1,5 @@
 import { Checkbox, Modal, Pagination, Table } from "antd";
 import React, { useState } from "react";
-import { CiSearch } from "react-icons/ci";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {
@@ -18,32 +17,47 @@ const PodcastManagement = () => {
 
   const handleCheckboxChange = (participantId) => {
     setSelectedParticipantId(participantId);
+    // console.log(participantId);
   };
+
 
   const { data: getAllDonePodcast } = useGetAllDonePodCastQuery(page);
   const [selectedPartner] = useSelectPodCastPartnerMutation();
+
+  // console.log(getAllDonePodcast?.data?.pagination);
 
   const formattedData = getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
     return {
       key: i + 1,
       id: pod?._id,
-      perticipant2: pod?.participant1?.name,
-      participant2Id: pod?.participant1?._id,
-      participant3Id: pod?.participant2?._id,
-      participant4Id: pod?.participant3?._id,
-      perticipant1: pod?.primaryUser?.name,
-      perticipant1Img: pod?.primaryUser?.avatar,
-      perticipant2Img: pod?.participant1?.avatar,
-      perticipant3Img: pod?.participant2?.avatar,
-      perticipant4Img: pod?.participant3?.avatar,
-      perticipant3: pod?.participant2?.name,
-      perticipant4: pod?.participant3?.name,
+      primaryParticipantId : pod?.primaryUser?._id, 
+      primaryParticipantName : pod?.primaryUser?.name, 
+      primaryParticipantImg : pod?.primaryUser?.avatar,
+      perticipant1: pod?.participants[0]?.name,
+      perticipant1Id: pod?.participants[0]?._id,
+      perticipant1Img:pod?.participants[0]?.avatar,
+      perticipant2: pod?.participants[1]?.name,
+      participant2Id: pod?.participants[1]?._id,
+      perticipant2Img: pod?.participants[1]?.avatar,
+      participant3Id: pod?.participants[2]?._id,
+      perticipant3: pod?.participants[2]?.name,
+      perticipant3Img: pod?.participants[2]?.avatar,
+      participant4Id: pod?.participants[3]?._id,
+      perticipant4Img:pod?.participants[3]?.avatar,
+      perticipant4: pod?.participants[3]?.name,
       date: pod?.schedule?.date?.split("T")[0] || "NO Date",
       record: pod?.recordingUrl,
     };
   });
 
+
+
   const participants = [
+    {
+      id: chooseUser?.perticipant1,
+      name: chooseUser?.perticipant1,
+      img: chooseUser?.perticipant1Img,
+    },
     {
       id: chooseUser?.participant2Id,
       name: chooseUser?.perticipant2,
@@ -87,7 +101,23 @@ const PodcastManagement = () => {
       key: "date",
     },
     {
-      title: "Perticipant-1",
+      title: "Primary Participant",
+      dataIndex: "primaryParticipant",
+      key: "primaryParticipant",
+      render: (_, record) => (
+        <div className="flex  items-center gap-2">
+          {record?.primaryParticipantImg ? (
+            <img className="h-10 w-10" src={record?.primaryParticipantImg} alt="" />
+          ) : (
+            <img className="h-10 w-10" src={place} alt="" />
+          )}
+
+          <p className="font-medium">{record?.primaryParticipantName}</p>
+        </div>
+      ),
+    },
+    {
+      title: "Participant-1",
       dataIndex: "perticipant1",
       key: "perticipant1",
       render: (_, record) => (
@@ -103,7 +133,7 @@ const PodcastManagement = () => {
       ),
     },
     {
-      title: "Perticipant-2",
+      title: "Participant-2",
       dataIndex: "perticipant2",
       key: "perticipant2",
       render: (_, record) => (
@@ -119,7 +149,7 @@ const PodcastManagement = () => {
     },
 
     {
-      title: "Perticipant-3",
+      title: "Participant-3",
       dataIndex: "perticipant3",
       key: "perticipant3",
       render: (_, record) => (
@@ -135,7 +165,7 @@ const PodcastManagement = () => {
       ),
     },
     {
-      title: "Perticipant-4",
+      title: "Participant-4",
       dataIndex: "perticipant4",
       key: "perticipant4",
       render: (_, record) => (
@@ -183,6 +213,7 @@ const PodcastManagement = () => {
     },
   ];
 
+
   return (
     <div className="bg-white p-4 rounded-md">
       <div className="flex justify-between item-center ">
@@ -214,8 +245,8 @@ const PodcastManagement = () => {
       />
       <div className="flex justify-center mt-5">
         <Pagination
-          page={getAllDonePodcast?.data?.pagination?.page}
-          total={getAllDonePodcast?.data?.pagination?.totalPodcasts}
+          current={getAllDonePodcast?.data?.pagination?.page}
+          total={getAllDonePodcast?.data?.pagination?.total}
           pageSize={getAllDonePodcast?.data?.pagination?.limit}
           onChange={(page) => setPage(page)}
         />
@@ -229,7 +260,7 @@ const PodcastManagement = () => {
         <p className="text-xl font-medium text-center mb-10">Choose for Date</p>
 
         <div>
-          {participants.map((participant) => (
+          {participants.filter((participant) => participant.id !== undefined)?.map((participant) => (
             <div
               key={participant.id}
               className="flex px-24 items-center gap-4 mb-4"

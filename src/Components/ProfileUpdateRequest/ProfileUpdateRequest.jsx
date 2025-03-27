@@ -12,9 +12,9 @@ const ProfileUpdateRequest = ({ dataSource }) => {
   //
   const [podCastDone] = usePodcastDoneMutation();
 
-  const handleDonePodcast = () => {
+  const handleDonePodcast = (id) => {
     const data = {
-      podcastId: podCastId,
+      podcastId: id,
     };
     podCastDone(data)
       .unwrap()
@@ -144,8 +144,7 @@ const ProfileUpdateRequest = ({ dataSource }) => {
       render: (_, record) => (
         <button
           onClick={() => {
-            setPodCastId(record?.id);
-            handleDonePodcast();
+            handleDonePodcast(record?.id);
           }}
           className="bg-[#FFA175] text-white px-2 py-1 rounded-md"
         >

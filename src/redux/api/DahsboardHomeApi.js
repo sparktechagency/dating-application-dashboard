@@ -35,8 +35,17 @@ const dashboardApi = baseApi.injectEndpoints({
                 }
             },
             providesTags : ["padCastManagement"]
+        }),
+        getAllNewPodcast : builder.query({
+            query : (page)=>{
+                return {
+                    url : `/podcast?status=upcoming?page=${page}`,
+                    method : 'GET'
+                }
+            },
+            providesTags : ["padCastManagement"]
         })
 
     })
 })
-export const { useGetAnalyticsQuery , useIncomeGrowthQuery , useSubscriptionGrowthQuery , useGetAllPodcastQuery} = dashboardApi;
+export const { useGetAnalyticsQuery , useIncomeGrowthQuery , useSubscriptionGrowthQuery , useGetAllPodcastQuery , useGetAllNewPodcastQuery} = dashboardApi;

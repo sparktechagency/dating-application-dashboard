@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import ProfileUpdateRequest from "../../Components/ProfileUpdateRequest/ProfileUpdateRequest";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { Input, Pagination } from "antd";
-import { useGetAllPodcastQuery } from "../../redux/api/DahsboardHomeApi";
+import {  Pagination } from "antd";
+import { useGetAllNewPodcastQuery, useGetAllPodcastQuery } from "../../redux/api/DahsboardHomeApi";
 
 const ProfileUpdatePage = () => {
   const [page, setPage] = useState(1);
-  const { data: getAllPodcast } = useGetAllPodcastQuery(page);
+  const { data: getAllPodcast } = useGetAllNewPodcastQuery(page);
+
+  console.log(getAllPodcast?.data?.pagination);
 
 
   const formattedData = getAllPodcast?.data?.podcasts?.map((pod , i)=>{
@@ -44,7 +46,7 @@ const ProfileUpdatePage = () => {
       <div className="flex justify-center mt-5">
         <Pagination
           current={getAllPodcast?.data?.pagination?.page}
-          total={getAllPodcast?.data?.pagination?.totalPodcasts}
+          total={getAllPodcast?.data?.pagination?.totalPages}
           pageSize={getAllPodcast?.data?.pagination?.limit}
           onChange={(page) => setPage(page)}
         />

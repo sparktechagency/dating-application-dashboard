@@ -8,11 +8,14 @@ import medal from './assets/images/medal.png'
 import profit from './assets/images/profits.png'
 import mic from './assets/images/microphone.png'
 import UserGrowthChart from './Components/UserGrowthChart/UserGrowthChart'
-import { useGetAllPodcastQuery, useGetAnalyticsQuery } from './redux/api/DahsboardHomeApi'
+import { useGetAllNewPodcastQuery, useGetAllPodcastQuery, useGetAnalyticsQuery } from './redux/api/DahsboardHomeApi'
 function App() {
   // All APIs
   const {data : getAnalytics} = useGetAnalyticsQuery()
-  const {data : getAllPodcast} = useGetAllPodcastQuery()
+  // const {data : getAllPodcast} = useGetAllPodcastQuery()
+  const {data : getAllPodcast } = useGetAllNewPodcastQuery()
+
+  // console.log(getNewPodcast?.data?.podcasts);
 
 
   // 
