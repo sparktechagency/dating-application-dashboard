@@ -11,9 +11,9 @@ const ageOptions = Array.from({ length: 55 - 35 + 1 }, (_, i) => 35 + i);
 const DeliveryDetails = () => {
   const [search, setSearch] = useState("");
   const [minAge, setMinAge] = useState("");
+  const [maxAge, setMaxAge] = useState("");
   const [page, setPage] = useState(1);
-  const { data: getAllUser } = useGetAllUserQuery({ page, search , minAge });
-  console.log(getAllUser?.data?.pagination);
+  const { data: getAllUser } = useGetAllUserQuery({ page, search, minAge , maxAge });
   const formattedTableData = getAllUser?.data?.users?.map((user, i) => {
     return {
       key: i + 1,
@@ -31,9 +31,15 @@ const DeliveryDetails = () => {
     };
   });
 
+  // Handle minimum age function
   const handleMinAge = (value) => {
     setMinAge(value);
   };
+
+  // Handle maximum  age
+  const handleMaxAge = (value)=>{
+    setMaxAge(value)
+  }
 
   return (
     <div className="p-5 bg-white rounded-md">
@@ -45,18 +51,36 @@ const DeliveryDetails = () => {
           <span className="font-semibold text-[20px]">User Management</span>
         </div>
         <div className="flex  gap-2 ">
-          <Select
-            placeholder="Select Age"
-            style={{ width: 150, marginBottom: 20 }}
-            allowClear
-            onChange={handleMinAge}
-          >
-            {ageOptions.map((age) => (
-              <Option key={age} value={age}>
-                {age}
-              </Option>
-            ))}
-          </Select>
+          <div>
+            {/* <p> Min Age</p> */}
+            <Select
+              placeholder="Select Min Age"
+              style={{ width: 140, marginBottom: 20 }}
+              allowClear
+              onChange={handleMinAge}
+            >
+              {ageOptions.map((age) => (
+                <Option key={age} value={age}>
+                  {age}
+                </Option>
+              ))}
+            </Select>
+          </div>
+          <div>
+            {/* <p> Min Age</p> */}
+            <Select
+              placeholder="Select Max Age"
+              style={{ width: 140, marginBottom: 20 }}
+              allowClear
+              onChange={handleMaxAge}
+            >
+              {ageOptions.map((age) => (
+                <Option key={age} value={age}>
+                  {age}
+                </Option>
+              ))}
+            </Select>
+          </div>
           <div className="relative">
             <input
               onChange={(e) => setSearch(e.target.value)}
