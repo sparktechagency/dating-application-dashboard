@@ -17,12 +17,25 @@ const options = [
   "Muscular",
 ];
 
+const ethnicityOption = [
+  "African American / Black",
+  "Asian",
+  "Caucasian/White",
+  "Hispanic/Latino",
+  "Middle Eastern",
+  "Native American",
+  "Pacific Islander",
+  "Other",
+  "No preference",
+]
+
 const DeliveryDetails = () => {
   const [search, setSearch] = useState("");
   const [minAge, setMinAge] = useState("");
   const [maxAge, setMaxAge] = useState("");
   const [gender, setGender] = useState("");
   const [bodyType, setBodyType] = useState("");
+  const [ethnicity, setEthnicity] = useState("");
   const [page, setPage] = useState(1);
   const { data: getAllUser } = useGetAllUserQuery({
     page,
@@ -30,7 +43,8 @@ const DeliveryDetails = () => {
     minAge,
     maxAge,
     gender,
-    bodyType
+    bodyType,
+    ethnicity
   });
 
   // console.log(getAllUser?.data?.users);
@@ -70,6 +84,9 @@ const DeliveryDetails = () => {
   // Handle Bdoy Type function
   const handleBodyType = (value)=>{
     setBodyType(value);
+  }
+  const handleEthnicity = (value)=>{
+    setEthnicity(value);
   }
 
 
@@ -138,6 +155,21 @@ const DeliveryDetails = () => {
               onChange={handleBodyType}
             >
              {options.map((age) => (
+                <Option key={age} value={age}>
+                  {age}
+                </Option>
+              ))}
+            </Select>
+          </div>
+          <div>
+            {/* <p> Min Age</p> */}
+            <Select
+              placeholder="Select Ethnicity"
+              style={{ width: 140, marginBottom: 20 }}
+              allowClear
+              onChange={handleEthnicity}
+            >
+             {ethnicityOption.map((age) => (
                 <Option key={age} value={age}>
                   {age}
                 </Option>

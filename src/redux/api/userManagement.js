@@ -3,9 +3,9 @@ import { baseApi } from "./baseApi";
 const userManagement = baseApi.injectEndpoints({
     endpoints : (builder)=>({
         getAllUser : builder.query({
-            query : ({page , search , minAge , maxAge , gender , bodyType})=>{
+            query : ({page , search , minAge , maxAge , gender , bodyType , ethnicity})=>{
                 return {
-                    url : `/user/get-all-users?page=${page}&search=${search}&minAge=${minAge}&maxAge=${maxAge}&gender=${gender}&bodyType=${bodyType}`,
+                    url : `/user/get-all-users?page=${page}&search=${search}&minAge=${minAge}&maxAge=${maxAge}&gender=${gender}&bodyType=${bodyType}&ethnicity=${ethnicity}`,
                     method : 'GET'
                 }
             },
