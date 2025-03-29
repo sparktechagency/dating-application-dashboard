@@ -17,7 +17,9 @@ const GuestHostInfo = ({ dataSource }) => {
   const [sendMessage] = useSendMessageMutation();
   const [blockUnblockUser] = useBlockUnblockUserMutation();
 
+
   const [form] = Form.useForm();
+
   const columns = [
     {
       title: "SL no",
@@ -68,6 +70,26 @@ const GuestHostInfo = ({ dataSource }) => {
       title: "Age",
       dataIndex: "age",
       key: "age",
+    },
+    {
+      title : 'Ethnicity',
+      dataSource : "ethnicity",
+      key : "ethnicity",
+      render : (_ , record)=>{
+        return(
+          <p>{record?.ethnicity}</p>
+        )
+      }
+    },
+    {
+      title : 'Body Type',
+      dataSource : "bodyType",
+      key : "bodyType",
+      render : (_ , record)=>{
+        return(
+          <p>{record?.bodyType}</p>
+        )
+      }
     },
     {
       title: "Address",
@@ -146,7 +168,6 @@ const GuestHostInfo = ({ dataSource }) => {
       data.userId = userId;
     }
 
-    console.log(data);
 
     sendMessage(data)
       .unwrap()

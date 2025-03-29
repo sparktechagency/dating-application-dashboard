@@ -14,6 +14,8 @@ const DeliveryDetails = () => {
   const [maxAge, setMaxAge] = useState("");
   const [page, setPage] = useState(1);
   const { data: getAllUser } = useGetAllUserQuery({ page, search, minAge , maxAge });
+
+  // console.log(getAllUser?.data?.users);
   const formattedTableData = getAllUser?.data?.users?.map((user, i) => {
     return {
       key: i + 1,
@@ -27,6 +29,8 @@ const DeliveryDetails = () => {
       email: user?.auth?.email,
       gender: user?.gender || "N/A",
       age: user?.age,
+      ethnicity : user?.ethnicity || "N/A",
+      bodyType : user?.bodyType || "N/A",
       isBlocked: user?.auth?.isBlocked,
     };
   });
