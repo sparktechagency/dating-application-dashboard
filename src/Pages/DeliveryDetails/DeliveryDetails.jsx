@@ -12,8 +12,15 @@ const DeliveryDetails = () => {
   const [search, setSearch] = useState("");
   const [minAge, setMinAge] = useState("");
   const [maxAge, setMaxAge] = useState("");
+  const [gender, setGender] = useState("");
   const [page, setPage] = useState(1);
-  const { data: getAllUser } = useGetAllUserQuery({ page, search, minAge , maxAge });
+  const { data: getAllUser } = useGetAllUserQuery({
+    page,
+    search,
+    minAge,
+    maxAge,
+    gender
+  });
 
   // console.log(getAllUser?.data?.users);
   const formattedTableData = getAllUser?.data?.users?.map((user, i) => {
@@ -29,8 +36,8 @@ const DeliveryDetails = () => {
       email: user?.auth?.email,
       gender: user?.gender || "N/A",
       age: user?.age,
-      ethnicity : user?.ethnicity || "N/A",
-      bodyType : user?.bodyType || "N/A",
+      ethnicity: user?.ethnicity || "N/A",
+      bodyType: user?.bodyType || "N/A",
       isBlocked: user?.auth?.isBlocked,
     };
   });
@@ -41,8 +48,13 @@ const DeliveryDetails = () => {
   };
 
   // Handle maximum  age
-  const handleMaxAge = (value)=>{
-    setMaxAge(value)
+  const handleMaxAge = (value) => {
+    setMaxAge(value);
+  };
+
+  // Handle gender function
+  const handleGender = (value)=>{
+    setGender(value);
   }
 
   return (
@@ -85,12 +97,27 @@ const DeliveryDetails = () => {
               ))}
             </Select>
           </div>
+          <div>
+            {/* <p> Min Age</p> */}
+            <Select
+              placeholder="Select Gender"
+              style={{ width: 140, marginBottom: 20 }}
+              allowClear
+              onChange={handleGender}
+            >
+              <Option value={"female"}>Female</Option>
+              <Option value={"Male"}>Male</Option>
+              <Option value={"non-binary"}>Non-binary</Option>
+              <Option value={"transgender"}>Transgender</Option>
+              <Option value={"gender-fluid"}>Gender Fluid</Option>
+            </Select>
+          </div>
           <div className="relative">
             <input
               onChange={(e) => setSearch(e.target.value)}
               type="text"
               placeholder="Search here..."
-              className="w-full pl-10 pr-4 py-1 rounded-md border border-[#FFA175] focus:border-[#FFA175] focus:outline-none "
+              className="w-full pl-10 pr-4 py-1 rounded-md border border-[#272626] focus:border-[#FFA175] focus:outline-none "
             />
             <span className="absolute left-3 top-2.5 text-gray-400">
               <CiSearch className="text-[#FFA175]" />
