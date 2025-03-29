@@ -8,18 +8,29 @@ import { Pagination, Select } from "antd";
 
 const ageOptions = Array.from({ length: 55 - 35 + 1 }, (_, i) => 35 + i);
 
+const options = [
+  "Athletic",
+  "Curvy",
+  "Slim",
+  "Average",
+  "Plus-size",
+  "Muscular",
+];
+
 const DeliveryDetails = () => {
   const [search, setSearch] = useState("");
   const [minAge, setMinAge] = useState("");
   const [maxAge, setMaxAge] = useState("");
   const [gender, setGender] = useState("");
+  const [bodyType, setBodyType] = useState("");
   const [page, setPage] = useState(1);
   const { data: getAllUser } = useGetAllUserQuery({
     page,
     search,
     minAge,
     maxAge,
-    gender
+    gender,
+    bodyType
   });
 
   // console.log(getAllUser?.data?.users);
@@ -56,6 +67,12 @@ const DeliveryDetails = () => {
   const handleGender = (value)=>{
     setGender(value);
   }
+  // Handle Bdoy Type function
+  const handleBodyType = (value)=>{
+    setBodyType(value);
+  }
+
+
 
   return (
     <div className="p-5 bg-white rounded-md">
@@ -110,6 +127,21 @@ const DeliveryDetails = () => {
               <Option value={"non-binary"}>Non-binary</Option>
               <Option value={"transgender"}>Transgender</Option>
               <Option value={"gender-fluid"}>Gender Fluid</Option>
+            </Select>
+          </div>
+          <div>
+            {/* <p> Min Age</p> */}
+            <Select
+              placeholder="Select Body Type"
+              style={{ width: 140, marginBottom: 20 }}
+              allowClear
+              onChange={handleBodyType}
+            >
+             {options.map((age) => (
+                <Option key={age} value={age}>
+                  {age}
+                </Option>
+              ))}
             </Select>
           </div>
           <div className="relative">
