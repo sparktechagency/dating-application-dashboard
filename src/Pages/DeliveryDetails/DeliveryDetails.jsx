@@ -4,13 +4,16 @@ import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import GuestHostInfo from "../../Components/GuestHostInfo";
 import { useGetAllUserQuery } from "../../redux/api/userManagement";
-import { Pagination } from "antd";
+import { Pagination, Select } from "antd";
+
+const ageOptions = Array.from({ length: 55 - 35 + 1 }, (_, i) => 35 + i);
 
 const DeliveryDetails = () => {
   const [search, setSearch] = useState("");
+  const [minAge, setMinAge] = useState("");
   const [page, setPage] = useState(1);
-  const { data: getAllUser } = useGetAllUserQuery({ page, search });
-
+  const { data: getAllUser } = useGetAllUserQuery({ page, search , minAge });
+  console.log(getAllUser?.data?.pagination);
   const formattedTableData = getAllUser?.data?.users?.map((user, i) => {
     return {
       key: i + 1,
@@ -28,6 +31,10 @@ const DeliveryDetails = () => {
     };
   });
 
+  const handleMinAge = (value) => {
+    setMinAge(value);
+  };
+
   return (
     <div className="p-5 bg-white rounded-md">
       <div className="flex justify-between item-center ">
@@ -37,7 +44,19 @@ const DeliveryDetails = () => {
           </Link>
           <span className="font-semibold text-[20px]">User Management</span>
         </div>
-        <div>
+        <div className="flex  gap-2 ">
+          <Select
+            placeholder="Select Age"
+            style={{ width: 150, marginBottom: 20 }}
+            allowClear
+            onChange={handleMinAge}
+          >
+            {ageOptions.map((age) => (
+              <Option key={age} value={age}>
+                {age}
+              </Option>
+            ))}
+          </Select>
           <div className="relative">
             <input
               onChange={(e) => setSearch(e.target.value)}
@@ -57,7 +76,7 @@ const DeliveryDetails = () => {
         <div className="flex justify-center mt-5">
           <Pagination
             current={page}
-            total={getAllUser?.data?.pagination?.totalUsers}
+            total={getAllUser?.data?.pagination?.total}
             pageSize={getAllUser?.data?.pagination?.limit}
             onChange={(page) => setPage(page)}
           />
