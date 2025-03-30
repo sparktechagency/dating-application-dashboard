@@ -47,7 +47,6 @@ const DeliveryDetails = () => {
     ethnicity
   });
 
-  // console.log(getAllUser?.data?.users);
   const formattedTableData = getAllUser?.data?.users?.map((user, i) => {
     return {
       key: i + 1,
