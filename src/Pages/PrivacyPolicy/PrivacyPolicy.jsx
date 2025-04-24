@@ -14,9 +14,7 @@ const PrivacyPolicy = () => {
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
-  console.log(getPrivacy?.data?.text);
   const handleTerms = () => {
-    console.log(content);
     const data = {
       text: content,
     };
@@ -29,7 +27,7 @@ const PrivacyPolicy = () => {
     readonly: false,
     placeholder: "Start typings...",
     style: {
-      height: 400,
+      height: 550,
     },
     buttons: [
       "image",
@@ -47,6 +45,7 @@ const PrivacyPolicy = () => {
   useEffect(() => {
     setContent(getPrivacy?.data?.text);
   }, [getPrivacy]);
+
   return (
     <>
       <div className="flex justify-start items-center gap-2 mb-3 relative m-5">
@@ -61,7 +60,7 @@ const PrivacyPolicy = () => {
         </div>
       </div>
 
-      <div className="custom-jodit-editor mx-5 ">
+      <div className="custom-jodit-editor mx-5">
         <JoditEditor
           ref={editor}
           value={content}

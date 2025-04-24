@@ -18,11 +18,14 @@ import Subscriptions from "../Pages/Subscriptions/Subscriptions";
 import PodcastManagement from "../Pages/PodcastManagement/PodcastManagement";
 import Support from "../Pages/Support/Support";
 import Administrator from "../Pages/Administrator/Administrator";
+import PrivateRoutes from "../Components/PrivateRoute/PrivateRoute";
+import ConsumerPolicy from "../Pages/ConsumerPolicy/ConsumerPolicy";
+import MediaPolicy from "../Pages/MediaPolicy/MediaPolicy";
 
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <MainLayout />,
+        element: <PrivateRoutes><MainLayout /></PrivateRoutes>,
         children: [
             {
                 path: '/',
@@ -61,6 +64,14 @@ export const router = createBrowserRouter([
             {
                 path: '/faq',
                 element: <FAQ />
+            },
+            {
+                path : '/consumer-policy',
+                element : <ConsumerPolicy/>
+            },
+            {
+                path : '/media-policy',
+                element : <MediaPolicy/>
             },
             {
                 path: '/schedule-request',

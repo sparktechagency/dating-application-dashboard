@@ -50,7 +50,7 @@ const settingApi = baseApi.injectEndpoints({
             query : (data)=>{
                 return {
                     url  : '/tac/update',
-                    method : "PUT",
+                    method : "PATCH",
                     body : data
                 }
             }
@@ -59,12 +59,46 @@ const settingApi = baseApi.injectEndpoints({
             query : (data)=>{
                 return {
                     url  : '/privacy/update',
-                    method : "PUT",
+                    method : "PATCH",
                     body : data
                 }
             }
-        })
+        }),
+        getConsumerPolicy :  builder.query({
+            query : ()=>{
+                return {
+                    url : '/consumer',
+                    method : 'GET'
+                }
+            }
+        }),
+        updateConsumerPolicy : builder.mutation({
+            query : (data)=>{
+                return {
+                    url  : '/consumer/update',
+                    method : "PATCH",
+                    body : data
+                }
+            }
+        }),
+        getMediaPolicy :  builder.query({
+            query : ()=>{
+                return {
+                    url : '/media',
+                    method : 'GET'
+                }
+            }
+        }),
+        updateMediaPolicy : builder.mutation({
+            query : (data)=>{
+                return {
+                    url  : '/media/update',
+                    method : "PATCH",
+                    body : data
+                }
+            }
+        }),
     })
 })
 
-export const { useGetAllFaqQuery , useCreateFaqMutation  , useDeleteFaqMutation, useGetTermsConditionQuery , useUpdateTermsMutation , useGetPrivacyQuery , useUpdatePrivacyMutation} = settingApi;
+export const { useGetAllFaqQuery , useCreateFaqMutation  , useDeleteFaqMutation, useGetTermsConditionQuery , useUpdateTermsMutation , useGetPrivacyQuery , useUpdatePrivacyMutation , useGetConsumerPolicyQuery , useUpdateConsumerPolicyMutation , useGetMediaPolicyQuery , useUpdateMediaPolicyMutation} = settingApi;

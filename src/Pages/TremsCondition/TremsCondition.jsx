@@ -14,7 +14,7 @@ const TremsCondition = () => {
   const [content, setContent] = useState("");
   const handleTerms = () => {
     const data = {
-      text: "Terms",
+      text: content,
     };
     updateTerms(data).unwrap()
     .then((payload) => toast.success(payload?.message))
@@ -24,7 +24,7 @@ const TremsCondition = () => {
     readonly: false,
     placeholder: "Start typings...",
     style: {
-      height: 400,
+      height: 550,
     },
     buttons: [
       "image",
@@ -42,6 +42,7 @@ const TremsCondition = () => {
   useEffect(() => {
     setContent(getTermsAndCondtion?.data?.text);
   }, [getTermsAndCondtion]);
+
   return (
     <>
       <div className="flex justify-start items-center gap-2 mb-3 relative m-5">
