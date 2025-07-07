@@ -25,7 +25,8 @@ import MediaPolicy from "../Pages/MediaPolicy/MediaPolicy";
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <PrivateRoutes><MainLayout /></PrivateRoutes>,
+        element:<MainLayout />,
+        // element: <PrivateRoutes><MainLayout /></PrivateRoutes>,
         children: [
             {
                 path: '/',

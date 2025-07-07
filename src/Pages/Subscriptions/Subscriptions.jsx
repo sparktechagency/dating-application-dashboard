@@ -102,7 +102,7 @@ const Subscriptions = () => {
     const data = {
       name: singlePlan?.name,
       unitAmount: singlePlan?.fee,
-      description: singlePlan?.description,
+      description:  JSON.stringify(singlePlan?.description, null, 2),
     };
     form.setFieldsValue(data);
   }, [singlePlan]);
@@ -147,7 +147,7 @@ const Subscriptions = () => {
             name={"description"}
             label={<p className="text-[18px]">Description</p>}
           >
-            <TextArea className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+            <TextArea rows={100} className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
           </Form.Item>
           <div className="flex justify-center items-center gap-2 w-full">
             <button type="button"  onClick={()=> setOpenModal(false)} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-sm py-1 text-[20px]">

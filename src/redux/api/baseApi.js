@@ -2,7 +2,7 @@ import img from '../../assets/images/placeholder.png'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const baseQuery = fetchBaseQuery({
-    baseUrl : 'http://182.252.68.230:7001',
+    baseUrl : 'http://10.0.60.147:8000',
     // baseUrl : 'http://10.0.60.118:5050',
     prepareHeaders  :  (headers)=>{
         const token = JSON.parse(localStorage.getItem('token'));
@@ -14,12 +14,13 @@ const baseQuery = fetchBaseQuery({
 })
 
 export const baseApi = createApi({
+    
     reducerPath : 'baseApi',
     baseQuery : baseQuery,
     tagTypes : ["padCastManagement"],
     endpoints : ()=>({})
 })
 // export const imageUrl = "http://10.0.60.118:5050"
-export const imageUrl = "http://182.252.68.230:7001"
+export const imageUrl = "http://10.0.60.147:8000"
 
 export const place = img;

@@ -7,7 +7,7 @@ import { toast } from "sonner";
 const Login = () => {
   // APIs
   const [adminLogin] = useLoginAdminMutation();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   // handle login data
   const onFinish = (values) => {
@@ -19,12 +19,12 @@ const Login = () => {
       .unwrap()
       .then((payload) => {
         if (payload?.data?.accessToken) {
-            toast.success(payload?.message)
-            localStorage.setItem("token",JSON.stringify(payload?.data?.accessToken))
-              navigate("/");
-              
-
-              
+          toast.success(payload?.message);
+          localStorage.setItem(
+            "token",
+            JSON.stringify(payload?.data?.accessToken)
+          );
+          navigate("/");
         }
       })
       .catch((error) => toast.error(error?.data?.message));
