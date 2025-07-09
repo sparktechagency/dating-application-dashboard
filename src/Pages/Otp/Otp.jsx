@@ -20,14 +20,13 @@ const Otp = () => {
     };
     verifyEmail(data)
       .unwrap()
-      .then((payload) => console.log("fulfilled", payload))
+      .then((payload) => {
+        toast.success(payload?.message)
+        navigate("/auth/update-password")
+      })
       .catch((error) =>{
-        console.log(error);
          toast.error(error?.data?.message)
       });
-
-
-    //  /auth/update-password
   };
 
   return (
@@ -112,7 +111,7 @@ const Otp = () => {
         >
           {isLoading ? <Spin /> : "Continue"}
         </Button>
-        <p className="flex  justify-center gap-2">
+        {/* <p className="flex  justify-center gap-2">
           Didn’t receive code?
           <p
             onClick={handleResendCode}
@@ -124,7 +123,7 @@ const Otp = () => {
           >
             Resend{" "}
           </p>
-        </p>
+        </p> */}
       </div>
     </div>
   );

@@ -61,7 +61,7 @@ const authApis = baseApi.injectEndpoints({
             query : (data)=>{
                 return {
                     url : '/admin/reset-password',
-                    method : 'PUT',
+                    method : 'POST',
                     body : data,
                 }
             }
