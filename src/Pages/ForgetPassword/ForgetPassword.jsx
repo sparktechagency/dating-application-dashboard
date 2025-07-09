@@ -14,9 +14,10 @@ const ForgetPassword = () => {
     forgetPassword(data)
       .unwrap()
       .then((payload) => {
-        console.log("fulfilled", payload)
+        // console.log("fulfilled", payload)
         toast.success("Please check you email!")
-        navigate("")
+        localStorage.setItem('email' , values.email)
+        navigate("/auth/otp")
     })
       .catch((error) => toast.error(error?.data?.message));
   };

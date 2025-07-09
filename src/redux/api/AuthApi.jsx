@@ -51,7 +51,7 @@ const authApis = baseApi.injectEndpoints({
         verifyEmail : builder.mutation({
             query : (data)=>{
                 return { 
-                    url : "/admin/verify-email",
+                    url : "/admin/recovery-verification",
                     method :"POST",
                     body : data
                 }
