@@ -1,8 +1,8 @@
-import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Badge } from 'antd';
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useGetAdminProfileQuery } from '../../redux/api/AuthApi';
+import { imageUrl } from '../../redux/api/baseApi';
 const Header = () => {
   const {data : getUser} = useGetAdminProfileQuery()
     const navigate = useNavigate()
@@ -17,7 +17,7 @@ const Header = () => {
         </Link>
     </div>
     <div onClick={() => navigate('/profile')} className='flex justify-end items-center gap-1 border-gray-400 p-[2px] px-4 rounded-md cursor-pointer'>
-        <img className='h-10 w-10 rounded-full' src={getUser?.data?.avatar} alt="" />
+        <img className='h-10 w-10 rounded-full' src={`${imageUrl}/${getUser?.data?.avatar}`} alt="" />
         <p className='font-medium text-white'>{getUser?.data?.name}</p>
     </div>
 </div>

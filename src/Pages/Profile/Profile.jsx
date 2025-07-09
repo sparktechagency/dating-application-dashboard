@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
 import profile from "../../assets/images/admin.png";
 import { IoCameraOutline } from "react-icons/io5";
@@ -16,6 +16,7 @@ const Profile = () => {
   const { data: getAdminProfile } = useGetAdminProfileQuery();
   const [updateProfile] = useUpdateAdminProfileMutation();
   const navigate = useNavigate();
+
 
   const [image, setImage] = useState();
   const [form] = Form.useForm();
@@ -84,6 +85,8 @@ const Profile = () => {
 
   };
 
+  // console.log(`${imageUrl}/${getAdminProfile?.data?.avatar}`);
+
   return (
     <div>
       <div className="rounded-md   bg-[#FEFEFE]">
@@ -100,10 +103,14 @@ const Profile = () => {
               src={`${
                 image
                   ? URL.createObjectURL(image)
-                  : `${getAdminProfile?.data?.avatar}`
+                  : `${imageUrl}/${getAdminProfile?.data?.avatar}`
               }`}
               alt=""
             />
+
+            {/* <p>Hello</p>
+
+            <img src={`${imageUrl}/${getAdminProfile?.data?.avatar}`} alt="" /> */}
 
             {tab === "Profile" && (
               <label
