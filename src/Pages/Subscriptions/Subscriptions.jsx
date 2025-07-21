@@ -19,7 +19,7 @@ const Subscriptions = () => {
   const [updatePlan] = useUpdateSubscriptionPlanMutation();
 
 
-  // console.log(getAllSubscription?.data);
+  console.log(getAllSubscription?.data);
 
 
   const formattedData = getAllSubscription?.data?.map((sub, i) => {

@@ -14,6 +14,8 @@ const Login = () => {
       email: values?.email,
       password: values?.password,
     };
+
+    console.log(data)
     adminLogin(data)
       .unwrap()
       .then((payload) => {

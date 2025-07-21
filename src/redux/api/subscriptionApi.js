@@ -5,7 +5,7 @@ const subscriptionApi = baseApi.injectEndpoints({
         getAllSubscription :  builder.query({
             query : ()=>{
                 return {
-                    url : '/plan',
+                    url : '/subscription-plan/',
                     method : 'GET'
                 }
             },
