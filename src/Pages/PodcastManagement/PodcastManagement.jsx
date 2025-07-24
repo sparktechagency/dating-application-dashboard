@@ -6,7 +6,7 @@ import {
   useGetAllDonePodCastQuery,
   useSelectPodCastPartnerMutation,
 } from "../../redux/api/podcastManagementApi";
-import { place } from "../../redux/api/baseApi";
+import { imageUrl, place } from "../../redux/api/baseApi";
 import { toast } from "sonner";
 const PodcastManagement = () => {
   const [page, setPage] = useState(1);
@@ -110,8 +110,8 @@ const PodcastManagement = () => {
       key: "primaryParticipant",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.primaryParticipantImg ? (
-            <img className="h-10 w-10" src={record?.primaryParticipantImg} alt="" />
+          {!!record?.primaryParticipantImg ? (
+            <img className="h-10 w-10" src={`${imageUrl}/${record?.primaryParticipantImg}`} alt="" />
           ) : (
             <img className="h-10 w-10" src={place} alt="" />
           )}
@@ -126,8 +126,8 @@ const PodcastManagement = () => {
       key: "perticipant1",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.perticipant1Img ? (
-            <img className="h-10 w-10" src={record?.perticipant1Img} alt="" />
+          {!!record?.perticipant1Img ? (
+            <img className="h-10 w-10" src={`${imageUrl}/${record?.perticipant1Img}`} alt="" />
           ) : (
             <img className="h-10 w-10" src={place} alt="" />
           )}
@@ -142,8 +142,8 @@ const PodcastManagement = () => {
       key: "perticipant2",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.perticipant2Img ? (
-            <img className="h-10 w-10" src={record?.perticipant2Img} alt="" />
+          {!!record?.perticipant2Img ? (
+            <img className="h-10 w-10" src={`${imageUrl}/${record?.perticipant2Img}`} alt="" />
           ) : (
             <img src={place} className="h-10 w-10" alt="" />
           )}
@@ -158,8 +158,8 @@ const PodcastManagement = () => {
       key: "perticipant3",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.perticipant3Img ? (
-            <img src={record?.perticipant3Img} className="h-10 w-10" alt="" />
+          {!!record?.perticipant3Img ? (
+            <img src={`${imageUrl}/${record?.perticipant3Img}`} className="h-10 w-10" alt="" />
           ) : (
             <img src={place} className="h-10 w-10" alt="" />
           )}
@@ -174,8 +174,8 @@ const PodcastManagement = () => {
       key: "perticipant4",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.perticipant4Img ? (
-            <img className="h-10 w-10" src={record?.perticipant4Img} alt="" />
+          {!!record?.perticipant4Img ? (
+            <img className="h-10 w-10" src={`${imageUrl}/${record?.perticipant4Img}`} alt="" />
           ) : (
             <img className="h-10 w-10" src={place} alt="" />
           )}
@@ -273,9 +273,9 @@ const PodcastManagement = () => {
                 checked={selectedParticipantId === participant.id}
                 onChange={() => handleCheckboxChange(participant.id)}
               />
-              {participant.img ? (
+              {!!participant.img ? (
                 <img
-                  src={participant.img}
+                  src={`${imageUrl}/${participant.img}`}
                   alt={participant.name}
                   className="h-10 w-10"
                 />

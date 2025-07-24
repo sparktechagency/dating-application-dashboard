@@ -11,7 +11,7 @@ const podcastManagement = baseApi.injectEndpoints({
             },
             providesTags : ['schedule']
         }),
-        selectPodCastPartner : builder.mutation({
+        selectPodCastPartner : builder.mutation({ 
             query : (data)=>{
                 return {
                     url : '/podcast/select-user',

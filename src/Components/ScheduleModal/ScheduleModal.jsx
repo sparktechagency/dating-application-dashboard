@@ -10,7 +10,7 @@ const ScheduleModal = ({ openScheduleModal, setScheduleModal, podCastId }) => {
   const [schedulePodCast] = useSchedulePodCastMutation();
   const onFinish = (values) => {
     const selectedDateTime = values.scheduleDateTime;
-    const formattedDate = dayjs(selectedDateTime).format("YYYY-MM-DD");
+    const formattedDate = dayjs(selectedDateTime).format("MM/DD/YYYY");
 
     // Format the time in AM/PM
     const formattedTime = dayjs(selectedDateTime).format("hh:mm A");
@@ -18,6 +18,7 @@ const ScheduleModal = ({ openScheduleModal, setScheduleModal, podCastId }) => {
 
     const data = {
       podcastId: podCastId,
+      status: "Scheduled",
       date: formattedDate,
       time: formattedTime,
       day : dayName

@@ -2,11 +2,11 @@ import { Table } from "antd";
 import React, { useState } from "react";
 import { LuCalendarClock } from "react-icons/lu";
 import ScheduleModal from "../ScheduleModal/ScheduleModal";
-import { place } from "../../redux/api/baseApi";
+import { imageUrl, place } from "../../redux/api/baseApi";
 import { usePodcastDoneMutation } from "../../redux/api/podcastManagementApi";
 import { toast } from "sonner";
 
-const ProfileUpdateRequest = ({ dataSource }) => {
+const ScheduleUpdateRequest = ({ dataSource }) => {
   const [openScheduleModal, setScheduleModal] = useState(false);
   const [podCastId, setPodCastId] = useState("");
   //
@@ -24,6 +24,10 @@ const ProfileUpdateRequest = ({ dataSource }) => {
       .catch((error) => toast.error(error?.data?.message));
   };
 
+  const handleSetSchedule = (id) => {
+    
+  };
+
   const columns = [
     {
       title: "Podcast ID",
@@ -36,8 +40,8 @@ const ProfileUpdateRequest = ({ dataSource }) => {
       key: "PrimaryParticipant",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.PrimaryParticipant ? (
-            <img className="h-12 w-12" src={record?.PrimaryParticipant} alt="" />
+          {!!record?.PrimaryParticipant ? (
+            <img className="h-12 w-12" src={`${imageUrl}/${record?.PrimaryParticipant}`} alt="" /> 
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
@@ -52,8 +56,8 @@ const ProfileUpdateRequest = ({ dataSource }) => {
       key: "perticipant1",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.perticipant2Img ? (
-            <img className="h-12 w-12" src={record?.perticipant2Img} alt="" />
+          {!!record?.perticipant2Img ? (
+            <img className="h-12 w-12" src={`${imageUrl}/${record?.perticipant2Img}`} alt="" />
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
@@ -64,12 +68,12 @@ const ProfileUpdateRequest = ({ dataSource }) => {
     },
     {
       title: "Perticipant-2",
-      dataIndex: "perticipant2",
+      dataIndex: "perticipant2", 
       key: "perticipant2",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.perticipant3Img ? (
-            <img className="h-12 w-12" src={record?.perticipant3Img} alt="" />
+          {!!record?.perticipant3Img ? (
+            <img className="h-12 w-12" src={`${imageUrl}/${record?.perticipant3Img}`} alt="" />
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
@@ -84,8 +88,8 @@ const ProfileUpdateRequest = ({ dataSource }) => {
       key: "perticipant3",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.perticipant4Img ? (
-            <img className="h-12 w-12" src={record?.perticipant4Img} alt="" />
+          {!!record?.perticipant4Img ? (
+            <img className="h-12 w-12" src={`${imageUrl}/${record?.perticipant4Img}`} alt="" />
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
@@ -99,8 +103,8 @@ const ProfileUpdateRequest = ({ dataSource }) => {
       key: "perticipant4",
       render: (_, record) => (
         <div className="flex  items-center gap-2">
-          {record?.perticipant1Img ? (
-            <img className="h-12 w-12" src={record?.perticipant1Img} alt="" />
+          {!!record?.perticipant1Img ? (
+            <img className="h-12 w-12" src={`${imageUrl}/${record?.perticipant1Img}`} alt="" />
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
@@ -120,6 +124,20 @@ const ProfileUpdateRequest = ({ dataSource }) => {
         </p>
       ),
     },
+    {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (text) => {
+        if (text === "ReqScheduled") {
+          return "Req Scheduled";
+        } else if (text === "NotScheduled") {
+          return "Not Scheduled";
+        } else {
+          return text;
+        }
+      },
+    },
 
     {
       title: "Set Schedule",
@@ -138,7 +156,7 @@ const ProfileUpdateRequest = ({ dataSource }) => {
       ),
     },
     {
-      title: "Done",
+      title: "Action",
       dataIndex: "done",
       key: "done",
       render: (_, record) => (
@@ -170,4 +188,4 @@ const ProfileUpdateRequest = ({ dataSource }) => {
   );
 };
 
-export default ProfileUpdateRequest;
+export default ScheduleUpdateRequest;

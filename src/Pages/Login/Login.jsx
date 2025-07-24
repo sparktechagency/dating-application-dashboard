@@ -30,6 +30,7 @@ const Login = () => {
       })
       .catch((error) => toast.error(error?.data?.message));
   };
+  
   return (
     <div
       className="gap-0 flex-col flex justify-center items-center"

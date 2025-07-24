@@ -21,6 +21,6 @@ export const baseApi = createApi({
     endpoints : ()=>({})
 })
 // export const imageUrl = "http://10.0.60.118:5050"
-export const imageUrl = "http://http://10.10.10.59:8000"
+export const imageUrl = "http://10.10.10.59:8000"
 
 export const place = img;

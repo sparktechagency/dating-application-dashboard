@@ -9,7 +9,7 @@ import {
 } from "../../redux/api/AuthApi";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { imageUrl } from "../../redux/api/baseApi";
+import { imageUrl } from "../../redux/api/baseApi"; 
 const Profile = () => {
   // APIs
   const [changePassword] = useChangePasswordMutation();
@@ -72,12 +72,12 @@ const Profile = () => {
     formData.append("name", values?.name);
     formData.append("contact", values?.contact);
     formData.append("address", values?.address);
-    // const data = {
-    //   profile_image: image,
-    //   name: values.name,
-    //   contact: values.contact,
-    //   address: values.address,
-    // };
+    const data = {
+      profile_image: image,
+      name: values.name,
+      contact: values.contact,
+      address: values.address,
+    };
     updateProfile(formData)
       .unwrap()
       .then((payload) => toast.success(payload?.message))
@@ -100,17 +100,13 @@ const Profile = () => {
             />
             <img
               style={{ width: 140, height: 140, borderRadius: "100%" }}
-              src={`${
+              src={
                 image
                   ? URL.createObjectURL(image)
                   : `${imageUrl}/${getAdminProfile?.data?.avatar}`
-              }`}
+              }
               alt=""
             />
-
-            {/* <p>Hello</p>
-
-            <img src={`${imageUrl}/${getAdminProfile?.data?.avatar}`} alt="" /> */}
 
             {tab === "Profile" && (
               <label

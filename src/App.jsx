@@ -1,7 +1,6 @@
 
 import IncomeOverview from './Components/IncomeOverview/IncomeOverview'
 import { Link } from 'react-router-dom'
-import ProfileUpdateRequest from './Components/ProfileUpdateRequest/ProfileUpdateRequest'
 import './app.css'
 import profile from './assets/images/profileuser.png'
 import medal from './assets/images/medal.png'
@@ -9,6 +8,7 @@ import profit from './assets/images/profits.png'
 import mic from './assets/images/microphone.png'
 import UserGrowthChart from './Components/UserGrowthChart/UserGrowthChart'
 import { useGetAllNewPodcastQuery, useGetAllPodcastQuery, useGetAnalyticsQuery } from './redux/api/DahsboardHomeApi'
+import ScheduleUpdateRequest from './Components/ScheduleUpdateRequest/ScheduleUpdateRequest'
 function App() {
   // All APIs
   const {data : getAnalytics} = useGetAnalyticsQuery()
@@ -60,10 +60,19 @@ function App() {
         perticipant1Img:   pod?.participants[3]?.avatar,
         scheduleDate : pod?.schedule?.date,
         scheduleTime : pod?.schedule?.time,
-        scheduleDay : pod?.schedule?.day
+        scheduleDay : pod?.schedule?.day,
+        status: pod?.status
       }
     )
-  })
+  }).sort((a, b) => {
+    if (a.status === "ReqScheduled" && b.status !== "ReqScheduled") {
+      return -1;
+    } else if (a.status !== "ReqScheduled" && b.status === "ReqScheduled") {
+      return 1;
+    } else {
+      return 0;
+    }
+  });
 
 
 
@@ -109,7 +118,7 @@ function App() {
           </Link>
         </div>
 
-        <ProfileUpdateRequest dataSource={formattedData} />
+        <ScheduleUpdateRequest dataSource={formattedData} />
       </div>
 
 

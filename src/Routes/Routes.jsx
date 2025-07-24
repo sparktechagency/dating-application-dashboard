@@ -7,7 +7,6 @@ import Profile from "../Pages/Profile/Profile";
 import TremsCondition from "../Pages/TremsCondition/TremsCondition";
 import PrivacyPolicy from "../Pages/PrivacyPolicy/PrivacyPolicy";
 import FAQ from "../Pages/FAQ/FAQ";
-import ProfileUpdatePage from "../Pages/ProfileUpdatePage/ProfileUpdatePage";
 import Login from "../Pages/Login/Login";
 import ForgetPassword from "../Pages/ForgetPassword/ForgetPassword";
 import Otp from "../Pages/Otp/Otp";
@@ -21,6 +20,7 @@ import Administrator from "../Pages/Administrator/Administrator";
 import PrivateRoutes from "../Components/PrivateRoute/PrivateRoute";
 import ConsumerPolicy from "../Pages/ConsumerPolicy/ConsumerPolicy";
 import MediaPolicy from "../Pages/MediaPolicy/MediaPolicy";
+import ScheduleRequest from "../Pages/ScheduleRequestPage/ScheduleRequest";
 
 export const router = createBrowserRouter([
     {
@@ -76,7 +76,7 @@ export const router = createBrowserRouter([
             },
             {
                 path: '/schedule-request',
-                element: <ProfileUpdatePage />
+                element: <ScheduleRequest /> 
             },
             {
                 path: '/privacy-policy',

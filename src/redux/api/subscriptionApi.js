@@ -14,12 +14,12 @@ const subscriptionApi = baseApi.injectEndpoints({
         updateSubscriptionPlan :  builder.mutation({
             query : ({id , data})=>{
                 return {
-                    url : `/plan/update/${id}`,
+                    url : `/subscription-plan/update/${id}`,
                     method : 'PUT',
                     body : data,
                 }
             },
-            invalidatesTags : ['subscription']
+            invalidatesTags : ['subscription'] 
         })
     })
 })

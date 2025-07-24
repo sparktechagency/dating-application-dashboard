@@ -30,7 +30,7 @@ const dashboardApi = baseApi.injectEndpoints({
         getAllPodcast : builder.query({
             query : (page)=>{
                 return {
-                    url : `/podcast/get-new-podcasts?page=${page}&limit=10`,
+                    url : `/podcast/get-new-podcasts?page=&${page}&limit=10`,
                     method : 'GET'
                 }
             },
@@ -39,7 +39,7 @@ const dashboardApi = baseApi.injectEndpoints({
         getAllNewPodcast : builder.query({
             query : (page)=>{
                 return {
-                    url : `/podcast?status=upcoming?page=${page}`,
+                    url : `/podcast?status=upcoming&page=${page}&limit=10`,
                     method : 'GET'
                 }
             },
