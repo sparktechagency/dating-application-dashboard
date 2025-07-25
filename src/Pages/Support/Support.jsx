@@ -5,14 +5,12 @@ import { FaArrowLeft } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { LuReply } from "react-icons/lu";
 import { Link } from "react-router-dom";
-import img from "../../assets/images/user1.png";
-import img2 from "../../assets/images/user2.png";
 import TextArea from "antd/es/input/TextArea";
 import {
   useGetAllSupportMessageQuery,
   useSupportMessageMutation,
 } from "../../redux/api/supportApi";
-import { place } from "../../redux/api/baseApi";
+import { imageUrl, place } from "../../redux/api/baseApi";
 import { toast } from "sonner";
 
 const Support = () => {
@@ -50,8 +48,8 @@ const Support = () => {
       render: (_, record) => {
         return (
           <div className="flex items-center gap-2">
-            {record?.img ? (
-              <img className="h-12 w-12" src={record?.img} alt="" />
+            {!!record?.img ? (
+              <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.img}`} alt="" />
             ) : (
               <img className="h-12 w-12" src={place} />
             )}

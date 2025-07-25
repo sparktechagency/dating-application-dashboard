@@ -1,11 +1,11 @@
 import { Checkbox, Modal, Pagination, Table } from "antd";
 import React, { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
+import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {
   useGetAllDonePodCastQuery,
-  useSelectPodCastPartnerMutation,
-  useGetPodcastRecordingQuery,
+  useSelectPodCastPartnerMutation
 } from "../../redux/api/podcastManagementApi";
 import { imageUrl, place } from "../../redux/api/baseApi";
 
@@ -14,7 +14,7 @@ const PodcastManagement = () => {
   const [page, setPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const [chooseUser, setChooseUser] = useState();
-  const [selectedParticipantId, setSelectedParticipantId] = useState([]);
+  const [selectedParticipantId, setSelectedParticipantId] = useState([]); 
   const [podCastId, setPodCastId] = useState("");
 
   const handleCheckboxChange = (participantId) => {
@@ -43,15 +43,19 @@ const PodcastManagement = () => {
       perticipant1: pod?.participants[0]?.user?.name || "N/A",
       perticipant1Id: pod?.participants[0]?.user?._id,
       perticipant1Img: pod?.participants[0]?.user?.avatar,
+      perticipant1IsAllowed: pod?.participants[0]?.isAllow,
       perticipant2: pod?.participants[1]?.user?.name || "N/A",
       participant2Id: pod?.participants[1]?.user?._id,
       perticipant2Img: pod?.participants[1]?.user?.avatar,
+      perticipant2IsAllowed: pod?.participants[1]?.isAllow,
       participant3Id: pod?.participants[2]?.user?._id,
       perticipant3: pod?.participants[2]?.user?.name || "N/A",
       perticipant3Img: pod?.participants[2]?.user?.avatar,
+      perticipant3IsAllowed: pod?.participants[2]?.isAllow,
       participant4Id: pod?.participants[3]?.user?._id,
       perticipant4Img: pod?.participants[3]?.user?.avatar,
       perticipant4: pod?.participants[3]?.user?.name || "N/A",
+      perticipant4IsAllowed: pod?.participants[3]?.isAllow,
       date: pod?.schedule?.date?.split("T")[0] || "NO Date",
       record: pod?.recordingUrl || "N/A",
     };
@@ -158,6 +162,7 @@ const PodcastManagement = () => {
           )}
 
           <p className="font-medium">{record?.perticipant1}</p>
+          {record?.perticipant1IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
         </div>
       ),
     },
@@ -173,6 +178,7 @@ const PodcastManagement = () => {
             <img src={place} className="h-10 w-10" alt="" />
           )}
           <p className="font-medium">{record?.perticipant2}</p>
+          {record?.perticipant2IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
         </div>
       ),
     },
@@ -190,6 +196,7 @@ const PodcastManagement = () => {
           )}
 
           <p className="font-medium">{record?.perticipant3}</p>
+          {record?.perticipant3IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
         </div>
       ),
     },
@@ -206,6 +213,7 @@ const PodcastManagement = () => {
           )}
 
           <p className="font-medium">{record?.perticipant4}</p>
+          {record?.perticipant4IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
         </div>
       ),
     },

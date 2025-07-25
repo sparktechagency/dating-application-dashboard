@@ -18,7 +18,8 @@ const podcastManagement = baseApi.injectEndpoints({
                     method : 'POST',
                     body : data
                 }
-            }
+            },
+            invalidatesTags : ['schedule']
         }),
         schedulePodCast : builder.mutation({
             query : (data)=>{
