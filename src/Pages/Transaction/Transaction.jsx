@@ -2,11 +2,9 @@ import { Pagination, Table } from "antd";
 import React, { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
-import img1 from "../../assets/images/user1.png";
-import img2 from "../../assets/images/user2.png";
 import { FaArrowLeft } from "react-icons/fa";
 import { useGetPremiumUsersQuery } from "../../redux/api/premiumSubscriber";
-import { place } from "../../redux/api/baseApi";
+import { imageUrl, place } from "../../redux/api/baseApi";
 
 const Transaction = () => {
   const [page, setPage] = useState(1);
@@ -29,7 +27,7 @@ const Transaction = () => {
       render: (_, record) => (
         <div className="flex items-center gap-2">
           {record?.img ? (
-            <img className="h-12 w-12" src={record?.img} alt="" />
+            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record.img}`} alt="" />
           ) : (
             <img className="h-12 w-12" src={place} />
           )}

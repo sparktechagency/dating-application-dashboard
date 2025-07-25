@@ -1,19 +1,16 @@
 import {
-  Checkbox,
   Form,
   Input,
   Modal,
   Pagination,
   Radio,
-  Select,
   Table,
 } from "antd";
 import React, { useEffect, useState } from "react";
-import { CiCamera, CiSearch } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci";
 import { FaArrowLeft } from "react-icons/fa";
 import { FiPlus } from "react-icons/fi";
 import { Link } from "react-router-dom";
-import img from "../../assets/images/admin.png";
 import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBinLine } from "react-icons/ri";
 import {
@@ -22,7 +19,7 @@ import {
   useGetAllAdministratorQuery,
   useUpdateAdministratorMutation,
 } from "../../redux/api/administratorApi";
-import { place } from "../../redux/api/baseApi";
+import { imageUrl, place } from "../../redux/api/baseApi";
 import { toast } from "sonner";
 const Administrator = () => {
   const [search, setSearch] = useState("");
@@ -30,14 +27,14 @@ const Administrator = () => {
   const [form] = Form.useForm();
   const [openModal, setOpenModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState(false);
-  const { data: getAllAdministrator } = useGetAllAdministratorQuery({
+  const { data: getAllAdministrator } = useGetAllAdministratorQuery({ 
     page,
     search,
   });
   const [createAdministrator] = useCreateAdministratorMutation();
   const [deleteAdmin] = useDeleteAdministrationMutation();
   const [updateAdministrator] = useUpdateAdministratorMutation();
-  const [singleAdmin, setSingleAdmin] = useState({});
+  const [singleAdmin, setSingleAdmin] = useState({}); 
 
   const options = [
     "All",
@@ -82,7 +79,17 @@ const Administrator = () => {
       render: (_, record) => {
         return (
           <div className="flex items-center gap-2">
-            <img className="h-12 w-12 rounded-sm" src={record?.img} alt="" />
+            {/* {
+              !!record?.img ? (
+                <img
+                  className="h-12 w-12 rounded-lg"
+                  src={`${imageUrl}/${record?.img}` || `${imageUrl}${record?.img}`}
+                  alt=""
+                />
+              ) : (
+                <img className="h-12 w-12" src={place} />
+              )
+            } */}
             <p>{record?.name}</p>
           </div>
         );

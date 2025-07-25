@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { MdBlock, MdOutlineMessage } from "react-icons/md";
 import { RiBarChartFill } from "react-icons/ri";
 import { Link } from "react-router-dom";
-import { place } from "../redux/api/baseApi";
+import { imageUrl, place } from "../redux/api/baseApi";
 import {
   useBlockUnblockUserMutation,
   useSendMessageMutation,
@@ -15,7 +15,7 @@ const GuestHostInfo = ({ dataSource }) => {
   const [userId, setUserId] = useState("");
   // ALL APIs
   const [sendMessage] = useSendMessageMutation();
-  const [blockUnblockUser] = useBlockUnblockUserMutation();
+  const [blockUnblockUser] = useBlockUnblockUserMutation(); 
 
 
   const [form] = Form.useForm();
@@ -33,9 +33,9 @@ const GuestHostInfo = ({ dataSource }) => {
       render: (_, record) => {
         return (
           <div className="flex items-center gap-2">
-            {record?.img ? (
+            {!!record?.img ? (
               <img
-                src={record?.img}
+                src={`${imageUrl}${record.img}`}
                 className="w-[40px] h-[40px] rounded-md"
                 alt=""
               />

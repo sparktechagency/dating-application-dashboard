@@ -240,6 +240,7 @@ const navigate = useNavigate()
   const handleLogOut = () => {
     localStorage.removeItem("token");
     navigate("/auth/login");
+    window.location.reload();
   };
 
   return (

@@ -12,12 +12,15 @@ const PodcastManagement = () => {
   const [page, setPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const [chooseUser, setChooseUser] = useState();
-  const [selectedParticipantId, setSelectedParticipantId] = useState(null);
-  const [podCastId, setPodCastId] = useState("");
+  const [selectedParticipantId, setSelectedParticipantId] = useState([]);
+  const [podCastId, setPodCastId] = useState(""); 
 
   const handleCheckboxChange = (participantId) => {
-    setSelectedParticipantId(participantId);
-    // console.log(participantId);
+    setSelectedParticipantId((prevSelected) =>
+      prevSelected.includes(participantId)
+        ? prevSelected.filter((id) => id !== participantId)
+        : [...prevSelected, participantId]
+    );
   };
 
 
@@ -31,28 +34,26 @@ const PodcastManagement = () => {
       key: i + 1,
       id: pod?._id,
       primaryParticipantId : pod?.primaryUser?._id, 
-      primaryParticipantName : pod?.primaryUser?.name, 
+      primaryParticipantName : pod?.primaryUser?.name || "N/A", 
       primaryParticipantImg : pod?.primaryUser?.avatar,
-      perticipant1: pod?.participants[0]?.name,
-      perticipant1Id: pod?.participants[0]?._id,
-      perticipant1Img:pod?.participants[0]?.avatar,
-      perticipant2: pod?.participants[1]?.name,
-      participant2Id: pod?.participants[1]?._id,
-      perticipant2Img: pod?.participants[1]?.avatar,
-      participant3Id: pod?.participants[2]?._id,
-      perticipant3: pod?.participants[2]?.name,
-      perticipant3Img: pod?.participants[2]?.avatar,
-      participant4Id: pod?.participants[3]?._id,
-      perticipant4Img:pod?.participants[3]?.avatar,
-      perticipant4: pod?.participants[3]?.name,
+      perticipant1: pod?.participants[0]?.user?.name || "N/A",
+      perticipant1Id: pod?.participants[0]?.user?._id,
+      perticipant1Img:pod?.participants[0]?.user?.avatar,
+      perticipant2: pod?.participants[1]?.user?.name || "N/A",
+      participant2Id: pod?.participants[1]?.user?._id,
+      perticipant2Img: pod?.participants[1]?.user?.avatar,
+      participant3Id: pod?.participants[2]?.user?._id,
+      perticipant3: pod?.participants[2]?.user?.name || "N/A",
+      perticipant3Img: pod?.participants[2]?.user?.avatar,
+      participant4Id: pod?.participants[3]?.user?._id,
+      perticipant4Img:pod?.participants[3]?.user?.avatar,
+      perticipant4: pod?.participants[3]?.user?.name || "N/A",
       date: pod?.schedule?.date?.split("T")[0] || "NO Date",
-      record: pod?.recordingUrl,
+      record: pod?.recordingUrl || "N/A",
     };
   });
+  
 
-
-
-  // console.log(chooseUser?.perticipant1Id);
 
   const participants = [
     {
@@ -82,7 +83,7 @@ const PodcastManagement = () => {
   const handleSelectedParticipant = () => {
     const data = {
       podcastId: podCastId,
-      selectedUserId: selectedParticipantId,
+      selectedUserId: selectedParticipantId.map(id => ({ user: id }))
     };
     selectedPartner(data)
       .unwrap()
@@ -111,7 +112,7 @@ const PodcastManagement = () => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.primaryParticipantImg ? (
-            <img className="h-10 w-10" src={`${imageUrl}/${record?.primaryParticipantImg}`} alt="" />
+            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt=""/>
           ) : (
             <img className="h-10 w-10" src={place} alt="" />
           )}
@@ -127,7 +128,7 @@ const PodcastManagement = () => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant1Img ? (
-            <img className="h-10 w-10" src={`${imageUrl}/${record?.perticipant1Img}`} alt="" />
+            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt=""/>
           ) : (
             <img className="h-10 w-10" src={place} alt="" />
           )}
@@ -143,7 +144,7 @@ const PodcastManagement = () => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant2Img ? (
-            <img className="h-10 w-10" src={`${imageUrl}/${record?.perticipant2Img}`} alt="" />
+            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt=""/>
           ) : (
             <img src={place} className="h-10 w-10" alt="" />
           )}
@@ -159,12 +160,12 @@ const PodcastManagement = () => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant3Img ? (
-            <img src={`${imageUrl}/${record?.perticipant3Img}`} className="h-10 w-10" alt="" />
+            <img src={`${imageUrl}${record?.perticipant3Img}`} className="h-10 w-10 rounded-lg" alt=""/>
           ) : (
             <img src={place} className="h-10 w-10" alt="" />
           )}
 
-          <p className="font-medium">{record?.perticipant2}</p>
+          <p className="font-medium">{record?.perticipant3}</p>
         </div>
       ),
     },
@@ -175,7 +176,7 @@ const PodcastManagement = () => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant4Img ? (
-            <img className="h-10 w-10" src={`${imageUrl}/${record?.perticipant4Img}`} alt="" />
+            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt=""/>
           ) : (
             <img className="h-10 w-10" src={place} alt="" />
           )}
@@ -270,14 +271,14 @@ const PodcastManagement = () => {
               className="flex px-24 items-center gap-4 mb-4"
             >
               <Checkbox
-                checked={selectedParticipantId === participant.id}
+                checked={selectedParticipantId.includes(participant.id)}
                 onChange={() => handleCheckboxChange(participant.id)}
               />
               {!!participant.img ? (
                 <img
-                  src={`${imageUrl}/${participant.img}`}
+                  src={`${imageUrl}${participant.img}`}
                   alt={participant.name}
-                  className="h-10 w-10"
+                  className="h-10 w-10 rounded-lg"
                 />
               ) : (
                 <img src={place} alt="default" className="h-10 w-10" />
@@ -289,6 +290,7 @@ const PodcastManagement = () => {
         <button
           onClick={() => handleSelectedParticipant()}
           className="bg-[#FFA175] flex w-full justify-center items-center text-white py-2 rounded-sm"
+          disabled={selectedParticipantId.length === 0}
         >
           Choose
         </button>

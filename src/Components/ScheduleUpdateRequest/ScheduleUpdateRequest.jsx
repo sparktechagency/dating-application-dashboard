@@ -41,7 +41,7 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.PrimaryParticipant ? (
-            <img className="h-12 w-12" src={`${imageUrl}/${record?.PrimaryParticipant}`} alt="" /> 
+            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.PrimaryParticipant}`} alt="" /> 
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
@@ -57,7 +57,7 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant2Img ? (
-            <img className="h-12 w-12" src={`${imageUrl}/${record?.perticipant2Img}`} alt="" />
+            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt="" />
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
@@ -73,7 +73,7 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant3Img ? (
-            <img className="h-12 w-12" src={`${imageUrl}/${record?.perticipant3Img}`} alt="" />
+            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.perticipant3Img}`} alt="" />
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
@@ -89,7 +89,7 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant4Img ? (
-            <img className="h-12 w-12" src={`${imageUrl}/${record?.perticipant4Img}`} alt="" />
+            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt="" />
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
@@ -104,7 +104,7 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant1Img ? (
-            <img className="h-12 w-12" src={`${imageUrl}/${record?.perticipant1Img}`} alt="" />
+            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt="" />
           ) : (
             <img className="h-12 w-12" src={place} alt="" />
           )}
