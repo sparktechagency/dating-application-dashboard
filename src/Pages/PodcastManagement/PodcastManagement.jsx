@@ -5,15 +5,17 @@ import { Link } from "react-router-dom";
 import {
   useGetAllDonePodCastQuery,
   useSelectPodCastPartnerMutation,
+  useGetPodcastRecordingQuery,
 } from "../../redux/api/podcastManagementApi";
 import { imageUrl, place } from "../../redux/api/baseApi";
+
 import { toast } from "sonner";
 const PodcastManagement = () => {
   const [page, setPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
   const [chooseUser, setChooseUser] = useState();
   const [selectedParticipantId, setSelectedParticipantId] = useState([]);
-  const [podCastId, setPodCastId] = useState(""); 
+  const [podCastId, setPodCastId] = useState("");
 
   const handleCheckboxChange = (participantId) => {
     setSelectedParticipantId((prevSelected) =>
@@ -27,18 +29,20 @@ const PodcastManagement = () => {
   const { data: getAllDonePodcast } = useGetAllDonePodCastQuery(page);
   const [selectedPartner] = useSelectPodCastPartnerMutation();
 
+  
+
   // console.log(getAllDonePodcast?.data?.pagination);
 
   const formattedData = getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
     return {
       key: i + 1,
       id: pod?._id,
-      primaryParticipantId : pod?.primaryUser?._id, 
-      primaryParticipantName : pod?.primaryUser?.name || "N/A", 
-      primaryParticipantImg : pod?.primaryUser?.avatar,
+      primaryParticipantId: pod?.primaryUser?._id,
+      primaryParticipantName: pod?.primaryUser?.name || "N/A",
+      primaryParticipantImg: pod?.primaryUser?.avatar,
       perticipant1: pod?.participants[0]?.user?.name || "N/A",
       perticipant1Id: pod?.participants[0]?.user?._id,
-      perticipant1Img:pod?.participants[0]?.user?.avatar,
+      perticipant1Img: pod?.participants[0]?.user?.avatar,
       perticipant2: pod?.participants[1]?.user?.name || "N/A",
       participant2Id: pod?.participants[1]?.user?._id,
       perticipant2Img: pod?.participants[1]?.user?.avatar,
@@ -46,13 +50,13 @@ const PodcastManagement = () => {
       perticipant3: pod?.participants[2]?.user?.name || "N/A",
       perticipant3Img: pod?.participants[2]?.user?.avatar,
       participant4Id: pod?.participants[3]?.user?._id,
-      perticipant4Img:pod?.participants[3]?.user?.avatar,
+      perticipant4Img: pod?.participants[3]?.user?.avatar,
       perticipant4: pod?.participants[3]?.user?.name || "N/A",
       date: pod?.schedule?.date?.split("T")[0] || "NO Date",
       record: pod?.recordingUrl || "N/A",
     };
   });
-  
+
 
 
   const participants = [
@@ -94,6 +98,26 @@ const PodcastManagement = () => {
       .catch((error) => toast.error(error?.data?.message));
   };
 
+  const handleDownload = async (id) => {
+    try {
+      const token = JSON.parse(localStorage.getItem('token'));
+      const headers = {
+        'Authorization': `Bearer ${token}`,
+      };
+      const response = await fetch(`${imageUrl}/podcast/record-get-podcast/${id}`, { headers });
+      const result = await response.json();
+      if (result?.success && result?.data?.findPodcastId && result.data.findPodcastId.length > 0 && result.data.findPodcastId[0]?.recordingUrl) {
+        const downloadUrl = `${imageUrl}${result.data.findPodcastId[0].recordingUrl}`;
+        window.open(downloadUrl, '_blank');
+      } else {
+        toast.error("No recording found.");
+      }
+    } catch (error) {
+      console.error("Download error:", error);
+      toast.error("Failed to fetch recording URL.");
+    }
+  };
+
   const columns = [
     {
       title: "Podcast ID",
@@ -112,7 +136,7 @@ const PodcastManagement = () => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.primaryParticipantImg ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt=""/>
+            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
           ) : (
             <img className="h-10 w-10" src={place} alt="" />
           )}
@@ -128,7 +152,7 @@ const PodcastManagement = () => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant1Img ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt=""/>
+            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt="" />
           ) : (
             <img className="h-10 w-10" src={place} alt="" />
           )}
@@ -144,7 +168,7 @@ const PodcastManagement = () => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant2Img ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt=""/>
+            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt="" />
           ) : (
             <img src={place} className="h-10 w-10" alt="" />
           )}
@@ -160,7 +184,7 @@ const PodcastManagement = () => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant3Img ? (
-            <img src={`${imageUrl}${record?.perticipant3Img}`} className="h-10 w-10 rounded-lg" alt=""/>
+            <img src={`${imageUrl}${record?.perticipant3Img}`} className="h-10 w-10 rounded-lg" alt="" />
           ) : (
             <img src={place} className="h-10 w-10" alt="" />
           )}
@@ -176,7 +200,7 @@ const PodcastManagement = () => {
       render: (_, record) => (
         <div className="flex  items-center gap-2">
           {!!record?.perticipant4Img ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt=""/>
+            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt="" />
           ) : (
             <img className="h-10 w-10" src={place} alt="" />
           )}
@@ -208,11 +232,12 @@ const PodcastManagement = () => {
       key: "recording",
       render: (_, record) => (
         <div className="text-[#FFA175]  inline-block text-center p-1 rounded-md cursor-pointer">
-          <a href={record?.record} target="_blank" rel="noopener noreferrer" >
-            <button className="bg-blue-500 text-white px-3 py-1 rounded-md">
-              Download
-            </button>
-          </a>
+          <button
+            onClick={() => handleDownload(record?.id)}
+            className="bg-blue-500 text-white px-3 py-1 rounded-md"
+          >
+            Download
+          </button>
         </div>
       ),
     },
@@ -267,30 +292,30 @@ const PodcastManagement = () => {
         <div>
           {participants.filter((participant) => participant.id !== undefined)?.map((participant) => (
             <div
-              key={participant.id}
+              key={participant?.id}
               className="flex px-24 items-center gap-4 mb-4"
             >
               <Checkbox
-                checked={selectedParticipantId.includes(participant.id)}
-                onChange={() => handleCheckboxChange(participant.id)}
+                checked={selectedParticipantId.includes(participant?.id)}
+                onChange={() => handleCheckboxChange(participant?.id)}
               />
-              {!!participant.img ? (
+              {!!participant?.img ? (
                 <img
-                  src={`${imageUrl}${participant.img}`}
-                  alt={participant.name}
+                  src={`${imageUrl}${participant?.img}`}
+                  alt={participant?.name}
                   className="h-10 w-10 rounded-lg"
                 />
               ) : (
                 <img src={place} alt="default" className="h-10 w-10" />
               )}
-              <p>{participant.name}</p>
+              <p>{participant?.name}</p>
             </div>
           ))}
         </div>
         <button
           onClick={() => handleSelectedParticipant()}
           className="bg-[#FFA175] flex w-full justify-center items-center text-white py-2 rounded-sm"
-          disabled={selectedParticipantId.length === 0}
+          disabled={selectedParticipantId?.length === 0}
         >
           Choose
         </button>

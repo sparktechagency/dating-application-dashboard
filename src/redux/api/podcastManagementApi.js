@@ -39,8 +39,16 @@ const podcastManagement = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags : ['padCastManagement']
+        }),
+        getPodcastRecording : builder.query({
+            query : (id)=>{
+                return {
+                    url : `/podcast/record-get-podcast/${id}`,
+                    method : 'GET'
+                }
+            }
         })
     })
 })
 
-export const { useGetAllDonePodCastQuery , useSelectPodCastPartnerMutation , useSchedulePodCastMutation , usePodcastDoneMutation } = podcastManagement;
+export const { useGetAllDonePodCastQuery , useSelectPodCastPartnerMutation , useSchedulePodCastMutation , usePodcastDoneMutation , useGetPodcastRecordingQuery } = podcastManagement;
