@@ -66,6 +66,7 @@ const DeliveryDetails = () => {
     };
   });
 
+
   // Handle minimum age function
   const handleMinAge = (value) => {
     setMinAge(value);
@@ -108,7 +109,7 @@ const DeliveryDetails = () => {
               allowClear
               onChange={handleMinAge}
             >
-              {ageOptions.map((age) => (
+              {ageOptions?.map((age) => (
                 <Option key={age} value={age}>
                   {age}
                 </Option>
@@ -123,7 +124,7 @@ const DeliveryDetails = () => {
               allowClear
               onChange={handleMaxAge}
             >
-              {ageOptions.map((age) => (
+              {ageOptions?.map((age) => (
                 <Option key={age} value={age}>
                   {age}
                 </Option>

@@ -15,7 +15,7 @@ const Login = () => {
       password: values?.password,
     };
 
-    console.log(data)
+    // console.log(data)
     adminLogin(data)
       .unwrap()
       .then((payload) => {

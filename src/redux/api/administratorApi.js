@@ -9,7 +9,7 @@ const administratorApi = baseApi.injectEndpoints({
                     method : 'GET'
                 }
             },
-            providesTags : ['administrator']            
+            providesTags : ['administrator']             
         }),
         createAdministrator :  builder.mutation({
             query : (data)=>{

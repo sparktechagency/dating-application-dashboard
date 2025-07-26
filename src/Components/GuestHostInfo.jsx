@@ -15,7 +15,7 @@ const GuestHostInfo = ({ dataSource }) => {
   const [userId, setUserId] = useState("");
   // ALL APIs
   const [sendMessage] = useSendMessageMutation();
-  const [blockUnblockUser] = useBlockUnblockUserMutation(); 
+  const [blockUnblockUser] = useBlockUnblockUserMutation();
 
 
   const [form] = Form.useForm();
@@ -35,7 +35,7 @@ const GuestHostInfo = ({ dataSource }) => {
           <div className="flex items-center gap-2">
             {!!record?.img ? (
               <img
-                src={`${imageUrl}${record.img}`}
+                src={`${imageUrl}${record?.img}`}
                 className="w-[40px] h-[40px] rounded-md"
                 alt=""
               />
@@ -72,21 +72,21 @@ const GuestHostInfo = ({ dataSource }) => {
       key: "age",
     },
     {
-      title : 'Ethnicity',
-      dataSource : "ethnicity",
-      key : "ethnicity",
-      render : (_ , record)=>{
-        return(
+      title: 'Ethnicity',
+      dataSource: "ethnicity",
+      key: "ethnicity",
+      render: (_, record) => {
+        return (
           <p>{record?.ethnicity}</p>
         )
       }
     },
     {
-      title : 'Body Type',
-      dataSource : "bodyType",
-      key : "bodyType",
-      render : (_ , record)=>{
-        return(
+      title: 'Body Type',
+      dataSource: "bodyType",
+      key: "bodyType",
+      render: (_, record) => {
+        return (
           <p>{record?.bodyType}</p>
         )
       }
@@ -143,7 +143,7 @@ const GuestHostInfo = ({ dataSource }) => {
                   .then((payload) => toast.success(payload?.message))
                   .catch((error) => toast.error(error?.data?.message));
               }}
-              className={` text-white p-2 rounded-md  ${record?.isBlocked ?  "bg-gray-400" : "bg-red-600"}`}
+              className={` text-white p-2 rounded-md  ${record?.isBlocked ? "bg-gray-400" : "bg-red-600"}`}
             >
               <MdBlock size={20} />
             </button>
@@ -159,15 +159,14 @@ const GuestHostInfo = ({ dataSource }) => {
   const handleSendMessage = (values) => {
     const data = {
       message: values?.message,
-      medium: values?.send,
+      medium: [values?.send],
     };
-    if (values?.sendTo) {
+    if (values?.sendTo === "allUser") {
       data.isAll = true;
     } else {
       data.isAll = false;
       data.userId = userId;
     }
-
 
     sendMessage(data)
       .unwrap()

@@ -13,13 +13,14 @@ const ScheduleRequest = () => {
 
 
   const formattedData = getAllNewPodcast?.data?.podcasts?.map((pod, i) => {
+    console.log(pod);
     const data = {
       id: pod?._id,
       key: i + 1,
       PrimaryParticipantName: pod?.primaryUser?.name,
       PrimaryParticipant: pod?.primaryUser?.avatar,
       perticipant1: pod?.participants[0]?.user?.name || "N/A",
-      perticipant1Img: pod?.participants[0]?.user?.avatar || "",
+      perticipant1Img: pod?.participants[0]?.user?.avatar || "", 
       perticipant2: pod?.participants[1]?.user?.name || "N/A",
       perticipant2Img: pod?.participants[1]?.user?.avatar || "",
       perticipant3: pod?.participants[2]?.user?.name || "N/A",

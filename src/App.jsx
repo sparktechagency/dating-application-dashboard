@@ -11,7 +11,7 @@ import { useGetAllNewPodcastQuery, useGetAllPodcastQuery, useGetAnalyticsQuery }
 import ScheduleUpdateRequest from './Components/ScheduleUpdateRequest/ScheduleUpdateRequest'
 function App() {
   // All APIs
-  const {data : getAnalytics} = useGetAnalyticsQuery()
+  const {data : getAnalytics} = useGetAnalyticsQuery() 
   // const {data : getAllPodcast} = useGetAllPodcastQuery()
   const {data : getAllPodcast } = useGetAllNewPodcastQuery()
 
