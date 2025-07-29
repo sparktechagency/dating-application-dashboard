@@ -23,7 +23,7 @@ const Notification = () => {
         return <div>Error fetching notifications.</div>;
     }
 
-    const data = notificationData?.data?.notification.map((item, index) => ({
+    const data = Array.isArray(notificationData?.data?.notification) && notificationData?.data?.notification.map((item, index) => ({
         ...item,
         key: index + 1,
     }));

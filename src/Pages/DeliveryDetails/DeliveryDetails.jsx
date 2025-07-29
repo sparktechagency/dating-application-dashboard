@@ -47,7 +47,7 @@ const DeliveryDetails = () => {
     ethnicity
   });
 
-  const formattedTableData = getAllUser?.data?.users?.map((user, i) => {
+  const formattedTableData = Array.isArray(getAllUser?.data?.users) && getAllUser?.data?.users?.map((user, i) => {
     return {
       key: i + 1,
       id: user?._id,

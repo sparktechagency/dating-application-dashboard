@@ -71,7 +71,7 @@ const Transaction = () => {
     },
   ];
 
-  const formattedData = getAllPremiumUsers?.data?.users?.map((item, i) => {
+  const formattedData = Array.isArray(getAllPremiumUsers?.data?.users) && getAllPremiumUsers?.data?.users?.map((item, i) => {
     return {
       key: i + 1,
       joining: item?.subscription?.startedAt?.split("T")[0],

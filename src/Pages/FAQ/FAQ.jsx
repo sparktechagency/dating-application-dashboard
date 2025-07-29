@@ -16,30 +16,7 @@ const FAQ = () => {
   const { data: getAllFaq } = useGetAllFaqQuery();
   const [createFaq] = useCreateFaqMutation();
   const [deleteFaq] = useDeleteFaqMutation();
-  console.log(getAllFaq?.data);
 
-  // const faq = [
-  //   {
-  //     question: "How do I book an appointment?",
-  //     answer:
-  //       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
-  //   },
-  //   {
-  //     question: "Can I cancel or reschedule an appointment?",
-  //     answer:
-  //       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
-  //   },
-  //   {
-  //     question: "How do I join a telemedicine consultation?",
-  //     answer:
-  //       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
-  //   },
-  //   {
-  //     question: "How do I access my medical records?",
-  //     answer:
-  //       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal .",
-  //   },
-  // ];
 
   // add question and answer modal function
   const handleAddFaq = () => {
@@ -79,7 +56,7 @@ const FAQ = () => {
       {/* all question and answer */}
 
       <div className="grid grid-cols-2 gap-5 mt-2">
-        {getAllFaq?.data?.map((que, i) => (
+        {Array.isArray(getAllFaq?.data) && getAllFaq?.data?.map((que, i) => (
           <div key={i} className="p-2 ">
             <div className="flex items-center justify-between px-2">
               <p className="pb-3">Question no: {i + 1}</p>

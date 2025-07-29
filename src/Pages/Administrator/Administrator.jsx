@@ -137,7 +137,7 @@ const Administrator = () => {
   ];
 
 
-  const formattedTableDate = getAllAdministrator?.data?.admins?.map(
+  const formattedTableDate = Array.isArray(getAllAdministrator?.data?.admins) && getAllAdministrator?.data?.admins?.map(
     (admin, i) => {
       // console.log(admin);
       return {

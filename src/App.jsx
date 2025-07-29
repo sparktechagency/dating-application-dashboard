@@ -39,6 +39,8 @@ function App() {
     }
   ]
 
+  console.log(getAnalytics?.data?.totalIncome);
+
 
   const formattedData = getAllPodcast?.data?.podcasts?.slice(0,4)?.map((pod , i)=>{
     return (
@@ -71,9 +73,6 @@ function App() {
     }
   });
 
-
-
-
   return (
     <div>
 
@@ -94,14 +93,9 @@ function App() {
       <div className='grid grid-cols-2 mt-5 gap-5'>
         <div className='w-full h-full bg-white p-4 rounded-md'>
           <IncomeOverview />
-
-
         </div>
         <div className='w-full h-full bg-white p-4 rounded-md'>
-          
-
             <UserGrowthChart />
-
         </div>
       </div>
 

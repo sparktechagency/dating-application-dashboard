@@ -33,7 +33,7 @@ const PodcastManagement = () => {
 
   // console.log(getAllDonePodcast);
 
-  const formattedData = getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
+  const formattedData = Array.isArray(getAllDonePodcast?.data?.podcasts) && getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
     return {
       key: i + 1,
       id: pod?._id,
