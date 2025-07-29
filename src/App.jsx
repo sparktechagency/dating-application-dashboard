@@ -39,8 +39,6 @@ function App() {
     }
   ]
 
-  console.log(getAnalytics?.data?.totalIncome);
-
 
   const formattedData = getAllPodcast?.data?.podcasts?.slice(0,4)?.map((pod , i)=>{
     return (

@@ -130,16 +130,6 @@ const navigate = useNavigate()
           label: "Privacy Policy",
           icon: <></>,
         },
-        {
-          path: "/consumer-policy",
-          label: "Consumer Policy",
-          icon: <></>,
-        },
-        {
-          path: "/media-policy",
-          label: "Media Policy",
-          icon: <></>,
-        },
       ]
     });
   }

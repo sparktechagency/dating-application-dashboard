@@ -8,8 +8,6 @@ const Header = () => {
   const {data : getUser} = useGetAdminProfileQuery()
     const navigate = useNavigate()
 
-    console.log(getUser?.data?.avatar);
-
   return (
     <div className='w-full py-4 bg-[var(--primary-color)] flex justify-end items-center  gap-4'>
     <div>
