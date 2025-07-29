@@ -9,10 +9,10 @@ import { useGetAdminProfileQuery } from "../../redux/api/AuthApi";
         return <div className="flex items-center justify-center"><Skeleton active /></div>;
     }
     if (isError || !getUserInfo?.data?.email) {
-        return <Navigate to="/auth-login" state={{ from: location }} />;
+        return <Navigate to="/auth/login" state={{ from: location }} />;
       }
     
-      return children;
+      return children; 
 
 }
 export default PrivateRoutes;

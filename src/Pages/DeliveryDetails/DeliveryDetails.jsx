@@ -101,36 +101,7 @@ const DeliveryDetails = () => {
           <span className="font-semibold text-[20px]">User Management</span>
         </div>
         <div className="flex  gap-2 ">
-          <div>
-            {/* <p> Min Age</p> */}
-            <Select
-              placeholder="Select Min Age"
-              style={{ width: 140, marginBottom: 20 }}
-              allowClear
-              onChange={handleMinAge}
-            >
-              {ageOptions?.map((age) => (
-                <Option key={age} value={age}>
-                  {age}
-                </Option>
-              ))}
-            </Select>
-          </div>
-          <div>
-            {/* <p> Min Age</p> */}
-            <Select
-              placeholder="Select Max Age"
-              style={{ width: 140, marginBottom: 20 }}
-              allowClear
-              onChange={handleMaxAge}
-            >
-              {ageOptions?.map((age) => (
-                <Option key={age} value={age}>
-                  {age}
-                </Option>
-              ))}
-            </Select>
-          </div>
+         
           <div>
             {/* <p> Min Age</p> */}
             <Select

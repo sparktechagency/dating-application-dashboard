@@ -201,7 +201,7 @@ const Profile = () => {
               <Form.Item
                 name="contact"
                 label={
-                  <p className="text-[#919191] text-[16px] leading-5 font-normal">
+                  <p className=" text-[16px] font-normal">
                     Contact no
                   </p>
                 }
@@ -221,7 +221,7 @@ const Profile = () => {
               <Form.Item
                 name="address"
                 label={
-                  <p className="text-[#919191] text-[16px] leading-5 font-normal">
+                  <p className=" text-[16px] font-normal">
                     Address
                   </p>
                 }
@@ -267,7 +267,7 @@ const Profile = () => {
         ) : (
           <div className="max-w-[481px] mx-auto rounded-lg p-6">
             <h1 className="text-center text-[var(--primary-color)] leading-7 text-2xl font-medium mb-7">
-              Edit Your Profile
+              Change Password
             </h1>
             <Form layout="vertical" onFinish={onFinish} form={form}>
               <Form.Item

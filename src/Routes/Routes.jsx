@@ -25,12 +25,11 @@ import ScheduleRequest from "../Pages/ScheduleRequestPage/ScheduleRequest";
 export const router = createBrowserRouter([
     {
         path: '/',
-        element:<MainLayout />,
-        // element: <PrivateRoutes><MainLayout /></PrivateRoutes>,
+        element: <PrivateRoutes><MainLayout /></PrivateRoutes>,
         children: [
             {
                 path: '/',
-                element: <App />
+                element: <App /> 
             },
             {
                 path: '/user-management',

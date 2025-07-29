@@ -6,10 +6,11 @@ import { useVerifyEmailMutation } from "../../redux/api/AuthApi";
 import { toast } from "sonner";
 
 const Otp = () => {
+  const email = localStorage.getItem("email");
   const [verifyEmail, { isLoading }] = useVerifyEmailMutation();
   const navigate = useNavigate();
   const [otp, setOtp] = useState("");
-  const handleResendCode = () => {};
+  // const handleResendCode = () => {};
   const handleVerifyOtp = () => {
     if (!otp) {
       return toast.error("Please enter your otp!");
@@ -62,7 +63,7 @@ const Otp = () => {
           style={{ width: "380px", color: "#B8B8B8", margin: "0 auto 0 auto" }}
         >
           We sent a reset link to{" "}
-          <span style={{ color: "#545454" }}> contact@dscode...com </span>
+          <span style={{ color: "#545454" }}> {email} </span>
           enter 6 digit code that mentioned in the email
         </p>
         <div

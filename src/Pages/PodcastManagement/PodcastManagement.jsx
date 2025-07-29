@@ -31,7 +31,7 @@ const PodcastManagement = () => {
 
   
 
-  // console.log(getAllDonePodcast?.data?.pagination);
+  // console.log(getAllDonePodcast);
 
   const formattedData = getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
     return {
@@ -93,6 +93,8 @@ const PodcastManagement = () => {
       podcastId: podCastId,
       selectedUserId: selectedParticipantId.map(id => ({ user: id }))
     };
+
+    // console.log("this is podcudt and selected user id",data);
     selectedPartner(data)
       .unwrap()
       .then((payload) => {

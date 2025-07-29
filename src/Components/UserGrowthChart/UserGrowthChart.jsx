@@ -4,12 +4,12 @@ import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis
 import { useSubscriptionGrowthQuery } from '../../redux/api/DahsboardHomeApi';
 
 const UserGrowthChart = () => {
-    const [year , setYear] = useState('2025');
+    const [year, setYear] = useState('2025');
     // All API
-    const {data : getSubscription} = useSubscriptionGrowthQuery(year)
+    const { data: getSubscription } = useSubscriptionGrowthQuery(year)
 
     const items = [
-       
+
         {
             label: 2024,
             value: "2024",
@@ -28,47 +28,60 @@ const UserGrowthChart = () => {
         },
     ];
 
-    const data = getSubscription?.data?.map(item=>{
+    const data = getSubscription?.data?.map(item => {
         return (
             {
-                name : item?.month ,active:item?.active,cancel: item?.cancel
+                name: item?.month, active: item?.active, cancel: item?.cancel
             }
         )
     })
 
- 
-    const handleYearChange = (value)=>{
+
+    const handleYearChange = (value) => {
         setYear(value)
     }
     return (
         <>
-            <div className='flex justify-between items-center'>
-                <p className='text-xl font-medium'>Subscription Growth</p>
-                <Select
-                    defaultValue="2025"
-                    style={{ width: 120 }}
-                    options={items}
-                    onChange={handleYearChange}
-                />
-            </div>
-            <div className='w-full h-[400px]'>
-                <ResponsiveContainer width="100%" height="100%">
-                    <BarChart
-                        width={400}
-                        height={500}
-                        data={data}
-                        margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
-                        barSize={12}
-                    >
-                        <CartesianGrid strokeDasharray="1 1" />
-                        <XAxis dataKey="name" />
-                        <YAxis />
-                        <Tooltip />
-                        <Legend />
-                        <Bar dataKey="active" fill="#FFA175" radius={[25, 25, 0, 0]} />
-                        <Bar dataKey="cancel" fill="#6E8EC3" radius={[25, 25, 0, 0]} />
-                    </BarChart>
-                </ResponsiveContainer>
+            <div>
+                <div className='flex justify-between items-center mb-4'>
+                    <p className='text-xl font-medium'>Subscription Growth</p>
+                    <Select
+                        defaultValue="2025"
+                        style={{ width: 120 }}
+                        options={items}
+                        onChange={handleYearChange}
+                    />
+                </div>
+
+                <div className="flex items-center justify-end gap-4 "> 
+                    <div className="flex items-center">
+                        <span className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: '#FFA175' }}></span>
+                        <span className="text-sm font-medium">Active</span>
+                    </div>
+                    <div className="flex items-center">
+                        <span className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: '#6E8EC3' }}></span>
+                        <span className="text-sm font-medium">Cancel</span>
+                    </div>
+                </div>
+
+                <div className='w-full h-[300px]'>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart
+                            width={400}
+                            height={300}
+                            data={data}
+                            margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                            barSize={12}
+                        >
+                            <CartesianGrid strokeDasharray="1 1" vertical={false} /> 
+                            <XAxis dataKey="name" />
+                            <YAxis />
+                            <Tooltip />
+                            <Bar dataKey="active" fill="#FFA175" radius={[25, 25, 0, 0]} />
+                            <Bar dataKey="cancel" fill="#6E8EC3" radius={[25, 25, 0, 0]} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </div>
             </div>
         </>
     )

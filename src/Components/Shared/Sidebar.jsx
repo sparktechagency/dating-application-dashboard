@@ -343,7 +343,7 @@ const navigate = useNavigate()
 
       <div
         onClick={handleLogOut}
-        className="flex text-[4E4E4E]  items-center bg-white gap-3 ml-10 cursor-pointer px-6 hover:bg-white-500 py-2 mt-32 transition-all"
+        className="flex text-[4E4E4E] rounded-tr-md items-center bg-white gap-3 ml-8 mr-3 cursor-pointer px-6 hover:bg-white-500 py-3 mt-32 transition-all"
       >
         <CiLogout size={24} color="text-[4E4E4E]" />
         Log Out

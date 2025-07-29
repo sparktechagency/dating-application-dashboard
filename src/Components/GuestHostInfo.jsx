@@ -67,11 +67,6 @@ const GuestHostInfo = ({ dataSource }) => {
       key: "gender",
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-    },
-    {
       title: 'Ethnicity',
       dataSource: "ethnicity",
       key: "ethnicity",

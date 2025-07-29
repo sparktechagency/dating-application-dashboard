@@ -7,6 +7,7 @@ import { useIncomeGrowthQuery } from '../../redux/api/DahsboardHomeApi';
 const IncomeOverview = () => {
     const [year , setYear] = useState("2025")
     const {data : incomeGrowth} = useIncomeGrowthQuery(year)
+    console.log(incomeGrowth);
     
 
 
@@ -46,7 +47,7 @@ const IncomeOverview = () => {
         <>
             <div className='flex justify-between items-center'>
                 <div className='ml-6'>
-                    <p className='text-xl font-semibold mb-2 '>Income Growth</p>
+                    <p className='text-xl font-semibold mb-2 '>User Growth</p>
                    
                 </div>
                 <Select
@@ -56,17 +57,17 @@ const IncomeOverview = () => {
                     options={items}
                 />
             </div>
-            <div className='w-full h-[400px]'>
+            <div className='w-full h-[300px]'>
                 <ResponsiveContainer width="100%" height="100%">
                     <AreaChart
                         width={400}
-                        height={400}
+                        height={300}
                         data={dataMonth}
                         margin={{
-                            top: 10,
+                            top: 40,
                             right: 30,
                             left: 0,
-                            bottom: 0,
+                            bottom: -10,
                         }}
                     >
                         <CartesianGrid strokeDasharray="3 3" />
