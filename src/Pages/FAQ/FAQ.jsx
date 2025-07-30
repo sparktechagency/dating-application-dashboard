@@ -57,7 +57,7 @@ const FAQ = () => {
 
       <div className="grid grid-cols-2 gap-5 mt-2">
         {Array.isArray(getAllFaq?.data) && getAllFaq?.data?.map((que, i) => (
-          <div key={i} className="p-2 ">
+          <div key={i} className="p-2">
             <div className="flex items-center justify-between px-2">
               <p className="pb-3">Question no: {i + 1}</p>
               <p
@@ -68,10 +68,12 @@ const FAQ = () => {
               </p>
             </div>
             <div className="bg-[#F2F2F2] p-2 rounded-md">
-              <p>{que?.question}</p>
+              <p className="break-words">{que?.question}</p> 
             </div>
             <p className="py-2">Answer</p>
-            <p className="bg-[#F2F2F2] p-2 rounded-md">{que?.answer}</p>
+            <p className="bg-[#F2F2F2] p-2 rounded-md break-words">
+              {que?.answer}
+            </p>
           </div>
         ))}
       </div>

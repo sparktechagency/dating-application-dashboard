@@ -109,7 +109,7 @@ const Transaction = () => {
       </div>
 
       <div className="mt-5">
-        <div className="grid grid-cols-3 justify-center items-center gap-5">
+        {/* <div className="grid grid-cols-3 justify-center items-center gap-5">
           {getAllPremiumUsers?.data?.subscriptionCounts?.map((item, index) => (
             <div
               className="w-full h-full flex justify-center items-center  flex-col gap-3 py-10 mb-5 bg-gray-200 p-2 rounded-md"
@@ -122,7 +122,7 @@ const Transaction = () => {
               <p className="text-3xl font-semibold">{item?.count}</p>
             </div>
           ))}
-        </div>
+        </div> */}
         <Table
           dataSource={formattedData}
           columns={columns}
