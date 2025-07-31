@@ -1,6 +1,6 @@
 import { Select, Tooltip } from 'antd'
 import React, { useState } from 'react'
-import { Bar, BarChart, CartesianGrid, Legend, ResponsiveContainer, XAxis, YAxis } from 'recharts'
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 import { useSubscriptionGrowthQuery } from '../../redux/api/DahsboardHomeApi';
 
 const UserGrowthChart = () => {
@@ -31,7 +31,8 @@ const UserGrowthChart = () => {
     const data = getSubscription?.data?.map(item => {
         return (
             {
-                name: item?.month, active: item?.active, cancel: item?.cancel
+                name: item?.month,
+                count: item?.count
             }
         )
     })
@@ -52,18 +53,6 @@ const UserGrowthChart = () => {
                         onChange={handleYearChange}
                     />
                 </div>
-
-                <div className="flex items-center justify-end gap-4 "> 
-                    <div className="flex items-center">
-                        <span className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: '#FFA175' }}></span>
-                        <span className="text-sm font-medium">Active</span>
-                    </div>
-                    <div className="flex items-center">
-                        <span className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: '#6E8EC3' }}></span>
-                        <span className="text-sm font-medium">Cancel</span>
-                    </div>
-                </div>
-
                 <div className='w-full h-[300px]'>
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart
@@ -77,8 +66,7 @@ const UserGrowthChart = () => {
                             <XAxis dataKey="name" />
                             <YAxis />
                             <Tooltip />
-                            <Bar dataKey="active" fill="#FFA175" radius={[25, 25, 0, 0]} />
-                            <Bar dataKey="cancel" fill="#6E8EC3" radius={[25, 25, 0, 0]} />
+                            <Bar dataKey="count" fill="#FFA175" radius={[25, 25, 0, 0]} />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>

@@ -7,6 +7,7 @@ import { useIncomeGrowthQuery } from '../../redux/api/DahsboardHomeApi';
 const IncomeOverview = () => {
     const [year , setYear] = useState("2025")
     const {data : incomeGrowth} = useIncomeGrowthQuery(year)
+    console.log(incomeGrowth);
     const items = [
        
         {

@@ -5,7 +5,7 @@ const dashboardApi = baseApi.injectEndpoints({
         getAnalytics :  builder.query({
             query : ()=>{
                 return {
-                    url : "/analytics",
+                    url : "/analytics", 
                     method : 'GET'
                 }
                
