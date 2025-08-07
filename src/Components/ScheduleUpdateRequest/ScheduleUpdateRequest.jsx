@@ -1,27 +1,28 @@
 import { Table } from "antd";
 import React, { useState } from "react";
-import { LuCalendarClock } from "react-icons/lu";
+import { LuCalendarClock, LuLoader } from "react-icons/lu";
 import ScheduleModal from "../ScheduleModal/ScheduleModal";
 import { imageUrl, place } from "../../redux/api/baseApi";
 import { usePodcastDoneMutation } from "../../redux/api/podcastManagementApi";
 import { toast } from "sonner";
+import SheduleDoneButton from "../Button/SheduleDoneButton";
 
 const ScheduleUpdateRequest = ({ dataSource }) => {
   const [openScheduleModal, setScheduleModal] = useState(false);
   const [podCastId, setPodCastId] = useState("");
-  const [podCastDone] = usePodcastDoneMutation();
+  const [podCastDone, { isLoading }] = usePodcastDoneMutation();
 
-  const handleDonePodcast = (id) => {
-    const data = {
-      podcastId: id,
-    };
-    podCastDone(data)
-      .unwrap()
-      .then((payload) => {
-        toast.success(payload?.message)
-      })
-      .catch((error) => toast.error(error?.data?.message));
-  };
+  // const handleDonePodcast = (id) => {
+  //   const data = {
+  //     podcastId: id,
+  //   };
+  //   podCastDone(data)
+  //     .unwrap()
+  //     .then((payload) => {
+  //       toast.success(payload?.message)
+  //     })
+  //     .catch((error) => toast.error(error?.data?.message));
+  // };
 
   const handleSetSchedule = (id) => {
     
@@ -159,14 +160,7 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       dataIndex: "done",
       key: "done",
       render: (_, record) => (
-        <button
-          onClick={() => {
-            handleDonePodcast(record?.id);
-          }}
-          className="bg-[#FFA175] text-white px-2 py-1 rounded-md"
-        >
-          Done
-        </button>
+        <SheduleDoneButton id={record?.id} />
       ),
     },
   ];

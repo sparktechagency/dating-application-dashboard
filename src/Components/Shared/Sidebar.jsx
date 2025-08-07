@@ -14,6 +14,7 @@ import { FiAward } from "react-icons/fi";
 import { GrUserAdmin } from "react-icons/gr";
 import { useGetAdminProfileQuery } from "../../redux/api/AuthApi";
 import { CiLogout } from "react-icons/ci";
+import { FaRegHeart } from "react-icons/fa";
 const Sidebar = () => {
   const [openIndex, setOpenIndex] = useState(null);
 const navigate = useNavigate()
@@ -41,6 +42,17 @@ const navigate = useNavigate()
       path: "/user-management",
       label: "User Management",
       icon: <FaRegUserCircle size={25} />,
+      sub_menu: false,
+    });
+  }
+  if (
+    getProfile?.data?.access === "ALL" ||
+    getProfile?.data?.access === "PODCAST_MANAGEMENT"
+  ) {
+    links.push({
+      path: "/matches",
+      label: "Matches",
+      icon: <FaRegHeart size={25} />,
       sub_menu: false,
     });
   }
@@ -134,83 +146,6 @@ const navigate = useNavigate()
     });
   }
   
-
-
-
-
-  const links2 = [
-    {
-      path: "/",
-      label: "Dashboard",
-      icon: <MdOutlineDashboard size={25} />,
-      sub_menu: false,
-    },
-    {
-      path: "/user-management",
-      label: "User Management",
-      icon: <FaRegUserCircle size={25} />,
-      sub_menu: false,
-    },
-    {
-      path: "/podcast-management",
-      label: "Podcast Management",
-      icon: <MdPodcasts size={25} />,
-      sub_menu: false,
-    },
-    {
-      path: "/premium-subscriber",
-      label: "Premium Subscribers",
-      icon: <MdOutlineWorkspacePremium size={25} />,
-      sub_menu: false,
-    },
-    {
-      path: "/subscriptions",
-      label: "Subscriptions",
-      icon: <FiAward size={25} />,
-      sub_menu: false,
-    },
-    {
-      path: "/administrator",
-      label: "Administrator",
-      icon: <GrUserAdmin size={25} />,
-      sub_menu: false,
-    },
-    {
-      path: "/support",
-      label: "Support",
-      icon: <MdSupport size={25} />,
-      sub_menu: false,
-    },
-
-    {
-      path: "#",
-      label: "Setting",
-      icon: <IoSettingsOutline size={25} />,
-      sub_menu: [
-        {
-          path: "/profile",
-          label: "Profile",
-          icon: <></>,
-        },
-        {
-          path: "/faq",
-          label: "FAQ",
-          icon: <></>,
-        },
-        {
-          path: "/terms-condition",
-          label: "Terms & Condition",
-          icon: <></>,
-        },
-        {
-          path: "/privacy-policy",
-          label: "Privacy Policy",
-          icon: <></>,
-        },
-      ],
-    },
-  ];
-
   const toggleAccordion = (index) => {
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };

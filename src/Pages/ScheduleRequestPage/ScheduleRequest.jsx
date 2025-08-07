@@ -9,7 +9,6 @@ const ScheduleRequest = () => {
   const [page, setPage] = useState(1);
   const { data: getAllNewPodcast } = useGetAllNewPodcastQuery(page);
 
-  console.log(getAllNewPodcast?.data);
 
 
   const formattedData = Array.isArray(getAllNewPodcast?.data?.podcasts) && getAllNewPodcast?.data?.podcasts?.map((pod, i) => {

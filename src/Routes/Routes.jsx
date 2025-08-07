@@ -15,6 +15,7 @@ import Notification from "../Pages/Notification/Notification";
 import SurveyResponse from "../Pages/SurveyResponse/SurveyResponse";
 import Subscriptions from "../Pages/Subscriptions/Subscriptions";
 import PodcastManagement from "../Pages/PodcastManagement/PodcastManagement";
+import Matches from "../Pages/Matches/Matches";
 import Support from "../Pages/Support/Support";
 import Administrator from "../Pages/Administrator/Administrator";
 import PrivateRoutes from "../Components/PrivateRoute/PrivateRoute";
@@ -51,6 +52,10 @@ export const router = createBrowserRouter([
             {
                 path : '/podcast-management',
                 element : <PodcastManagement/>
+            },
+            {
+                path : '/matches',
+                element : <Matches/>
             },
            
             {
