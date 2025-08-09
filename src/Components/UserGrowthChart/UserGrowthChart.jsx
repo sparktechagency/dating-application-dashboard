@@ -28,14 +28,15 @@ const UserGrowthChart = () => {
         },
     ];
 
-    const data = getSubscription?.data?.map(item => {
+    const chartData = getSubscription?.data || [];
+    const data = Array.isArray(chartData) ? chartData.map(item => {
         return (
             {
                 name: item?.month,
                 count: item?.count
             }
         )
-    })
+    }) : []
 
 
     const handleYearChange = (value) => {
