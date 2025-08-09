@@ -1,7 +1,7 @@
 
 import IncomeOverview from './Components/IncomeOverview/IncomeOverview'
 import { Link } from 'react-router-dom'
-import './app.css'
+import './App.css'
 import profile from './assets/images/profileuser.png'
 import medal from './assets/images/medal.png'
 import profit from './assets/images/profits.png'
