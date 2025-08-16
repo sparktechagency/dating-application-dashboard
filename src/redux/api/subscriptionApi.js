@@ -34,7 +34,17 @@ const subscriptionApi = baseApi.injectEndpoints({
                 }
             },
             invalidatesTags : ['subscription'] 
+        }),
+
+        deleteSubscriptionPlan:builder.mutation({
+            query : (id)=>{
+                return {
+                    url : `/subscription-plan/delete/${id}`,
+                    method : 'PUT'
+                }
+            },
+            invalidatesTags : ['subscription']
         })
     })
 })
-export const { useGetAllSubscriptionQuery , useUpdateSubscriptionPlanMutation, useCreateSubscriptionPlanMutation } =  subscriptionApi;
+export const { useGetAllSubscriptionQuery , useUpdateSubscriptionPlanMutation, useCreateSubscriptionPlanMutation, useDeleteSubscriptionPlanMutation } =  subscriptionApi;

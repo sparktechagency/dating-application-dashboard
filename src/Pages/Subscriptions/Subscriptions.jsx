@@ -1,14 +1,16 @@
 import { Button, Form, Input, Modal, Table } from "antd";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {
-  useCreateSubscriptionPlanMutation,
   useGetAllSubscriptionQuery,
   useUpdateSubscriptionPlanMutation,
+  useCreateSubscriptionPlanMutation,
+  useDeleteSubscriptionPlanMutation,
 } from "../../redux/api/subscriptionApi";
-import TextArea from "antd/es/input/TextArea";
 import { toast } from "sonner";
+import { Popconfirm } from 'antd';
+import SubscriptionDeleteButton from "../../Components/Button/SubscriptionDeleteButton";
 
 const Subscriptions = () => {
   const [form] = Form.useForm();
@@ -21,6 +23,7 @@ const Subscriptions = () => {
   const { data: getAllSubscription } = useGetAllSubscriptionQuery();
   const [updatePlan, { isLoading: isUpdating }] = useUpdateSubscriptionPlanMutation();
   const [createPlan, { isLoading: isCreating }] = useCreateSubscriptionPlanMutation();
+  // const [deletePlan, { isLoading: isDeleting }] = useDeleteSubscriptionPlanMutation();
 
   const formattedData = Array.isArray(getAllSubscription?.data)
     ? getAllSubscription.data.filter(Boolean).map((sub, i) => ({
@@ -87,6 +90,13 @@ const Subscriptions = () => {
         </div>
       ),
     },
+    {
+      title: "Delete",
+      key: "delete",
+      render: (_, record) => (
+       <SubscriptionDeleteButton record={record} />
+      ),
+    },
   ];
 
   const handleUpdatePlan = (values) => {
@@ -112,6 +122,17 @@ const Subscriptions = () => {
       })
       .catch((error) => toast.error(error?.data?.message));
   };
+
+  // const handleDeletePlan = (id) => {
+  //   deletePlan(id)
+  //     .unwrap()
+  //     .then((payload) => {
+  //       toast.success(payload?.message);
+  //     })
+  //     .catch((error) => {
+  //       toast.error(error?.data?.message);
+  //     });
+  // };
 
   const handleCancel = () => {
     setOpenModal(false);
