@@ -13,7 +13,7 @@ const Transaction = () => {
     page,
     search,
   });
-  console.log(getAllPremiumUsers?.data?.subscriptionCounts);
+  // console.log(getAllPremiumUsers?.data?.subscriptionCounts);
   const columns = [
     {
       title: "SL no",
@@ -83,6 +83,8 @@ const Transaction = () => {
       status: item?.subscription?.status,
     };
   });
+
+  console.log(formattedData);
 
   return (
     <div className="p-5 bg-white rounded-md">

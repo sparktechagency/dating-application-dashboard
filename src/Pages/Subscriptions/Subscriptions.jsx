@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {
+  useCreateSubscriptionPlanMutation,
   useGetAllSubscriptionQuery,
   useUpdateSubscriptionPlanMutation,
 } from "../../redux/api/subscriptionApi";
@@ -12,26 +13,24 @@ import { toast } from "sonner";
 const Subscriptions = () => {
   const [form] = Form.useForm();
   const [openModal, setOpenModal] = useState(false);
+  const [openAddModal, setOpenAddModal] = useState(false);
   const [description, setDescription] = useState("");
   const [planName, setPlanName] = useState("");
   const [openDescriptionModal, setOpenDescriptionModal] = useState(false);
   const [singlePlan, setSinglePlan] = useState();
   const { data: getAllSubscription } = useGetAllSubscriptionQuery();
-  const [updatePlan] = useUpdateSubscriptionPlanMutation();
-
-
-  console.log(getAllSubscription?.data);
-
+  const [updatePlan, { isLoading: isUpdating }] = useUpdateSubscriptionPlanMutation();
+  const [createPlan, { isLoading: isCreating }] = useCreateSubscriptionPlanMutation();
 
   const formattedData = Array.isArray(getAllSubscription?.data)
     ? getAllSubscription.data.filter(Boolean).map((sub, i) => ({
-        id: sub?._id,
-        key: i + 1,
-        name: sub?.name,
-        fee: `${sub?.unitAmount}`,
-        description: sub?.description,
-        action: "Edit",
-      }))
+      id: sub?._id,
+      key: i + 1,
+      name: sub?.name,
+      fee: `${sub?.unitAmount}`,
+      description: sub?.description,
+      action: "Edit",
+    }))
     : [];
 
   const columns = [
@@ -104,6 +103,16 @@ const Subscriptions = () => {
       .catch((error) => toast.error(error?.data?.message));
   };
 
+  const handleCreatePlan = (values) => {
+    createPlan(values)
+      .unwrap()
+      .then((payload) => {
+        toast.success(payload?.message);
+        setOpenAddModal(false);
+      })
+      .catch((error) => toast.error(error?.data?.message));
+  };
+
   const handleCancel = () => {
     setOpenModal(false);
     form.resetFields();
@@ -133,11 +142,21 @@ const Subscriptions = () => {
 
   return (
     <div className="bg-white rounded-md p-4">
-      <div className="flex items-center gap-2">
-        <Link to={-1}>
-          <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
-        </Link>
-        <span className="font-semibold text-[20px]"> Subscriptions</span>
+      <div className="flex justify-between items-center gap-2 mb-6">
+        <div className="flex items-center gap-2">
+          <Link to={-1}>
+            <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
+          </Link>
+          <span className="font-semibold text-[20px]"> Subscriptions</span>
+        </div>
+        <div>
+          <button
+            onClick={() => setOpenAddModal(true)}
+            className="bg-[var(--primary-color)] text-white py-1 px-2 rounded-md"
+          >
+            + Add Subscription
+          </button>
+        </div>
       </div>
 
       <div>
@@ -203,11 +222,111 @@ const Subscriptions = () => {
             </Form.List>
           </Form.Item>
           <div className="flex justify-center items-center gap-2 w-full">
-            <button type="button"  onClick={()=> setOpenModal(false)} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-sm py-1 text-[20px]">
+            <button type="button" onClick={() => setOpenModal(false)} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-sm py-1 text-[20px]">
               Cancel
             </button>
-            <button className="w-full bg-[#FFA175] py-[5px] text-[18px] text-white rounded-sm">
-              Update
+            <button className="w-full bg-[#FFA175] py-[5px] text-[18px] text-white rounded-sm" disabled={isUpdating}>
+              {isUpdating ? "Updating..." : "Update"}
+            </button>
+          </div>
+        </Form>
+      </Modal>
+
+      {/* add modal */}
+      <Modal
+        centered
+        footer={false}
+        open={openAddModal}
+        onCancel={() => setOpenAddModal(false)}
+      >
+        <p className="text-center text-xl font-semibold mb-5">Add Subscription</p>
+        <Form
+          layout="vertical"
+          onFinish={handleCreatePlan}
+          initialValues={{
+            name: "Listener: Connection Starter",
+            unitAmount: 0,
+            interval: "month",
+            description: [
+              {
+                key: "More Matches",
+                details: "Meet three matches instead of two.",
+              },
+              {
+                key: "Extended Chat",
+                details: "Access chat with your match for up to one week.",
+              },
+              {
+                key: "Second Chance",
+                details:
+                  "Users can be matched again if their first match doesn't work out, providing another chance at connection.",
+              },
+              {
+                key: "Exclusive Content",
+                details:
+                  "Access to curated dating tips, insights, and advice not available to free-tier users.",
+              },
+            ],
+          }}
+        >
+          <Form.Item
+            name={"name"}
+            label={<p className="text-[18px]">Subscription Name</p>}
+          >
+            <Input className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+          </Form.Item>
+          <Form.Item
+            name={"unitAmount"}
+            label={<p className="text-[18px]">Subscription Fee</p>}
+          >
+            <Input className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+          </Form.Item>
+          <Form.Item
+            name={"interval"}
+            label={<p className="text-[18px]">Interval</p>}
+          >
+            <Input className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+          </Form.Item>
+          <Form.Item label={<p className="text-[18px]">Description</p>}>
+            <Form.List name="description">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <div key={key} style={{ display: 'flex', marginBottom: 8, gap: '8px' }}>
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'key']}
+                        rules={[{ required: true, message: 'Missing key' }]}
+                        style={{ flex: 1 }}
+                      >
+                        <Input placeholder="Key" />
+                      </Form.Item>
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'details']}
+                        rules={[{ required: true, message: 'Missing details' }]}
+                        style={{ flex: 2 }}
+                      >
+                        <Input placeholder="Details" />
+                      </Form.Item>
+                      <Button type="dashed" onClick={() => remove(name)} >Remove</Button>
+                    </div>
+                  ))}
+                  <Form.Item>
+                    <Button type="dashed" onClick={() => add()} block>
+                      Add Description Field
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
+          </Form.Item>
+          <div className="flex justify-center items-center gap-2 w-full">
+            <button type="button" onClick={() => setOpenAddModal(false)} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-sm py-1 text-[20px]">
+              Cancel
+            </button>
+            <button className="w-full bg-[#FFA175] py-[5px] text-[18px] text-white rounded-sm" disabled={isCreating}>
+              {isCreating ? "Creating..." : "Create"}
             </button>
           </div>
         </Form>
