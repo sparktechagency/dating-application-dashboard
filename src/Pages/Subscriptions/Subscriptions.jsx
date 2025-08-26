@@ -14,6 +14,7 @@ import SubscriptionDeleteButton from "../../Components/Button/SubscriptionDelete
 
 const Subscriptions = () => {
   const [form] = Form.useForm();
+  const [addForm] = Form.useForm();
   const [openModal, setOpenModal] = useState(false);
   const [openAddModal, setOpenAddModal] = useState(false);
   const [description, setDescription] = useState("");
@@ -119,6 +120,7 @@ const Subscriptions = () => {
       .then((payload) => {
         toast.success(payload?.message);
         setOpenAddModal(false);
+        addForm.resetFields();
       })
       .catch((error) => toast.error(error?.data?.message));
   };
@@ -258,55 +260,34 @@ const Subscriptions = () => {
         centered
         footer={false}
         open={openAddModal}
-        onCancel={() => setOpenAddModal(false)}
+        onCancel={() => {
+          setOpenAddModal(false);
+          addForm.resetFields();
+        }}
       >
         <p className="text-center text-xl font-semibold mb-5">Add Subscription</p>
         <Form
           layout="vertical"
           onFinish={handleCreatePlan}
-          initialValues={{
-            name: "Listener: Connection Starter",
-            unitAmount: 0,
-            interval: "month",
-            description: [
-              {
-                key: "More Matches",
-                details: "Meet three matches instead of two.",
-              },
-              {
-                key: "Extended Chat",
-                details: "Access chat with your match for up to one week.",
-              },
-              {
-                key: "Second Chance",
-                details:
-                  "Users can be matched again if their first match doesn't work out, providing another chance at connection.",
-              },
-              {
-                key: "Exclusive Content",
-                details:
-                  "Access to curated dating tips, insights, and advice not available to free-tier users.",
-              },
-            ],
-          }}
+          form={addForm}
         >
           <Form.Item
             name={"name"}
             label={<p className="text-[18px]">Subscription Name</p>}
           >
-            <Input className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+            <Input placeholder="E.g. Premium Plan" className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
           </Form.Item>
           <Form.Item
             name={"unitAmount"}
             label={<p className="text-[18px]">Subscription Fee</p>}
           >
-            <Input className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+            <Input placeholder="E.g. 9.99" type="number" className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
           </Form.Item>
           <Form.Item
             name={"interval"}
             label={<p className="text-[18px]">Interval</p>}
           >
-            <Input className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+            <Input placeholder="E.g. month" className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
           </Form.Item>
           <Form.Item label={<p className="text-[18px]">Description</p>}>
             <Form.List name="description">
@@ -320,7 +301,7 @@ const Subscriptions = () => {
                         rules={[{ required: true, message: 'Missing key' }]}
                         style={{ flex: 1 }}
                       >
-                        <Input placeholder="Key" />
+                        <Input placeholder="E.g. More Matches" />
                       </Form.Item>
                       <Form.Item
                         {...restField}
@@ -328,7 +309,7 @@ const Subscriptions = () => {
                         rules={[{ required: true, message: 'Missing details' }]}
                         style={{ flex: 2 }}
                       >
-                        <Input placeholder="Details" />
+                        <Input placeholder="E.g. Get 5 matches daily" />
                       </Form.Item>
                       <Button type="dashed" onClick={() => remove(name)} >Remove</Button>
                     </div>
@@ -343,7 +324,7 @@ const Subscriptions = () => {
             </Form.List>
           </Form.Item>
           <div className="flex justify-center items-center gap-2 w-full">
-            <button type="button" onClick={() => setOpenAddModal(false)} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-sm py-1 text-[20px]">
+            <button type="button" onClick={() => { setOpenAddModal(false); addForm.resetFields(); }} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-sm py-1 text-[20px]">
               Cancel
             </button>
             <button className="w-full bg-[#FFA175] py-[5px] text-[18px] text-white rounded-sm" disabled={isCreating}>
