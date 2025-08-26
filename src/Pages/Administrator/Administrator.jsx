@@ -19,7 +19,7 @@ import {
   useGetAllAdministratorQuery,
   useUpdateAdministratorMutation,
 } from "../../redux/api/administratorApi";
-import { imageUrl, place } from "../../redux/api/baseApi";
+import { place } from "../../redux/api/baseApi";
 import { toast } from "sonner";
 const Administrator = () => {
   const [search, setSearch] = useState("");
@@ -60,7 +60,6 @@ const Administrator = () => {
       name: singleAdmin?.name,
       email: singleAdmin?.email,
       contact: singleAdmin?.contact,
-      password: singleAdmin?.password,
       access: singleAdmin?.access,
     };
     form.setFieldsValue(data);
@@ -302,9 +301,6 @@ const Administrator = () => {
           </Form.Item>
           <Form.Item name="contact" label={<p className="">Contact Number</p>}>
             <Input className="py-1 border-[#FFA175] hover:border-[#FFA175]" />
-          </Form.Item>
-          <Form.Item name="password" label={<p className="">Password</p>}>
-            <Input.Password className="py-1 border-[#FFA175] hover:border-[#FFA175]" />
           </Form.Item>
 
           <div className="max-w-md mx-auto">
