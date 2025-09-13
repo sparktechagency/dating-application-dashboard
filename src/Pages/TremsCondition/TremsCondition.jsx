@@ -36,6 +36,7 @@ const TremsCondition = () => {
       "font",
       "brush",
       "align",
+      "link",
     ],
   };
 

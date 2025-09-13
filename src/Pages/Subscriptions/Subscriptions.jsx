@@ -6,10 +6,8 @@ import {
   useGetAllSubscriptionQuery,
   useUpdateSubscriptionPlanMutation,
   useCreateSubscriptionPlanMutation,
-  useDeleteSubscriptionPlanMutation,
 } from "../../redux/api/subscriptionApi";
 import { toast } from "sonner";
-import { Popconfirm } from 'antd';
 import SubscriptionDeleteButton from "../../Components/Button/SubscriptionDeleteButton";
 
 const Subscriptions = () => {
