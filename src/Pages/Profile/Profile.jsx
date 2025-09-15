@@ -9,12 +9,12 @@ import {
 } from "../../redux/api/AuthApi";
 import { toast } from "sonner";
 import { useNavigate } from "react-router-dom";
-import { imageUrl } from "../../redux/api/baseApi"; 
+import { imageUrl } from "../../redux/api/baseApi";
 const Profile = () => {
   // APIs
   const [changePassword] = useChangePasswordMutation();
   const { data: getAdminProfile } = useGetAdminProfileQuery();
-  const [updateProfile] = useUpdateAdminProfileMutation();
+  const [updateProfile, { isLoading }] = useUpdateAdminProfileMutation();
   const navigate = useNavigate();
 
 
@@ -56,7 +56,7 @@ const Profile = () => {
     changePassword(data)
       .unwrap()
       .then((payload) => {
-        toast.success(payload?.message);
+        toast.success("Password changed successfully!");
         localStorage.removeItem("token");
         navigate("/auth/login");
       })
@@ -80,7 +80,7 @@ const Profile = () => {
     };
     updateProfile(formData)
       .unwrap()
-      .then((payload) => toast.success(payload?.message))
+      .then((payload) => toast.success("Profile updated successfully!"))
       .catch((error) => toast.error(error?.data?.message));
 
   };
@@ -133,11 +133,10 @@ const Profile = () => {
           <p
             onClick={() => handlePageChange("Profile")}
             className={`
-                        ${
-                          tab === "Profile"
-                            ? "border-[var(--primary-color)] border-b-2 font-semibold text-[var(--primary-color)]"
-                            : "border-b-2 border-transparent font-normal text-gray-600"
-                        }
+                        ${tab === "Profile"
+                ? "border-[var(--primary-color)] border-b-2 font-semibold text-[var(--primary-color)]"
+                : "border-b-2 border-transparent font-normal text-gray-600"
+              }
                         cursor-pointer text-[16px] leading-5  
                     `}
           >
@@ -146,11 +145,10 @@ const Profile = () => {
           <p
             onClick={() => handlePageChange("Change Password")}
             className={`
-                        ${
-                          tab === "Change Password"
-                            ? "border-[var(--primary-color)] border-b-2 font-semibold text-[var(--primary-color)]"
-                            : "border-b-2 border-transparent font-normal  text-gray-600"
-                        }
+                        ${tab === "Change Password"
+                ? "border-[var(--primary-color)] border-b-2 font-semibold text-[var(--primary-color)]"
+                : "border-b-2 border-transparent font-normal  text-gray-600"
+              }
                          cursor-pointer text-base leading-[18px]  
                     `}
           >
@@ -250,6 +248,7 @@ const Profile = () => {
                 <Button
                   type="primary"
                   htmlType="submit"
+                  loading={isLoading}
                   block
                   style={{
                     width: 197,

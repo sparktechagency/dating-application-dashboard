@@ -39,6 +39,10 @@ const PrivacyPolicy = () => {
       "font",
       "brush",
       "align",
+      "link",
+      "table",
+      "ol",
+      "ul",
     ],
   };
 

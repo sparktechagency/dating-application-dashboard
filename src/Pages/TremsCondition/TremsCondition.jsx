@@ -1,4 +1,4 @@
-import React, { useState, useRef, useMemo, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import JoditEditor from "jodit-react";
 import { Link } from "react-router-dom";
 import { IoArrowBackSharp } from "react-icons/io5";
@@ -17,8 +17,8 @@ const TremsCondition = () => {
       text: content,
     };
     updateTerms(data).unwrap()
-    .then((payload) => toast.success(payload?.message))
-  .catch((error) => toast.error(error?.data?.message));
+      .then((payload) => toast.success(payload?.message))
+      .catch((error) => toast.error(error?.data?.message));
   };
   const config = {
     readonly: false,
@@ -37,6 +37,9 @@ const TremsCondition = () => {
       "brush",
       "align",
       "link",
+      "table",
+      "ol",
+      "ul",
     ],
   };
 
@@ -64,8 +67,7 @@ const TremsCondition = () => {
           value={content}
           config={config}
           tabIndex={1}
-          onBlur={(newContent) => setContent(newContent)}
-          onChange={(newContent) => {}}
+          onChange={(newContent) => setContent(newContent)}
         />
         <div className="flex items-center   justify-center mt-5">
           <button
