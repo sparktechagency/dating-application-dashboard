@@ -47,6 +47,8 @@ const DeliveryDetails = () => {
     ethnicity
   });
 
+  console.log(getAllUser);
+
   const formattedTableData = Array.isArray(getAllUser?.data?.users) && getAllUser?.data?.users?.map((user, i) => {
     return {
       key: i + 1,
@@ -79,14 +81,14 @@ const DeliveryDetails = () => {
 
   // Handle gender function
   const handleGender = (value)=>{
-    setGender(value);
+    setGender(value === undefined ? "" : value);
   }
   // Handle Bdoy Type function
   const handleBodyType = (value)=>{
-    setBodyType(value);
+    setBodyType(value === undefined ? "" : value);
   }
   const handleEthnicity = (value)=>{
-    setEthnicity(value);
+    setEthnicity(value === undefined ? "" : value);
   }
 
 

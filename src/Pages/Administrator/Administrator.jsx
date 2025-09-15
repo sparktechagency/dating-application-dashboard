@@ -159,7 +159,13 @@ const Administrator = () => {
         toast.success(payload?.message);
         setOpenModal(false);
       })
-      .catch((error) => toast.error(error?.data?.message));
+      .catch((error) => {
+        if (error?.data?.message?.includes("E11000")) {
+          toast.error("This email is already registered.");
+        } else {
+          toast.error(error?.data?.message);
+        }
+      });
   };
 
   const handleDeleteAdministrator = (id) => {
@@ -182,7 +188,13 @@ const Administrator = () => {
         toast.success(payload?.message)
         setOpenEditModal(false)
       })
-      .catch((error) => toast.error(error?.data?.message));
+      .catch((error) => {
+        if (error?.data?.message?.includes("E11000")) {
+          toast.error("This email is already registered.");
+        } else {
+          toast.error(error?.data?.message);
+        }
+      });
   };
 
   return (

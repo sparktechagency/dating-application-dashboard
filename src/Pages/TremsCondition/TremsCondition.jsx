@@ -12,6 +12,7 @@ const TremsCondition = () => {
   const [updateTerms] = useUpdateTermsMutation();
   const editor = useRef(null);
   const [content, setContent] = useState("");
+
   const handleTerms = () => {
     const data = {
       text: content,
@@ -67,7 +68,8 @@ const TremsCondition = () => {
           value={content}
           config={config}
           tabIndex={1}
-          onChange={(newContent) => setContent(newContent)}
+          onBlur={(newContent) => setContent(newContent)}
+          onChange={(newContent) => {}}
         />
         <div className="flex items-center   justify-center mt-5">
           <button

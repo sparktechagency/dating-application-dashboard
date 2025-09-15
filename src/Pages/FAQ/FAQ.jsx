@@ -16,7 +16,7 @@ const FAQ = () => {
   const { data: getAllFaq } = useGetAllFaqQuery();
   const [createFaq] = useCreateFaqMutation();
   const [deleteFaq] = useDeleteFaqMutation();
-
+  const [form] = Form.useForm();
 
   // add question and answer modal function
   const handleAddFaq = () => {
@@ -28,8 +28,9 @@ const FAQ = () => {
     createFaq(values)
       .unwrap()
       .then((payload) => {
-        toast.success(payload?.message);
+        toast.success("FAQ added successfully");
         setIsModalOpen(false);
+        form.resetFields();
       })
       .catch((error) => toast.error(error?.data?.message));
   };
@@ -38,7 +39,7 @@ const FAQ = () => {
     console.log(id);
     deleteFaq(id)
       .unwrap()
-      .then((payload) => toast.success(payload?.message))
+      .then((payload) => toast.success("FAQ deleted successfully"))
       .catch((error) => toast.error(error?.data?.message));
   };
   return (
@@ -96,7 +97,7 @@ const FAQ = () => {
         onCancel={() => setIsModalOpen(false)}
       >
         <p className="text-center font-semibold pb-5 text-xl">Add FAQ</p>
-        <Form onFinish={handleSubmitFAQ}>
+        <Form form={form} onFinish={handleSubmitFAQ}>
           <Form.Item name={"question"}>
             <Input placeholder="Type Answer Here.." variant="filled" />
           </Form.Item>

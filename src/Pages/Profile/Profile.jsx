@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Input } from "antd";
-import profile from "../../assets/images/admin.png";
 import { IoCameraOutline } from "react-icons/io5";
 import {
   useChangePasswordMutation,
@@ -60,7 +59,7 @@ const Profile = () => {
         localStorage.removeItem("token");
         navigate("/auth/login");
       })
-      .catch((error) => toast.error(error?.data?.message));
+      .catch((error) => console.log(error));
   };
 
   //   Handle edit admin profile

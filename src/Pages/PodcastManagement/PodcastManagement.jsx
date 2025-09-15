@@ -68,21 +68,25 @@ const PodcastManagement = () => {
       id: chooseUser?.perticipant1Id,
       name: chooseUser?.perticipant1,
       img: chooseUser?.perticipant1Img,
+      isAllowed: chooseUser?.perticipant1IsAllowed,
     },
     {
       id: chooseUser?.participant2Id,
       name: chooseUser?.perticipant2,
       img: chooseUser?.perticipant2Img,
+      isAllowed: chooseUser?.perticipant2IsAllowed,
     },
     {
       id: chooseUser?.participant3Id,
       name: chooseUser?.perticipant3,
       img: chooseUser?.perticipant3Img,
+      isAllowed: chooseUser?.perticipant3IsAllowed,
     },
     {
       id: chooseUser?.participant4Id,
       name: chooseUser?.perticipant4,
       img: chooseUser?.perticipant4Img,
+      isAllowed: chooseUser?.perticipant4IsAllowed,
     },
   ];
 
@@ -308,6 +312,7 @@ const PodcastManagement = () => {
               <Checkbox
                 checked={selectedParticipantId.includes(participant?.id)}
                 onChange={() => handleCheckboxChange(participant?.id)}
+                disabled={participant.isAllowed}
               />
               {!!participant?.img ? (
                 <img
@@ -319,6 +324,7 @@ const PodcastManagement = () => {
                 <img src={place} alt="default" className="h-10 w-10" />
               )}
               <p>{participant?.name}</p>
+              {participant.isAllowed && <p className="text-green-500 ml-2 text-xs">(Choosed)</p>}
             </div>
           ))}
         </div>
