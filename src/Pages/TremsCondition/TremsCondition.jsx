@@ -7,9 +7,10 @@ import {
   useUpdateTermsMutation,
 } from "../../redux/api/SettingApi";
 import { toast } from "sonner";
+import { FiLoader } from "react-icons/fi";
 const TremsCondition = () => {
   const { data: getTermsAndCondtion } = useGetTermsConditionQuery();
-  const [updateTerms] = useUpdateTermsMutation();
+  const [updateTerms, { isLoading }] = useUpdateTermsMutation();
   const editor = useRef(null);
   const [content, setContent] = useState("");
 
@@ -68,15 +69,14 @@ const TremsCondition = () => {
           value={content}
           config={config}
           tabIndex={1}
-          onBlur={(newContent) => setContent(newContent)}
-          onChange={(newContent) => {}}
+          onFocus={(newContent) => setContent(newContent)}
         />
-        <div className="flex items-center   justify-center mt-5">
+        <div className="flex items-center justify-center mt-5">
           <button
             onClick={handleTerms}
-            className="bg-[var(--primary-color)]  text-white px-4 py-2 rounded-full test"
+            className="bg-[var(--primary-color)]  text-white px-4 py-2 rounded-full test flex items-center justify-center gap-2"
           >
-            Save Changes
+            {isLoading ? <><FiLoader className="animate-spin" /> Loading...</> : "Save Changes"}
           </button>
         </div>
       </div>
