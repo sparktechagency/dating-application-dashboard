@@ -424,9 +424,12 @@ const PodcastManagement = () => {
       >
         {selectedRecordings.length > 0 ? (
           selectedRecordings.map((rec, index) => (
-            <div key={index} className="mb-4 p-2 border rounded">
-              <p className="font-semibold">Recording {index + 1}</p>
-              <a href={rec.video} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline break-all">{rec.video}</a>
+            <div key={index} className="mb-4 p-2 border rounded flex justify-between items-center">
+              <div className="flex flex-col">
+                <p className="font-semibold bg-gray-200 px-2 rounded-md text-[10px]">{rec?.sessionId}</p>
+                <p className="font-semibold">Recording {index + 1}</p>
+              </div>
+              {/* <a href={rec.video} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline break-all">{rec.video}</a> */}
               <button
                 onClick={() => handleDownloadClick(rec.video)}
                 className="bg-green-500 text-white px-3 py-1 rounded-md mt-2 ml-2"

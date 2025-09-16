@@ -31,7 +31,7 @@ const PrivacyPolicy = () => {
       })
       .catch((error) => toast.error(error?.data?.message));
   };
-  const config = {
+  const config = useMemo(() => ({
     readonly: false,
     placeholder: "Start typings...",
     style: {
@@ -52,7 +52,7 @@ const PrivacyPolicy = () => {
       "ol",
       "ul",
     ],
-  };
+  }), []);
 
   useEffect(() => {
     if (getPrivacy?.data?.text) {
@@ -81,7 +81,7 @@ const PrivacyPolicy = () => {
           value={content}
           config={config}
           tabIndex={1}
-          onBlur={(newContent) => setContent(newContent)}
+          onChange={(newContent) => setContent(newContent)}
         />
         <div className="flex items-center   justify-center mt-5">
           <button onClick={()=> handleTerms()} className="bg-[var(--primary-color)]  text-white px-4 py-2 rounded-full test flex items-center justify-center gap-2">
