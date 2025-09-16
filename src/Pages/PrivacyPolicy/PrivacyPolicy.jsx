@@ -14,14 +14,21 @@ const PrivacyPolicy = () => {
   const [updatePrivacy, { isLoading }] = useUpdatePrivacyMutation();
   const editor = useRef(null);
   const [content, setContent] = useState("");
+  const [initialContent, setInitialContent] = useState("");
 
   const handleTerms = () => {
+    if (content === initialContent) {
+      return toast.info("Already up to date");
+    }
     const data = {
       text: content,
     };
     updatePrivacy(data)
       .unwrap()
-      .then((payload) => toast.success(payload?.message))
+      .then((payload) => {
+        toast.success(payload?.message);
+        setInitialContent(content);
+      })
       .catch((error) => toast.error(error?.data?.message));
   };
   const config = {
@@ -48,7 +55,10 @@ const PrivacyPolicy = () => {
   };
 
   useEffect(() => {
-    setContent(getPrivacy?.data?.text);
+    if (getPrivacy?.data?.text) {
+      setContent(getPrivacy?.data?.text);
+      setInitialContent(getPrivacy?.data?.text);
+    }
   }, [getPrivacy]);
 
   return (
@@ -71,7 +81,7 @@ const PrivacyPolicy = () => {
           value={content}
           config={config}
           tabIndex={1}
-          onFocus={(newContent) => setContent(newContent)}
+          onBlur={(newContent) => setContent(newContent)}
         />
         <div className="flex items-center   justify-center mt-5">
           <button onClick={()=> handleTerms()} className="bg-[var(--primary-color)]  text-white px-4 py-2 rounded-full test flex items-center justify-center gap-2">

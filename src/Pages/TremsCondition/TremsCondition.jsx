@@ -13,13 +13,22 @@ const TremsCondition = () => {
   const [updateTerms, { isLoading }] = useUpdateTermsMutation();
   const editor = useRef(null);
   const [content, setContent] = useState("");
+  const [initialContent, setInitialContent] = useState("");
 
   const handleTerms = () => {
+    if (content === initialContent) {
+      return toast.info("Already up to date");
+    }
     const data = {
       text: content,
     };
+    console.log(data);
+    
     updateTerms(data).unwrap()
-      .then((payload) => toast.success(payload?.message))
+      .then((payload) => {
+        toast.success(payload?.message);
+        setInitialContent(content);
+      })
       .catch((error) => toast.error(error?.data?.message));
   };
   const config = {
@@ -46,7 +55,10 @@ const TremsCondition = () => {
   };
 
   useEffect(() => {
-    setContent(getTermsAndCondtion?.data?.text);
+    if (getTermsAndCondtion?.data?.text) {
+      setContent(getTermsAndCondtion?.data?.text);
+      setInitialContent(getTermsAndCondtion?.data?.text);
+    }
   }, [getTermsAndCondtion]);
 
   return (
@@ -69,7 +81,7 @@ const TremsCondition = () => {
           value={content}
           config={config}
           tabIndex={1}
-          onFocus={(newContent) => setContent(newContent)}
+          onBlur={(newContent) => setContent(newContent)}
         />
         <div className="flex items-center justify-center mt-5">
           <button
