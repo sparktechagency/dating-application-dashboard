@@ -7,9 +7,6 @@ import { FaRegUserCircle } from 'react-icons/fa';
 const Header = () => {
   const {data : getUser, isLoading} = useGetAdminProfileQuery()
     const navigate = useNavigate()
-
-    console.log(getUser);
-
   return (
     <div className='w-full py-4 bg-[var(--primary-color)] flex justify-end items-center  gap-4'>
     <div>

@@ -22,8 +22,8 @@ const TremsCondition = () => {
     const data = {
       text: content,
     };
-    console.log(data);
-    
+    // console.log(data);
+
     updateTerms(data).unwrap()
       .then((payload) => {
         toast.success(payload?.message);

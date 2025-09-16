@@ -13,8 +13,10 @@ import { toast } from "sonner";
 const PodcastManagement = () => {
   const [page, setPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
+  const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
+  const [selectedRecordings, setSelectedRecordings] = useState([]);
   const [chooseUser, setChooseUser] = useState();
-  const [selectedParticipantId, setSelectedParticipantId] = useState([]); 
+  const [selectedParticipantId, setSelectedParticipantId] = useState([]);
   const [podCastId, setPodCastId] = useState("");
 
   const handleCheckboxChange = (participantId) => {
@@ -29,7 +31,7 @@ const PodcastManagement = () => {
   const { data: getAllDonePodcast } = useGetAllDonePodCastQuery(page);
   const [selectedPartner] = useSelectPodCastPartnerMutation();
 
-  
+
 
   // console.log(getAllDonePodcast);
 
@@ -57,7 +59,7 @@ const PodcastManagement = () => {
       perticipant4: pod?.participants[3]?.user?.name || "N/A",
       perticipant4IsAllowed: pod?.participants[3]?.isAllow,
       date: pod?.schedule?.date?.split("T")[0] || "NO Date",
-      record: pod?.recordingUrl || "N/A",
+      status: pod?.status || "N/A",
     };
   });
 
@@ -108,7 +110,7 @@ const PodcastManagement = () => {
       .catch((error) => toast.error(error?.data?.message));
   };
 
-  const handleDownload = async (id) => {
+  const handleOpenDownloadModal = async (id) => {
     try {
       const token = JSON.parse(localStorage.getItem('token'));
       const headers = {
@@ -116,15 +118,74 @@ const PodcastManagement = () => {
       };
       const response = await fetch(`${imageUrl}/podcast/record-get-podcast/${id}`, { headers });
       const result = await response.json();
-      if (result?.success && result?.data?.findPodcastId && result.data.findPodcastId.length > 0 && result.data.findPodcastId[0]?.recordingUrl) {
-        const downloadUrl = `${imageUrl}${result.data.findPodcastId[0].recordingUrl}`;
-        window.open(downloadUrl, '_blank');
+
+      if (result?.success && result?.data?.findPodcastId?.[0]?.recordingUrl) {
+        setSelectedRecordings(result.data.findPodcastId[0].recordingUrl);
+        setIsDownloadModalOpen(true);
       } else {
         toast.error("No recording found.");
+        setSelectedRecordings([]);
+        setIsDownloadModalOpen(true);
       }
     } catch (error) {
       console.error("Download error:", error);
-      toast.error("Failed to fetch recording URL.");
+      toast.error("Failed to fetch recording URLs.");
+    }
+  };
+
+  const handleDownloadClick = async (videoUrl) => {
+    const token = JSON.parse(localStorage.getItem('token'));
+    try {
+      const response = await fetch(`${imageUrl}/podcast/download`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ fileUrl: videoUrl }),
+      });
+
+      // parse JSON safely
+      const result = await response.json().catch(() => null);
+
+      if (!response.ok) {
+        const message = result?.message || `Failed to generate download link (status ${response.status})`;
+        console.error(message, result);
+        alert(message);
+        return;
+      }
+      const signedUrl =
+        result?.data?.signedUrl ??
+        result?.data ??
+        result?.signedUrl ??
+        result?.url ??
+        null;
+
+      if (!signedUrl) {
+        console.error("No signed URL in response:", result);
+        alert("Download URL not provided by server.");
+        return;
+      }
+
+      // create link and download
+      const urlObj = new URL(videoUrl);
+      let filename = urlObj.pathname.split("/").pop() || "download";
+      filename = filename.split("?")[0];
+      try {
+        filename = decodeURIComponent(filename);
+      } catch (e) {
+        // keep original if decode fails
+      }
+
+      const link = document.createElement("a");
+      link.href = signedUrl;
+      link.setAttribute("download", filename);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error("Download failed:", error);
+      alert(error?.message || "An error occurred while generating download link.");
     }
   };
 
@@ -241,19 +302,33 @@ const PodcastManagement = () => {
       ),
     },
     {
+      title: "Status",
+      dataIndex: "status",
+      key: "status",
+      render: (status) => (
+        <p
+          className={`${status === "Done" ? "text-green-500" : "text-red-500"} font-medium`}>
+          {status}
+        </p>
+      ),
+    },
+    {
       title: "Recording",
       dataIndex: "recording",
       key: "recording",
-      render: (_, record) => (
-        <div className="text-[#FFA175]  inline-block text-center p-1 rounded-md cursor-pointer">
-          <button
-            onClick={() => handleDownload(record?.id)}
-            className="bg-blue-500 text-white px-3 py-1 rounded-md"
-          >
-            Download
-          </button>
-        </div>
-      ),
+      render: (_, record) => {
+        const isDownloadable = record.status === 'Done' || record.status === 'Finished';
+        return (
+          <div className="text-[#FFA175]  inline-block text-center p-1 rounded-md">
+            <button
+              onClick={() => handleOpenDownloadModal(record.id)}
+              disabled={!isDownloadable}
+              className={`text-white px-3 py-1 rounded-md ${isDownloadable ? 'bg-blue-500 cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}>
+              Download
+            </button>
+          </div>
+        );
+      },
     },
   ];
 
@@ -335,6 +410,34 @@ const PodcastManagement = () => {
         >
           Choose
         </button>
+      </Modal>
+
+      <Modal
+        title="Download Recordings"
+        open={isDownloadModalOpen}
+        onCancel={() => setIsDownloadModalOpen(false)}
+        footer={[
+          <button key="close" onClick={() => setIsDownloadModalOpen(false)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+            Close
+          </button>
+        ]}
+      >
+        {selectedRecordings.length > 0 ? (
+          selectedRecordings.map((rec, index) => (
+            <div key={index} className="mb-4 p-2 border rounded">
+              <p className="font-semibold">Recording {index + 1}</p>
+              <a href={rec.video} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline break-all">{rec.video}</a>
+              <button
+                onClick={() => handleDownloadClick(rec.video)}
+                className="bg-green-500 text-white px-3 py-1 rounded-md mt-2 ml-2"
+              >
+                Download
+              </button>
+            </div>
+          ))
+        ) : (
+          <p>No recordings found for this podcast.</p>
+        )}
       </Modal>
     </div>
   );

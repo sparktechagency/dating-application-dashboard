@@ -48,8 +48,19 @@ const podcastManagement = baseApi.injectEndpoints({
                     method : 'GET'
                 }
             }
+        }),
+
+        podcastRecordingDownload : builder.query({
+            query : (url)=>{
+                return {
+                    url : `/podcast/download`,
+                    method : 'POST',
+                    body : url
+                }
+            }
         })
+
     })
 })
 
-export const { useGetAllDonePodCastQuery , useSelectPodCastPartnerMutation , useSchedulePodCastMutation , usePodcastDoneMutation , useGetPodcastRecordingQuery } = podcastManagement;
+export const { useGetAllDonePodCastQuery , useSelectPodCastPartnerMutation , useSchedulePodCastMutation , usePodcastDoneMutation , useGetPodcastRecordingQuery, usePodcastRecordingDownloadQuery } = podcastManagement;
