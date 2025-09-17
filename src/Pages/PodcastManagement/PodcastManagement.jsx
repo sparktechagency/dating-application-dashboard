@@ -2,7 +2,7 @@ import { Checkbox, Modal, Pagination, Table } from "antd";
 import React, { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   useGetAllDonePodCastQuery,
   useSelectPodCastPartnerMutation
@@ -60,10 +60,9 @@ const PodcastManagement = () => {
       perticipant4IsAllowed: pod?.participants[3]?.isAllow,
       date: pod?.schedule?.date?.split("T")[0] || "NO Date",
       status: pod?.status || "N/A",
+      roomCode: pod?.roomCodes ? pod.roomCodes.filter((code) => code?.role === 'broadcaster')[0]?.code : "N/A"
     };
   });
-
-
 
   const participants = [
     {
@@ -91,6 +90,11 @@ const PodcastManagement = () => {
       isAllowed: chooseUser?.perticipant4IsAllowed,
     },
   ];
+
+  const navigate = useNavigate();
+  const handleJoinPodcast = () => {
+    navigate(`https://podlove.co/ms/?roomCode=${roomCode}`);
+  };
 
 
   // console.log(participants);
@@ -313,13 +317,21 @@ const PodcastManagement = () => {
       ),
     },
     {
-      title: "Recording",
+      title: "Action",
       dataIndex: "recording",
       key: "recording",
       render: (_, record) => {
         const isDownloadable = record.status === 'Done' || record.status === 'Finished';
+        const isFinished = record.status === 'Finished';
+        console.log(record);
         return (
-          <div className="text-[#FFA175]  inline-block text-center p-1 rounded-md">
+          <div className="text-[#FFA175] inline-block p-1 rounded-md space-x-2 text-end">
+            <a target="blank" href={`https://podlove.co/ms/?roomCode=${record?.roomCode}`}
+              // onClick={handleJoinPodcast}
+              disabled={isFinished}
+              className={`text-white px-3 py-1 rounded-md bg-pink-500 cursor-pointer`}>
+              Join
+            </a>
             <button
               onClick={() => handleOpenDownloadModal(record.id)}
               disabled={!isDownloadable}
@@ -342,18 +354,6 @@ const PodcastManagement = () => {
           </Link>
           <span className="font-semibold text-[20px]">Podcast Management</span>
         </div>
-        {/* <div>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search here..."
-              className="w-full pl-10 pr-4 py-1 rounded-md border border-[#FFA175] focus:border-[#FFA175] focus:outline-none "
-            />
-            <span className="absolute left-3 top-2.5 text-gray-400">
-              <CiSearch className="text-[#FFA175]" />
-            </span>
-          </div>
-        </div> */}
       </div>
 
       <Table
@@ -429,7 +429,6 @@ const PodcastManagement = () => {
                 <p className="font-semibold bg-gray-200 px-2 rounded-md text-[10px]">{rec?.sessionId}</p>
                 <p className="font-semibold">Recording {index + 1}</p>
               </div>
-              {/* <a href={rec.video} target="_blank" rel="noopener noreferrer" className="text-blue-500 hover:underline break-all">{rec.video}</a> */}
               <button
                 onClick={() => handleDownloadClick(rec.video)}
                 className="bg-green-500 text-white px-3 py-1 rounded-md mt-2 ml-2"
