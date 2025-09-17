@@ -30,7 +30,7 @@ function App() {
     {
       title: 'Total Income',
       icon: profit,
-      count: getAnalytics?.data?.totalIncome,
+      count: getAnalytics?.data?.totalIncome.toFixed(2),
     },
     {
       title: 'Total Podcast',
