@@ -326,12 +326,13 @@ const PodcastManagement = () => {
         console.log(record);
         return (
           <div className="text-[#FFA175] inline-block p-1 rounded-md space-x-2 text-end">
-            <a target="blank" href={`https://podlove.co/ms/?roomCode=${record?.roomCode}`}
-              // onClick={handleJoinPodcast}
-              disabled={isFinished}
-              className={`text-white px-3 py-1 rounded-md bg-pink-500 cursor-pointer`}>
-              Join
-            </a>
+            <button
+              className={`text-white px-3 py-1 rounded-md bg-pink-500 cursor-pointer`}
+              disabled={isFinished}>
+              <a target="blank" href={`https://podlove.co/ms/?roomCode=${record?.roomCode}`}>
+                Join
+              </a>
+            </button>
             <button
               onClick={() => handleOpenDownloadModal(record.id)}
               disabled={!isDownloadable}
