@@ -91,9 +91,10 @@ const PodcastManagement = () => {
     },
   ];
 
-  const navigate = useNavigate();
-  const handleJoinPodcast = () => {
-    navigate(`https://podlove.co/ms/?roomCode=${roomCode}`);
+  const handleJoinPodcast = (record) => {
+    const roomCode = record?.roomCode;
+    if (!roomCode) return;
+    window.open(`https://podlove.co/ms/?roomCode=${roomCode}`, "_blank");
   };
 
 
@@ -192,6 +193,7 @@ const PodcastManagement = () => {
       alert(error?.message || "An error occurred while generating download link.");
     }
   };
+
 
   const columns = [
     {
@@ -323,16 +325,16 @@ const PodcastManagement = () => {
       render: (_, record) => {
         const isDownloadable = record.status === 'Done' || record.status === 'Finished';
         const isFinished = record.status === 'Finished';
-        console.log(record);
         return (
           <div className="text-[#FFA175] inline-block p-1 rounded-md space-x-2 text-end">
             <button
-              className={`text-white px-3 py-1 rounded-md bg-pink-500 cursor-pointer`}
-              disabled={isFinished}>
-              <a target="blank" href={`https://podlove.co/ms/?roomCode=${record?.roomCode}`}>
-                Join
-              </a>
+              className={`px-3 py-1 rounded-md ${isFinished ? 'bg-gray-400 text-black cursor-not-allowed' : 'bg-blue-500 text-white cursor-pointer'}`}
+              disabled={isFinished}
+              onClick={() => handleJoinPodcast(record)}
+            >
+              Join
             </button>
+
             <button
               onClick={() => handleOpenDownloadModal(record.id)}
               disabled={!isDownloadable}
