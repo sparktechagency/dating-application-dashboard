@@ -57,7 +57,7 @@ const ScheduleModal = ({ openScheduleModal, setScheduleModal, podCastId }) => {
             <DatePicker
               className="w-full py-2 border-[#FFA175] hover:border-[#FFA175]"
               showTime // Enables time picker
-              format="YYYY-MM-DD HH:mm" // Date and time format
+              format="YYYY-MM-DD hh:mm A" // Date and time format in 12-hour format
               suffixIcon={
                 <FaRegCalendarAlt className="text-[#FFA175] cursor-pointer" />
               }
