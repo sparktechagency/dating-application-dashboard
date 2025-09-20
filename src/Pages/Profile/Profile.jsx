@@ -48,6 +48,7 @@ const Profile = () => {
   // Handle change password function
   const onFinish = (values) => {
     const data = {
+      email: getAdminProfile?.data?.email,
       password: values?.current_password,
       newPassword: values?.new_password,
       confirmPassword: values?.confirm_password,
