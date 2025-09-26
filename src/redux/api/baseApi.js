@@ -3,7 +3,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 const baseQuery = fetchBaseQuery({
     // baseUrl : 'http://10.10.20.11:8000',
-    // baseUrl : 'http://10.10.20.11:8000',
     baseUrl : 'https://backend.podlove.co',
     prepareHeaders  :  (headers)=>{
         const token = JSON.parse(localStorage.getItem('token'));
@@ -18,7 +17,7 @@ export const baseApi = createApi({
     
     reducerPath : 'baseApi',
     baseQuery : baseQuery,
-    tagTypes : ["padCastManagement"],
+    tagTypes : ["padCastManagement", "videoManagement", "schedule", "userManagement", "subscription", "premiumSubscriber", "notification", "administrator", "support", "setting", "dashboard", "auth"],
     endpoints : ()=>({})
 })
 // export const imageUrl = "http://10.10.20.11:8000"

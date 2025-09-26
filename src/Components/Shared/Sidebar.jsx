@@ -2,12 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
-import {
-  MdOutlineDashboard,
-  MdOutlineWorkspacePremium,
-  MdPodcasts,
-  MdSupport,
-} from "react-icons/md";
+import { MdOutlineDashboard, MdOutlineWorkspacePremium, MdPodcasts, MdSupport, MdVideoCall } from "react-icons/md";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import img from "../../assets/images/logo.png";
 import { FiAward } from "react-icons/fi";
@@ -64,6 +59,17 @@ const navigate = useNavigate()
       path: "/podcast-management",
       label: "Podcast Management",
       icon: <MdPodcasts size={25} />,
+      sub_menu: false,
+    });
+  }
+  if (
+    getProfile?.data?.access === "ALL" ||
+    getProfile?.data?.access === "VIDEO_MANAGEMENT"
+  ) {
+    links.push({
+      path: "/video-management",
+      label: "Video Management",
+      icon: <MdVideoCall size={25} />,
       sub_menu: false,
     });
   }

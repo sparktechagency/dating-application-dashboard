@@ -22,6 +22,7 @@ import PrivateRoutes from "../Components/PrivateRoute/PrivateRoute";
 import ConsumerPolicy from "../Pages/ConsumerPolicy/ConsumerPolicy";
 import MediaPolicy from "../Pages/MediaPolicy/MediaPolicy";
 import ScheduleRequest from "../Pages/ScheduleRequestPage/ScheduleRequest";
+import VideoManagement from "../Pages/VideoManagement/VideoManagement";
 
 export const router = createBrowserRouter([
     {
@@ -97,6 +98,10 @@ export const router = createBrowserRouter([
             {
                 path :  '/administrator',
                 element : <Administrator/>
+            },
+            {
+                path: '/video-management',
+                element: <VideoManagement />
             }
 
 
