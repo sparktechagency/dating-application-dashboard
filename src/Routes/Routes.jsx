@@ -23,6 +23,7 @@ import ConsumerPolicy from "../Pages/ConsumerPolicy/ConsumerPolicy";
 import MediaPolicy from "../Pages/MediaPolicy/MediaPolicy";
 import ScheduleRequest from "../Pages/ScheduleRequestPage/ScheduleRequest";
 import VideoManagement from "../Pages/VideoManagement/VideoManagement";
+import SmsPolicy from "../Pages/SmsPolicy/SmsPolicy";
 
 export const router = createBrowserRouter([
     {
@@ -102,6 +103,10 @@ export const router = createBrowserRouter([
             {
                 path: '/video-management',
                 element: <VideoManagement />
+            },
+            {
+                path: '/sms-policy',
+                element: <SmsPolicy />
             }
 
 

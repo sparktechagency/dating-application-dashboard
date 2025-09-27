@@ -3,15 +3,15 @@ import JoditEditor from "jodit-react";
 import { Link } from "react-router-dom";
 import { IoArrowBackSharp } from "react-icons/io5";
 import {
-  useGetMediaPolicyQuery,
-  useUpdateMediaPolicyMutation,
+  useGetSmsPolicyQuery,
+  useUpdateSmsPolicyMutation,
 } from "../../redux/api/SettingApi";
 import { toast } from "sonner";
 import { FiLoader } from "react-icons/fi";
 
-const MediaPolicy = () => {
-  const { data: getMediaPolicy } = useGetMediaPolicyQuery();
-  const [updateMediaPolicy, { isLoading }] = useUpdateMediaPolicyMutation();
+const SmsPolicy = () => {
+  const { data: getSmsPolicy } = useGetSmsPolicyQuery();
+  const [updateSmsPolicy, { isLoading }] = useUpdateSmsPolicyMutation();
   const editor = useRef(null);
   const [content, setContent] = useState("");
   const [initialContent, setInitialContent] = useState("");
@@ -23,7 +23,7 @@ const MediaPolicy = () => {
     const data = {
       text: content,
     };
-    updateMediaPolicy(data)
+    updateSmsPolicy(data)
       .unwrap()
       .then((payload) => {
         toast.success(payload?.message);
@@ -55,11 +55,11 @@ const MediaPolicy = () => {
   }), []);
 
   useEffect(() => {
-    if (getMediaPolicy?.data?.text) {
-      setContent(getMediaPolicy?.data?.text);
-      setInitialContent(getMediaPolicy?.data?.text);
+    if (getSmsPolicy?.data?.text) {
+      setContent(getSmsPolicy?.data?.text);
+      setInitialContent(getSmsPolicy?.data?.text);
     }
-  }, [getMediaPolicy]);
+  }, [getSmsPolicy]);
 
   return (
     <>
@@ -71,7 +71,7 @@ const MediaPolicy = () => {
           >
             <IoArrowBackSharp className="text-[var(--primary-color)]" />
           </Link>{" "}
-          <p className="font-semibold">Media Policy</p>
+          <p className="font-semibold">SMS Policy</p>
         </div>
       </div>
 
@@ -93,4 +93,4 @@ const MediaPolicy = () => {
   );
 };
 
-export default MediaPolicy;
+export default SmsPolicy;
