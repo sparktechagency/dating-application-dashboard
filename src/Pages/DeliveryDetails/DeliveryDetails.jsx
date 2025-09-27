@@ -56,7 +56,7 @@ const DeliveryDetails = () => {
       authId: user?.auth?._id,
       name: user?.name,
       img: user?.avatar,
-      address: user?.address || "N/A",
+      address: user?.location?.place.split(" ").slice(0, 2).join(" ") || "N/A",
       // dob: user?.,
       contact: user?.phoneNumber,
       email: user?.auth?.email,
@@ -67,6 +67,8 @@ const DeliveryDetails = () => {
       isBlocked: user?.auth?.isBlocked,
     };
   });
+
+  console.log(formattedTableData);
 
 
   // Handle minimum age function
