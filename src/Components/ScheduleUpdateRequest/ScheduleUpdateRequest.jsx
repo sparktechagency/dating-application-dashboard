@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import SheduleDoneButton from "../Button/SheduleDoneButton";
 
 const ScheduleUpdateRequest = ({ dataSource }) => {
+  console.log(dataSource);
   const [openScheduleModal, setScheduleModal] = useState(false);
   const [podCastId, setPodCastId] = useState("");
   const [podCastDone, { isLoading }] = usePodcastDoneMutation();

@@ -11,8 +11,8 @@ import { useGetAllNewPodcastQuery, useGetAnalyticsQuery } from './redux/api/Dahs
 import ScheduleUpdateRequest from './Components/ScheduleUpdateRequest/ScheduleUpdateRequest'
 function App() {
   // All APIs
-  const {data : getAnalytics} = useGetAnalyticsQuery() 
-  const {data : getAllPodcast } = useGetAllNewPodcastQuery()
+  const { data: getAnalytics } = useGetAnalyticsQuery()
+  const { data: getAllPodcast } = useGetAllNewPodcastQuery()
 
 
   // 
@@ -40,24 +40,24 @@ function App() {
   ]
 
 
-  const formattedData = getAllPodcast?.data?.podcasts?.slice(0,4)?.map((pod , i)=>{
+  const formattedData = getAllPodcast?.data?.podcasts?.slice(0, 4)?.map((pod, i) => {
     return (
       {
-        id : pod?._id,
+        id: pod?._id,
         key: i + 1,
         PrimaryParticipantName: pod?.primaryUser?.name,
-        PrimaryParticipant:  pod?.primaryUser?.avatar,
-        perticipant2:pod?.participants[0]?.name,
-        perticipant2Img:  pod?.participants[0]?.avatar,
-        perticipant3: pod?.participants[1]?.name,
-        perticipant3Img:  pod?.participants[1]?.avatar,
-        perticipant4: pod?.participants[2]?.name,
-        perticipant4Img:   pod?.participants[2]?.avatar,
-        perticipant1: pod?.participants[3]?.name,
-        perticipant1Img:   pod?.participants[3]?.avatar,
-        scheduleDate : pod?.schedule?.date,
-        scheduleTime : pod?.schedule?.time,
-        scheduleDay : pod?.schedule?.day,
+        PrimaryParticipant: pod?.primaryUser?.avatar,
+        perticipant1: pod?.participants[0]?.user?.name || "N/A",
+        perticipant1Img: pod?.participants[0]?.user?.avatar || "",
+        perticipant2: pod?.participants[1]?.user?.name || "N/A",
+        perticipant2Img: pod?.participants[1]?.user?.avatar || "",
+        perticipant3: pod?.participants[2]?.user?.name || "N/A",
+        perticipant3Img: pod?.participants[2]?.user?.avatar || "",
+        perticipant4: pod?.participants[3]?.user?.name || "N/A",
+        perticipant4Img: pod?.participants[3]?.user?.avatar || "",
+        scheduleDate: pod?.schedule?.date,
+        scheduleTime: pod?.schedule?.time,
+        scheduleDay: pod?.schedule?.day,
         status: pod?.status
       }
     )
@@ -93,7 +93,7 @@ function App() {
           <IncomeOverview />
         </div>
         <div className='w-full h-full bg-white p-4 rounded-md'>
-            <UserGrowthChart />
+          <UserGrowthChart />
         </div>
       </div>
 
@@ -102,7 +102,8 @@ function App() {
       <div className="mt-5 bg-[white] p-5 rounded-md">
 
         <div className='flex justify-between items-center gap-2 mb-3 p-5'>
-          <p className='text-2xl font-semibold'>Podcast Schedule Request</p> <Link className='text-[#2757A6]' to={`/schedule-request`}>
+          <p className='text-2xl font-semibold'>Podcast Schedule Request</p>
+          <Link className='text-[#2757A6]' to={`/schedule-request`}>
             View all
           </Link>
         </div>

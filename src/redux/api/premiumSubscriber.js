@@ -8,7 +8,8 @@ const premiumSubscriber = baseApi.injectEndpoints({
                     url : `/user/get-all-premium-users?page=${page}&search=${search}`,
                     method : 'GET'
                 }
-            }
+            },
+            providesTags : ['premiumSubscriber']
         })
     })
 })

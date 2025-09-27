@@ -9,7 +9,7 @@ const videoManagementApi = baseApi.injectEndpoints({
                     method: 'GET'
                 }
             },
-            providesTags: ['video']
+            providesTags: ['videoManagement']
         }),
 
         uploadVideo: builder.mutation({
@@ -20,7 +20,7 @@ const videoManagementApi = baseApi.injectEndpoints({
                     body: data
                 }
             },
-            invalidatesTags: ['video']
+            invalidatesTags: ['videoManagement']
         }),
 
         deleteVideo: builder.mutation({

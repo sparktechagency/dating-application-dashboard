@@ -9,7 +9,7 @@ const userManagement = baseApi.injectEndpoints({
                     method : 'GET'
                 }
             },
-            providesTags : ['user']
+            providesTags : ['userManagement']
         }),
         sendMessage : builder.mutation({
             query : (data)=>{
@@ -27,7 +27,7 @@ const userManagement = baseApi.injectEndpoints({
                     method : 'POST'
                 }
             },
-            invalidatesTags : ['user']
+            invalidatesTags : ['userManagement']
         }),
         getSurvey : builder.query({
             query : (id)=>{

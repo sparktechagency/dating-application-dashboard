@@ -17,7 +17,7 @@ export const baseApi = createApi({
     
     reducerPath : 'baseApi',
     baseQuery : baseQuery,
-    tagTypes : ["padCastManagement", "videoManagement", "schedule", "userManagement", "subscription", "premiumSubscriber", "notification", "administrator", "support", "setting", "dashboard", "auth"],
+    tagTypes : ["podcastManagement", "videoManagement", "schedule", "userManagement", "subscription", "premiumSubscriber", "notification", "administrator", "support", "setting", "dashboard", "auth", "legal", "profile"],
     endpoints : ()=>({})
 })
 // export const imageUrl = "http://10.10.20.11:8000"

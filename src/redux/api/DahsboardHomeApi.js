@@ -9,7 +9,8 @@ const dashboardApi = baseApi.injectEndpoints({
                     method : 'GET'
                 }
                
-            }
+            },
+            providesTags : ['dashboard']
         }),
         incomeGrowth : builder.query({
             query : (year)=>{
@@ -17,7 +18,8 @@ const dashboardApi = baseApi.injectEndpoints({
                     url  : `/analytics/income/${year}`,
                     method : 'GET'
                 }
-            }
+            },
+            providesTags : ['dashboard']
         }),
         subscriptionGrowth : builder.query({
             query : (year)=>{
@@ -25,7 +27,8 @@ const dashboardApi = baseApi.injectEndpoints({
                     url : `/analytics/subscription/${year}`,
                     method : 'GET'
                 }
-            }
+            },
+            providesTags : ['dashboard']
         }),
         getAllPodcast : builder.query({
             query : (page)=>{
@@ -34,7 +37,7 @@ const dashboardApi = baseApi.injectEndpoints({
                     method : 'GET'
                 }
             },
-            providesTags : ["padCastManagement"]
+            providesTags : ["podcastManagement"]
         }),
         getAllNewPodcast : builder.query({
             query : (page)=>{
@@ -43,7 +46,7 @@ const dashboardApi = baseApi.injectEndpoints({
                     method : 'GET'
                 }
             },
-            providesTags : ["padCastManagement"]
+            providesTags : ["podcastManagement"]
         })
 
     })

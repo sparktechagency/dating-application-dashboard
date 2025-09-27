@@ -29,7 +29,7 @@ const podcastManagement = baseApi.injectEndpoints({
                     body : data
                 }
             },
-            invalidatesTags : ['padCastManagement']
+            invalidatesTags : ['podcastManagement']
         }),
         podcastDone : builder.mutation({
             query : (data)=>{
@@ -39,7 +39,7 @@ const podcastManagement = baseApi.injectEndpoints({
                     body : data
                 }
             },
-            invalidatesTags : ['padCastManagement']
+            invalidatesTags : ['podcastManagement']
         }),
         getPodcastRecording : builder.query({
             query : (id)=>{
