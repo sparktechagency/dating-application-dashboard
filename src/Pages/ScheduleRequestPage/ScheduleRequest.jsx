@@ -12,7 +12,6 @@ const ScheduleRequest = () => {
 
 
   const formattedData = Array.isArray(getAllNewPodcast?.data?.podcasts) && getAllNewPodcast?.data?.podcasts?.map((pod, i) => {
-    console.log(pod);
     const data = {
       id: pod?._id,
       key: i + 1,

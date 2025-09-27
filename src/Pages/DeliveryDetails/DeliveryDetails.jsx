@@ -68,7 +68,7 @@ const DeliveryDetails = () => {
     };
   });
 
-  console.log(formattedTableData);
+  // console.log(formattedTableData);
 
 
   // Handle minimum age function

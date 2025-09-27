@@ -1,33 +1,37 @@
 import { Table } from "antd";
 import React, { useState } from "react";
-import { LuCalendarClock, LuLoader } from "react-icons/lu";
+import { LuCalendarClock } from "react-icons/lu";
 import ScheduleModal from "../ScheduleModal/ScheduleModal";
 import { imageUrl, place } from "../../redux/api/baseApi";
-import { usePodcastDoneMutation } from "../../redux/api/podcastManagementApi";
-import { toast } from "sonner";
 import SheduleDoneButton from "../Button/SheduleDoneButton";
 
 const ScheduleUpdateRequest = ({ dataSource }) => {
-  console.log(dataSource);
   const [openScheduleModal, setScheduleModal] = useState(false);
   const [podCastId, setPodCastId] = useState("");
-  const [podCastDone, { isLoading }] = usePodcastDoneMutation();
 
-  // const handleDonePodcast = (id) => {
-  //   const data = {
-  //     podcastId: id,
-  //   };
-  //   podCastDone(data)
-  //     .unwrap()
-  //     .then((payload) => {
-  //       toast.success(payload?.message)
-  //     })
-  //     .catch((error) => toast.error(error?.data?.message));
-  // };
+  const maxParticipants = dataSource ? Math.max(...dataSource.map(d => 
+    Object.keys(d).filter(key => key.startsWith('perticipant') && !key.endsWith('Img')).length
+  )) : 0;
 
-  const handleSetSchedule = (id) => {
-    
-  };
+  const participantColumns = [];
+  for (let i = 1; i <= maxParticipants; i++) {
+    participantColumns.push({
+      title: `Participant-${i}`,
+      dataIndex: `perticipant${i}`,
+      key: `perticipant${i}`,
+      render: (_, record) => (
+        <div className="flex  items-center gap-2">
+          {!!record[`perticipant${i}Img`] ? (
+            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record[`perticipant${i}Img`]}`} alt="" />
+          ) : (
+            <img className="h-12 w-12" src={place} alt="" />
+          )}
+
+          <p className="font-medium">{record[`perticipant${i}`]}</p>
+        </div>
+      ),
+    });
+  }
 
   const columns = [
     {
@@ -51,69 +55,7 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
         </div>
       ),
     },
-    {
-      title: "Perticipant-1",
-      dataIndex: "perticipant1",
-      key: "perticipant1",
-      render: (_, record) => (
-        <div className="flex  items-center gap-2">
-          {!!record?.perticipant2Img ? (
-            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt="" />
-          ) : (
-            <img className="h-12 w-12" src={place} alt="" />
-          )}
-
-          <p className="font-medium">{record?.perticipant2}</p>
-        </div>
-      ),
-    },
-    {
-      title: "Perticipant-2",
-      dataIndex: "perticipant2", 
-      key: "perticipant2",
-      render: (_, record) => (
-        <div className="flex  items-center gap-2">
-          {!!record?.perticipant3Img ? (
-            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.perticipant3Img}`} alt="" />
-          ) : (
-            <img className="h-12 w-12" src={place} alt="" />
-          )}
-          <p className="font-medium">{record?.perticipant3}</p>
-        </div>
-      ),
-    },
-
-    {
-      title: "Perticipant-3",
-      dataIndex: "perticipant3",
-      key: "perticipant3",
-      render: (_, record) => (
-        <div className="flex  items-center gap-2">
-          {!!record?.perticipant4Img ? (
-            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt="" />
-          ) : (
-            <img className="h-12 w-12" src={place} alt="" />
-          )}
-          <p className="font-medium">{record?.perticipant4}</p>
-        </div>
-      ),
-    },
-    {
-      title: "Perticipant-4",
-      dataIndex: "perticipant4",
-      key: "perticipant4",
-      render: (_, record) => (
-        <div className="flex  items-center gap-2">
-          {!!record?.perticipant1Img ? (
-            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt="" />
-          ) : (
-            <img className="h-12 w-12" src={place} alt="" />
-          )}
-
-          <p className="font-medium">{record?.perticipant1}</p>
-        </div>
-      ),
-    },
+    ...participantColumns,
     {
       title: "Schedule Date & Time",
       dataIndex: "datetime",

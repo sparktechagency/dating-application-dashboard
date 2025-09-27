@@ -1,12 +1,12 @@
 import { Button, Checkbox, Form, Input } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLoginAdminMutation } from "../../redux/api/AuthApi";
 import { toast } from "sonner";
 
 const Login = () => {
   // APIs
-  const [adminLogin] = useLoginAdminMutation();
-  const navigate = useNavigate();
+  const [adminLogin, { isLoading }] = useLoginAdminMutation();
+  // const navigate = useNavigate();
 
   // handle login data
   const onFinish = (values) => {
@@ -25,12 +25,12 @@ const Login = () => {
             "token",
             JSON.stringify(payload?.data?.accessToken)
           );
-          navigate("/");
+          window.location.href = "/";
         }
       })
       .catch((error) => toast.error(error?.data?.message));
   };
-  
+
   return (
     <div
       className="gap-0 flex-col flex justify-center items-center"
@@ -160,6 +160,7 @@ const Login = () => {
 
           <Form.Item style={{ marginBottom: 0 }}>
             <Button
+              loading={isLoading}
               type="primary"
               htmlType="submit"
               className="login-form-button rounded-xl"
@@ -172,8 +173,8 @@ const Login = () => {
                 marginTop: "56px",
               }}
             >
-              
-                Sign In
+
+              Sign In
             </Button>
           </Form.Item>
         </Form>
