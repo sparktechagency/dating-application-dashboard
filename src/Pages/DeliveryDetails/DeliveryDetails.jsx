@@ -47,7 +47,7 @@ const DeliveryDetails = () => {
     ethnicity
   });
 
-  console.log(getAllUser);
+  // console.log(getAllUser);
 
   const formattedTableData = Array.isArray(getAllUser?.data?.users) && getAllUser?.data?.users?.map((user, i) => {
     return {
@@ -153,7 +153,10 @@ const DeliveryDetails = () => {
           </div>
           <div className="relative">
             <input
-              onChange={(e) => setSearch(e.target.value)} 
+              onChange={(e) => {
+                setSearch(e.target.value);
+                setPage(1);
+              }}
               type="text"
               placeholder="Search here..."
               className="w-full pl-10 pr-4 py-1 rounded-md border border-[#272626] focus:border-[#FFA175] focus:outline-none "
