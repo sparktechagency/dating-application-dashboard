@@ -32,7 +32,7 @@ const userManagement = baseApi.injectEndpoints({
         getSurvey : builder.query({
             query : (id)=>{
                 return {
-                    url : `/survey/${id}`,
+                    url : `/user/get_survey_feedback/${id}`,
                     method : 'GET'
                 }
             }

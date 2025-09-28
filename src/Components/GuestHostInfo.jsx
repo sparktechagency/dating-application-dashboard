@@ -1,4 +1,4 @@
-import { Form, Input, Modal, Radio, Select, Table } from "antd";
+import { Button, Form, Input, Modal, Radio, Select, Table } from "antd";
 import React, { useState } from "react";
 import { MdBlock, MdOutlineMessage } from "react-icons/md";
 import { RiBarChartFill } from "react-icons/ri";
@@ -14,7 +14,7 @@ const GuestHostInfo = ({ dataSource }) => {
   const [openModal, setOpenModal] = useState(false);
   const [userId, setUserId] = useState("");
   // ALL APIs
-  const [sendMessage] = useSendMessageMutation();
+  const [sendMessage, { isLoading }] = useSendMessageMutation();
   const [blockUnblockUser] = useBlockUnblockUserMutation();
 
 
@@ -76,16 +76,16 @@ const GuestHostInfo = ({ dataSource }) => {
     //     )
     //   }
     // },
-    {
-      title: 'Body Type',
-      dataSource: "bodyType",
-      key: "bodyType",
-      render: (_, record) => {
-        return (
-          <p>{record?.bodyType}</p>
-        )
-      }
-    },
+    // {
+    //   title: 'Body Type',
+    //   dataSource: "bodyType",
+    //   key: "bodyType",
+    //   render: (_, record) => {
+    //     return (
+    //       <p>{record?.bodyType}</p>
+    //     )
+    //   }
+    // },
     {
       title: "City",
       dataIndex: "address",
@@ -166,7 +166,7 @@ const GuestHostInfo = ({ dataSource }) => {
     sendMessage(data)
       .unwrap()
       .then((payload) => {
-        toast.success(payload?.message);
+        toast.success("Message Send Successfully!");
         setOpenModal(false);
         form.resetFields();
       })
@@ -214,7 +214,7 @@ const GuestHostInfo = ({ dataSource }) => {
             </Radio.Group>
           </Form.Item>
           <div className="flex items-center gap-4 justify-center">
-            <button
+            <Button
               onClick={() => {
                 setOpenModal(false);
                 form.resetFields();
@@ -223,10 +223,10 @@ const GuestHostInfo = ({ dataSource }) => {
               className="border border-[#FFE2D4] px-5 py-2 text-[#FFA175] rounded-sm w-full"
             >
               cancel
-            </button>
-            <button className="bg-[#FFA175] px-5 py-2 text-white rounded-sm w-full">
+            </Button>
+            <Button loading={isLoading} htmlType="submit" className="bg-[#FFA175] px-5 py-2 text-white rounded-sm w-full">
               Send
-            </button>
+            </Button>
           </div>
         </Form>
       </Modal>

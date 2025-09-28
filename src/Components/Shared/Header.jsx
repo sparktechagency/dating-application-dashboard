@@ -9,13 +9,13 @@ const Header = () => {
     const navigate = useNavigate()
   return (
     <div className='w-full py-4 bg-[var(--primary-color)] flex justify-end items-center  gap-4'>
-    <div>
+    {/* <div>
         <Link to="/notification" style={{ boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.24)" }} className=' bg-[#F2F2F2] h-10 flex items-center w-10 rounded-full p-2'>
             <Badge>
                 <IoIosNotificationsOutline className='text-[var(--primary-color)]' size={25} />
             </Badge>
         </Link>
-    </div>
+    </div> */}
     <div onClick={() => navigate('/profile')} className='flex justify-end items-center gap-1 border-gray-400 p-[2px] px-4 rounded-md cursor-pointer'>
        
        {

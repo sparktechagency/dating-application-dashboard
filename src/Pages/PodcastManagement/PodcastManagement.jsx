@@ -1,8 +1,8 @@
-import { Checkbox, Modal, Pagination, Table } from "antd";
+import { Button, Checkbox, Modal, Pagination, Table } from "antd";
 import React, { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   useGetAllDonePodCastQuery,
   useSelectPodCastPartnerMutation
@@ -29,7 +29,7 @@ const PodcastManagement = () => {
 
 
   const { data: getAllDonePodcast } = useGetAllDonePodCastQuery(page);
-  const [selectedPartner] = useSelectPodCastPartnerMutation();
+  const [selectedPartner, { isLoading }] = useSelectPodCastPartnerMutation();
 
 
 
@@ -326,21 +326,21 @@ const PodcastManagement = () => {
         const isDownloadable = record.status === 'Done' || record.status === 'Finished';
         const isFinished = record.status === 'Finished';
         return (
-          <div className="text-[#FFA175] inline-block p-1 rounded-md space-x-2 text-end">
-            <button
+          <div className="text-[#FFA175] flex gap-2 flewr p-1 rounded-md text-end">
+            <Button
               className={`px-3 py-1 rounded-md ${isFinished ? 'bg-gray-400 text-black cursor-not-allowed' : 'bg-blue-500 text-white cursor-pointer'}`}
               disabled={isFinished}
               onClick={() => handleJoinPodcast(record)}
             >
               Join
-            </button>
+            </Button>
 
-            <button
+            <Button
               onClick={() => handleOpenDownloadModal(record.id)}
               disabled={!isDownloadable}
               className={`text-white px-3 py-1 rounded-md ${isDownloadable ? 'bg-blue-500 cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}>
               Download
-            </button>
+            </Button>
           </div>
         );
       },
@@ -406,13 +406,14 @@ const PodcastManagement = () => {
             </div>
           ))}
         </div>
-        <button
+        <Button
+          loading={isLoading}
           onClick={() => handleSelectedParticipant()}
           className="bg-[#FFA175] flex w-full justify-center items-center text-white py-2 rounded-sm"
           disabled={selectedParticipantId?.length === 0}
         >
           Choose
-        </button>
+        </Button>
       </Modal>
 
       <Modal
