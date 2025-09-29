@@ -356,10 +356,23 @@ const PodcastManagement = () => {
       key: "producerLink",
       render: (_, record) => {
         const producerCode = record?.producerRoomCode;
-       const handleCopy = async () => {
+        const handleCopy = async (producerCode) => {
   if (producerCode && producerCode !== "N/A") {
+    const textToCopy = `https://podlove.co/ms/?roomCode=${producerCode}`;
     try {
-      await navigator.clipboard.writeText(`https://podlove.co/ms/?roomCode=${producerCode}`);
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(textToCopy);
+      } else {
+        // fallback
+        const textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+        textArea.style.position = "fixed";
+        textArea.style.left = "-9999px";
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textArea);
+      }
       toast.success("Producer link copied to clipboard");
     } catch (err) {
       console.error("Clipboard copy failed:", err);
@@ -371,14 +384,12 @@ const PodcastManagement = () => {
 };
 
         return (
-          <div className="flex justify-center">
-            <button
-              onClick={handleCopy}
-              className="bg-[#2757A6] inline-block text-white p-1 rounded-sm cursor-pointer"
-            >
-              <BiCopy size={22} />
-            </button>
-          </div>
+         <Button
+  onClick={() => handleCopy(record?.producerRoomCode)}
+  className="bg-[#2757A6] inline-block text-white p-1 rounded-sm cursor-pointer"
+>
+  <BiCopy size={22} />
+</Button>
         );
       },
     }
