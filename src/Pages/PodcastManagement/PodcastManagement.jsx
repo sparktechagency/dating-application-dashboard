@@ -10,6 +10,8 @@ import {
 import { imageUrl, place } from "../../redux/api/baseApi";
 
 import { toast } from "sonner";
+import { RiBarChartFill } from "react-icons/ri";
+import { BiCopy, BiLink } from "react-icons/bi";
 const PodcastManagement = () => {
   const [page, setPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
@@ -60,7 +62,8 @@ const PodcastManagement = () => {
       perticipant4IsAllowed: pod?.participants[3]?.isAllow,
       date: pod?.schedule?.date?.split("T")[0] || "NO Date",
       status: pod?.status || "N/A",
-      roomCode: pod?.roomCodes ? pod.roomCodes.filter((code) => code?.role === 'broadcaster')[0]?.code : "N/A"
+      roomCode: pod?.roomCodes ? pod.roomCodes.filter((code) => code?.role === 'broadcaster')[0]?.code : "N/A",
+      producerRoomCode: pod?.roomCodes ? pod.roomCodes.filter((code) => code?.role === 'producer')[0]?.code : "N/A"
     };
   });
 
@@ -196,11 +199,11 @@ const PodcastManagement = () => {
 
 
   const columns = [
-    {
-      title: "Podcast ID",
-      dataIndex: "key",
-      key: "key",
-    },
+    // {
+    //   title: "Podcast ID",
+    //   dataIndex: "key",
+    //   key: "key",
+    // },
     {
       title: "Date & Time",
       dataIndex: "date",
@@ -318,6 +321,7 @@ const PodcastManagement = () => {
         </p>
       ),
     },
+
     {
       title: "Action",
       dataIndex: "recording",
@@ -345,12 +349,40 @@ const PodcastManagement = () => {
         );
       },
     },
+
+    {
+      title: "Producer Link",
+      dataIndex: "producerLink",
+      key: "producerLink",
+      render: (_, record) => {
+        const producerCode = record?.producerRoomCode;
+        const handleCopy = () => {
+          if (producerCode && producerCode !== "N/A") {
+            toast.success("Producer link copied to clipboard");
+            navigator.clipboard.writeText(`https://podlove.co/ms/?roomCode=${producerCode}`);
+          } else {
+            toast.error("No producer link found");
+          }
+        };
+
+        return (
+          <div className="flex justify-center">
+            <button
+              onClick={handleCopy}
+              className="bg-[#2757A6] inline-block text-white p-1 rounded-sm cursor-pointer"
+            >
+              <BiCopy size={22} />
+            </button>
+          </div>
+        );
+      },
+    }
   ];
 
 
   return (
     <div className="bg-white p-4 rounded-md">
-      <div className="flex justify-between item-center ">
+      <div className="flex justify-between item-center mb-2">
         <div className="flex items-center gap-2">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />

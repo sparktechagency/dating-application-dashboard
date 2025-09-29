@@ -56,19 +56,19 @@ const DeliveryDetails = () => {
       authId: user?.auth?._id,
       name: user?.name,
       img: user?.avatar,
-      address: user?.location?.place.split(" ").slice(0, 3).join(" ") || "N/A",
+      address: user?.location?.place?.split(" ").slice(0, 3).join(" ") || "N/A",
       // dob: user?.,
-      contact: user?.phoneNumber,
-      email: user?.auth?.email,
+      contact: user?.phoneNumber || "N/A",
+      email: user?.auth?.email || "N/A",
       gender: user?.gender || "N/A",
-      age: user?.age,
-      ethnicity: user?.ethnicity || "N/A",
+      age: user?.dateOfBirth || "N/A",
+      ethnicity: Array.isArray(user?.ethnicity) ? user.ethnicity.join(", ") : "N/A",
       bodyType: user?.bodyType || "N/A",
-      isBlocked: user?.auth?.isBlocked,
+      isBlocked: user?.auth?.isBlocked || false,
     };
   });
 
-  // console.log(formattedTableData);
+  console.log(formattedTableData);
 
 
   // Handle minimum age function

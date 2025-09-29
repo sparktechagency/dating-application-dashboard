@@ -66,28 +66,25 @@ const GuestHostInfo = ({ dataSource }) => {
       dataIndex: "gender",
       key: "gender",
     },
+    {
+      title: "Date of Birth",
+      dataIndex: "age",
+      key: "age",
+    },
+
     // {
     //   title: 'Ethnicity',
-    //   dataSource: "ethnicity",
+    //   dataIndex: "ethnicity",
     //   key: "ethnicity",
-    //   render: (_, record) => {
-    //     return (
-    //       <p>{record?.ethnicity}</p>
-    //     )
-    //   }
     // },
+
     // {
     //   title: 'Body Type',
-    //   dataSource: "bodyType",
+    //   dataIndex: "bodyType",
     //   key: "bodyType",
-    //   render: (_, record) => {
-    //     return (
-    //       <p>{record?.bodyType}</p>
-    //     )
-    //   }
     // },
     {
-      title: "City",
+      title: "Address",
       dataIndex: "address",
       key: "address",
     },
