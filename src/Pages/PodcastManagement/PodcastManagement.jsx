@@ -356,14 +356,19 @@ const PodcastManagement = () => {
       key: "producerLink",
       render: (_, record) => {
         const producerCode = record?.producerRoomCode;
-        const handleCopy = () => {
-          if (producerCode && producerCode !== "N/A") {
-            toast.success("Producer link copied to clipboard");
-            navigator.clipboard.writeText(`https://podlove.co/ms/?roomCode=${producerCode}`);
-          } else {
-            toast.error("No producer link found");
-          }
-        };
+       const handleCopy = async () => {
+  if (producerCode && producerCode !== "N/A") {
+    try {
+      await navigator.clipboard.writeText(`https://podlove.co/ms/?roomCode=${producerCode}`);
+      toast.success("Producer link copied to clipboard");
+    } catch (err) {
+      console.error("Clipboard copy failed:", err);
+      toast.error("Failed to copy producer link");
+    }
+  } else {
+    toast.error("No producer link found");
+  }
+};
 
         return (
           <div className="flex justify-center">
