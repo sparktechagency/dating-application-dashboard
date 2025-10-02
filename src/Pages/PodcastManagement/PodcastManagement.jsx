@@ -328,12 +328,13 @@ const PodcastManagement = () => {
       key: "recording",
       render: (_, record) => {
         const isDownloadable = record.status === 'Done' || record.status === 'Finished';
-        const isFinished = record.status === 'Finished';
+        // const isFinished = record.status === 'Finished';
+        const isEnableJoin = record.status === 'Playing' || record.status === 'StreamStart' || record.status === 'Done';
         return (
           <div className="text-[#FFA175] flex gap-2 flewr p-1 rounded-md text-end">
             <Button
-              className={`px-3 py-1 rounded-md ${isFinished ? 'bg-gray-400 text-black cursor-not-allowed' : 'bg-blue-500 text-white cursor-pointer'}`}
-              disabled={isFinished}
+              className={`px-3 py-1 rounded-md bg-green-500 text-white`}
+              disabled={!isEnableJoin}
               onClick={() => handleJoinPodcast(record)}
             >
               Join
