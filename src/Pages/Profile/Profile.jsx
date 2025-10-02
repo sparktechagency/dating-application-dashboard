@@ -72,20 +72,13 @@ const Profile = () => {
     formData.append("name", values?.name);
     formData.append("contact", values?.contact);
     formData.append("address", values?.address);
-    const data = {
-      profile_image: image,
-      name: values.name,
-      contact: values.contact,
-      address: values.address,
-    };
     updateProfile(formData)
       .unwrap()
       .then((payload) => toast.success("Profile updated successfully!"))
       .catch((error) => toast.error(error?.data?.message));
-
   };
 
-  // console.log(getAdminProfile?.data?.name);
+  console.log(getAdminProfile);
 
   return (
     <div>
