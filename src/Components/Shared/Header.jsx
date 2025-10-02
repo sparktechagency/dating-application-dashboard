@@ -8,7 +8,7 @@ const Header = () => {
   const {data : getUser, isLoading} = useGetAdminProfileQuery()
     const navigate = useNavigate()
   return (
-    <div className='w-full sticky top-0 z-50 py-[25.5px] bg-[var(--primary-color)] flex justify-end items-center  gap-4'>
+    <div className='w-full sticky top-0 z-50 py-[18.5px] bg-[var(--primary-color)] flex justify-end items-center  gap-4'>
     {/* <div>
         <Link to="/notification" style={{ boxShadow: "0px 0px 10px 2px rgba(0,0,0,0.24)" }} className=' bg-[#F2F2F2] h-10 flex items-center w-10 rounded-full p-2'>
             <Badge>
