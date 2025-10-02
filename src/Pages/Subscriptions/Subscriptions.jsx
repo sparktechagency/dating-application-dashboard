@@ -1,4 +1,4 @@
-import { Button, Form, Input, Modal, Table } from "antd";
+import { Button, Form, Input, Modal, Table, Select } from "antd";
 import { useEffect, useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -101,6 +101,7 @@ const Subscriptions = () => {
   const handleUpdatePlan = (values) => {
     const data = {
       ...values,
+      unitAmount: Number(values.unitAmount),
       interval: singlePlan?.interval, // Add interval from singlePlan
     };
     updatePlan({ id: singlePlan?.id, data })
@@ -113,7 +114,8 @@ const Subscriptions = () => {
   };
 
   const handleCreatePlan = (values) => {
-    createPlan(values)
+    const planData = { ...values, unitAmount: Number(values.unitAmount) };
+    createPlan(planData)
       .unwrap()
       .then((payload) => {
         toast.success(payload?.message);
@@ -200,13 +202,18 @@ const Subscriptions = () => {
             name={"name"}
             label={<p className="text-[18px]">Subscription Name</p>}
           >
-            <Input className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+            <Input/>
           </Form.Item>
           <Form.Item
             name={"unitAmount"}
             label={<p className="text-[18px]">Subscription Fee</p>}
+            rules={[{ required: true, message: 'Please select a subscription fee!' }]}
           >
-            <Input className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+            <Select placeholder="Select a fee">
+              <Select.Option value="0">Free</Select.Option>
+              <Select.Option value="14.99">14.99</Select.Option>
+              <Select.Option value="29.99">29.99</Select.Option>
+            </Select>
           </Form.Item>
           <Form.Item label={<p className="text-[18px]">Description</p>}>
             <Form.List name="description">
@@ -243,10 +250,10 @@ const Subscriptions = () => {
             </Form.List>
           </Form.Item>
           <div className="flex justify-center items-center gap-2 w-full">
-            <button type="button" onClick={() => setOpenModal(false)} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-sm py-1 text-[20px]">
+            <button type="button" onClick={() => setOpenModal(false)} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-md py-1 text-[16px]">
               Cancel
             </button>
-            <button className="w-full bg-[#FFA175] py-[5px] text-[18px] text-white rounded-sm" disabled={isUpdating}>
+            <button className="w-full bg-[#FFA175] py-[5px] text-[16px] text-white rounded-md" disabled={isUpdating}>
               {isUpdating ? "Updating..." : "Update"}
             </button>
           </div>
@@ -273,19 +280,24 @@ const Subscriptions = () => {
             name={"name"}
             label={<p className="text-[18px]">Subscription Name</p>}
           >
-            <Input placeholder="E.g. Premium Plan" className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+            <Input placeholder="E.g. Premium Plan" />
           </Form.Item>
           <Form.Item
             name={"unitAmount"}
             label={<p className="text-[18px]">Subscription Fee</p>}
+            rules={[{ required: true, message: 'Please select a subscription fee!' }]}
           >
-            <Input placeholder="E.g. 9.99" type="number" className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+            <Select placeholder="Select a fee">
+              <Select.Option value="0">Free</Select.Option>
+              <Select.Option value="14.99">14.99</Select.Option>
+              <Select.Option value="29.99">29.99</Select.Option>
+            </Select>
           </Form.Item>
           <Form.Item
             name={"interval"}
             label={<p className="text-[18px]">Interval</p>}
           >
-            <Input placeholder="E.g. month" className="border border-[#FFA175] hover:border-[#FFA175] py-2 rounded-sm" />
+            <Input placeholder="E.g. month" />
           </Form.Item>
           <Form.Item label={<p className="text-[18px]">Description</p>}>
             <Form.List name="description">
@@ -322,12 +334,12 @@ const Subscriptions = () => {
             </Form.List>
           </Form.Item>
           <div className="flex justify-center items-center gap-2 w-full">
-            <button type="button" onClick={() => { setOpenAddModal(false); addForm.resetFields(); }} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-sm py-1 text-[20px]">
+            <Button type="button" onClick={() => { setOpenAddModal(false); addForm.resetFields(); }} className="border border-[#FFE2D4] text-[#FFA175] w-full py-1 rounded-md">
               Cancel
-            </button>
-            <button className="w-full bg-[#FFA175] py-[5px] text-[18px] text-white rounded-sm" disabled={isCreating}>
+            </Button>
+            <Button className="w-full bg-[#FFA175] py-[5px] text-white rounded-md" disabled={isCreating}>
               {isCreating ? "Creating..." : "Create"}
-            </button>
+            </Button>
           </div>
         </Form>
       </Modal>

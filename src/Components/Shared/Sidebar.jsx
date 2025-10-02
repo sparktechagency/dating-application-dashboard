@@ -12,7 +12,7 @@ import { CiLogout } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
 const Sidebar = () => {
   const [openIndex, setOpenIndex] = useState(null);
-const navigate = useNavigate()
+  const navigate = useNavigate()
   const contentRefs = useRef([]);
   const { pathname } = useLocation();
   const { data: getProfile } = useGetAdminProfileQuery();
@@ -117,8 +117,8 @@ const navigate = useNavigate()
       sub_menu: false,
     });
   }
-  
-  
+
+
   if (
     getProfile?.data?.access === "ALL" ||
     getProfile?.data?.access === "SETTINGS"
@@ -161,7 +161,7 @@ const navigate = useNavigate()
       ]
     });
   }
-  
+
   const toggleAccordion = (index) => {
     setOpenIndex((prevIndex) => (prevIndex === index ? null : index));
   };
@@ -185,102 +185,101 @@ const navigate = useNavigate()
   };
 
   return (
-    <div id="sidebar" className="flex flex-col gap-5  ">
-      <div className="bg-white">
+    <div id="sidebar" className="pb-4">
+      <div className="bg-white mb-5 sticky top-0">
         <img
           src={img}
           className="w-[150px] h-[80px] mx-auto object-contain"
           alt=""
         />
       </div>
-      {links?.map((item, index) => {
-        const isActive = item.path === pathname;
-        const isSubMenuActive =
-          item.sub_menu &&
-          item.sub_menu.some((subItem) => subItem.path === pathname);
-        if (item?.sub_menu) {
-          return (
-            <div key={index}>
-              {isSubMenuActive ? (
+      <div className="flex flex-col gap-2">
+        {links?.map((item, index) => {
+          const isActive = item.path === pathname;
+          const isSubMenuActive =
+            item.sub_menu &&
+            item.sub_menu.some((subItem) => subItem.path === pathname);
+          if (item?.sub_menu) {
+            return (
+              <div key={index}>
+                {isSubMenuActive ? (
+                  <div
+                    className="absolute left-0  bg-[#FFA175] h-[45px] w-2  "
+                    style={{
+                      borderRadius: "0 8px 8px 0",
+                    }}
+                  ></div>
+                ) : (
+                  ""
+                )}
                 <div
-                  className="absolute left-0  bg-[#FFA175] h-[45px] w-2  "
-                  style={{
-                    borderRadius: "0 8px 8px 0",
-                  }}
-                ></div>
-              ) : (
-                ""
-              )}
-              <div
-                onClick={() => toggleAccordion(index)}
-                className={`cursor-pointer flex justify-start ml-8  mr-3 gap-2 items-center text-[var(--primary-color)] ${
-                  isSubMenuActive ? "bg-[#2757A6] text-white " : "bg-white"
-                } py-[12px] px-2  rounded-tr-md    text-[16px] mb-[1px]`}
-              >
-                {item?.icon}
-                {item?.label}
-                <IoIosArrowForward />
-              </div>
+                  onClick={() => toggleAccordion(index)}
+                  className={`cursor-pointer flex justify-start ml-8  mr-3 gap-2 items-center text-[var(--primary-color)] ${isSubMenuActive ? "bg-[#2757A6] text-white " : "bg-white"
+                    } py-[12px] px-2  rounded-tr-md    text-[16px] mb-[1px]`}
+                >
+                  {item?.icon}
+                  {item?.label}
+                  <IoIosArrowForward />
+                </div>
 
-              <div
-                ref={(el) => (contentRefs.current[index] = el)}
-                className="accordion-content ml-8 mr-3 overflow-hidden transition-max-height duration-300 ease-in-out cursor-pointer  "
-                style={{
-                  maxHeight:
-                    openIndex === index
-                      ? `${contentRefs.current[index]?.scrollHeight}px`
-                      : "0px",
-                }}
-              >
-                {item?.sub_menu?.map((sub_item, subIndex) => {
-                  const isSubItemActive = sub_item.path === pathname;
-                  return (
-                    <NavLink
-                      to={sub_item?.path}
-                      key={subIndex}
-                      className={`flex justify-center items-center  ${
-                        isSubItemActive
-                          ? "bg-[#2757A6] text-white"
-                          : "bg-white text-[var(--primary-color)]  "
-                      }  px-2  w-full py-2 mb-[1px] cursor-pointer `}
-                    >
-                      {sub_item?.icon}
-                      {sub_item?.label}
-                    </NavLink>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        } else {
-          return (
-            <div key={index}>
-              {isActive ? (
                 <div
-                  className="absolute left-0   bg-[#2757A6]  h-[48px] w-[6px]  "
+                  ref={(el) => (contentRefs.current[index] = el)}
+                  className="accordion-content ml-8 mr-3 overflow-hidden transition-max-height duration-300 ease-in-out cursor-pointer  "
                   style={{
-                    borderRadius: "0 8px 8px 0",
+                    maxHeight:
+                      openIndex === index
+                        ? `${contentRefs.current[index]?.scrollHeight}px`
+                        : "0px",
                   }}
-                ></div>
-              ) : (
-                ""
-              )}
+                >
+                  {item?.sub_menu?.map((sub_item, subIndex) => {
+                    const isSubItemActive = sub_item.path === pathname;
+                    return (
+                      <NavLink
+                        to={sub_item?.path}
+                        key={subIndex}
+                        className={`flex justify-center items-center ${isSubItemActive
+                            ? "bg-[#2757A6] text-white"
+                            : "bg-white text-[var(--primary-color)]  "
+                          }  px-2  w-full py-2 mb-[1px] cursor-pointer `}
+                      >
+                        {sub_item?.icon}
+                        {sub_item?.label}
+                      </NavLink>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          } else {
+            return (
+              <div key={index}>
+                {isActive ? (
+                  <div
+                    className="absolute left-0 bg-[#2757A6] h-[48px] w-[6px]  "
+                    style={{
+                      borderRadius: "0 8px 8px 0",
+                    }}
+                  ></div>
+                ) : (
+                  ""
+                )}
 
-              <NavLink
-                className={`cursor-pointer flex justify-start ml-8  mr-3 gap-2 items-center  ${
-                  isActive
-                    ? "bg-[#2757A6] text-white "
-                    : "bg-white text-[var(--primary-color)] "
-                }  py-[12px] px-2  rounded-tr-md rounded-br-md font-medium text-[16px]`}
-                to={item?.path}
-              >
-                {item?.icon}
-                {item?.label}
-              </NavLink>
-            </div>
-          );
-        }
-      })}
+                <NavLink
+                  className={`cursor-pointer flex justify-start ml-8 mr-3 gap-2 items-center ${isActive
+                      ? "bg-[#2757A6] text-white "
+                      : "bg-white text-[var(--primary-color)] "
+                    }  py-[12px] px-2  rounded-tr-md rounded-br-md font-medium text-[16px]`}
+                  to={item?.path}
+                >
+                  {item?.icon}
+                  {item?.label}
+                </NavLink>
+              </div>
+            );
+          }
+        })}
+      </div>
 
       <div
         onClick={handleLogOut}
