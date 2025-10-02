@@ -4,7 +4,7 @@ import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import GuestHostInfo from "../../Components/GuestHostInfo";
 import { useGetAllUserQuery } from "../../redux/api/userManagement";
-import { Pagination, Select } from "antd";
+import { Input, Pagination, Select } from "antd";
 
 const ageOptions = Array.from({ length: 55 - 35 + 1 }, (_, i) => 35 + i);
 
@@ -152,14 +152,14 @@ const DeliveryDetails = () => {
             </Select>
           </div>
           <div className="relative">
-            <input
+            <Input
               onChange={(e) => {
                 setSearch(e.target.value);
                 setPage(1);
               }}
               type="text"
               placeholder="Search here..."
-              className="w-full pl-10 pr-4 py-1 rounded-md border border-[#272626] focus:border-[#FFA175] focus:outline-none "
+              className="w-full pl-10 pr-4"
             />
             <span className="absolute left-3 top-2.5 text-gray-400">
               <CiSearch className="text-[#FFA175]" />

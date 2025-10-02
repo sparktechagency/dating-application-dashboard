@@ -84,7 +84,7 @@ const GuestHostInfo = ({ dataSource }) => {
     //   key: "bodyType",
     // },
     {
-      title: "Address",
+      title: "City",
       dataIndex: "address",
       key: "address",
     },
