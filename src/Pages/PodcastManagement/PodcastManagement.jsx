@@ -398,7 +398,7 @@ const PodcastManagement = () => {
 
   return (
     <div className="bg-white p-4 rounded-md">
-      <div className="flex justify-between item-center mb-2">
+      <div className="flex justify-between item-center mb-6">
         <div className="flex items-center gap-2">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />

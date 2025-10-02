@@ -104,25 +104,25 @@ const Matches = () => {
       .catch((error) => toast.error(error?.data?.message));
   };
 
-  const handleDownload = async (id) => {
-    try {
-      const token = JSON.parse(localStorage.getItem('token'));
-      const headers = {
-        'Authorization': `Bearer ${token}`,
-      };
-      const response = await fetch(`${imageUrl}/podcast/record-get-podcast/${id}`, { headers });
-      const result = await response.json();
-      if (result?.success && result?.data?.findPodcastId && result.data.findPodcastId.length > 0 && result.data.findPodcastId[0]?.recordingUrl) {
-        const downloadUrl = `${imageUrl}${result.data.findPodcastId[0].recordingUrl}`;
-        window.open(downloadUrl, '_blank');
-      } else {
-        toast.error("No recording found.");
-      }
-    } catch (error) {
-      console.error("Download error:", error);
-      toast.error("Failed to fetch recording URL.");
-    }
-  };
+  // const handleDownload = async (id) => {
+  //   try {
+  //     const token = JSON.parse(localStorage.getItem('token'));
+  //     const headers = {
+  //       'Authorization': `Bearer ${token}`,
+  //     };
+  //     const response = await fetch(`${imageUrl}/podcast/record-get-podcast/${id}`, { headers });
+  //     const result = await response.json();
+  //     if (result?.success && result?.data?.findPodcastId && result.data.findPodcastId.length > 0 && result.data.findPodcastId[0]?.recordingUrl) {
+  //       const downloadUrl = `${imageUrl}${result.data.findPodcastId[0].recordingUrl}`;
+  //       window.open(downloadUrl, '_blank');
+  //     } else {
+  //       toast.error("No recording found.");
+  //     }
+  //   } catch (error) {
+  //     console.error("Download error:", error);
+  //     toast.error("Failed to fetch recording URL.");
+  //   }
+  // };
 
   const columns = [
     {
@@ -221,7 +221,7 @@ const Matches = () => {
 
   return (
     <div className="bg-white p-4 rounded-md">
-      <div className="flex justify-between item-center ">
+      <div className="flex justify-between item-center mb-6">
         <div className="flex items-center gap-2">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />

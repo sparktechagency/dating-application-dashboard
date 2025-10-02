@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useGetVideoQuery, useDeleteVideoMutation, useUploadVideoMutation } from '../../redux/api/videoManagementApi';
 import { Table, Button, Modal, Upload, message, Popconfirm, Spin } from 'antd';
 import { UploadOutlined, DeleteOutlined } from '@ant-design/icons';
+import { Link } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 
 const VideoManagement = () => {
     const [page, setPage] = useState(1);
@@ -78,7 +80,12 @@ const VideoManagement = () => {
     return (
         <div>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
-                <h1>Video Management</h1>
+                <div className="flex items-center gap-2">
+                    <Link to={-1}>
+                        <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
+                    </Link>
+                    <span className="font-semibold text-[20px]">Podcast Management</span>
+                </div>
                 <Button type="primary" icon={<UploadOutlined />} onClick={() => setIsModalOpen(true)}>
                     Upload Video
                 </Button>
