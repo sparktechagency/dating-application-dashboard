@@ -357,40 +357,42 @@ const PodcastManagement = () => {
       key: "producerLink",
       render: (_, record) => {
         const producerCode = record?.producerRoomCode;
+        const isEnableJoin = record.status === 'Playing' || record.status === 'StreamStart' || record.status === 'Done';
         const handleCopy = async (producerCode) => {
-  if (producerCode && producerCode !== "N/A") {
-    const textToCopy = `https://podlove.co/ms/?roomCode=${producerCode}`;
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(textToCopy);
-      } else {
-        // fallback
-        const textArea = document.createElement("textarea");
-        textArea.value = textToCopy;
-        textArea.style.position = "fixed";
-        textArea.style.left = "-9999px";
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand("copy");
-        document.body.removeChild(textArea);
-      }
-      toast.success("Producer link copied to clipboard");
-    } catch (err) {
-      console.error("Clipboard copy failed:", err);
-      toast.error("Failed to copy producer link");
-    }
-  } else {
-    toast.error("No producer link found");
-  }
-};
+          if (producerCode && producerCode !== "N/A") {
+            const textToCopy = `https://podlove.co/ms/?roomCode=${producerCode}`;
+            try {
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(textToCopy);
+              } else {
+                // fallback
+                const textArea = document.createElement("textarea");
+                textArea.value = textToCopy;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-9999px";
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textArea);
+              }
+              toast.success("Producer link copied to clipboard");
+            } catch (err) {
+              console.error("Clipboard copy failed:", err);
+              toast.error("Failed to copy producer link");
+            }
+          } else {
+            toast.error("No producer link found");
+          }
+        };
 
         return (
-         <Button
-  onClick={() => handleCopy(record?.producerRoomCode)}
-  className="bg-[#2757A6] inline-block text-white p-1 rounded-sm cursor-pointer"
->
-  <BiCopy size={22} />
-</Button>
+          <Button
+            onClick={() => handleCopy(record?.producerRoomCode)}
+            disabled= {!isEnableJoin}
+            className="bg-[#2757A6] inline-block text-white p-1 rounded-md cursor-pointer"
+          >
+            <BiCopy size={22} />
+          </Button>
         );
       },
     }
