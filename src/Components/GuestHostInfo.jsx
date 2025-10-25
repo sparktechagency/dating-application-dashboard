@@ -57,7 +57,6 @@ const GuestHostInfo = ({ dataSource }) => {
       title: "Email",
       dataIndex: "email",
       key: "email",
-      responsive: ['sm'],
       width: 240,
       render: (text) => <span className="truncate block max-w-[200px]">{text}</span>,
     },
@@ -65,7 +64,6 @@ const GuestHostInfo = ({ dataSource }) => {
       title: "Phone Number",
       dataIndex: "contact",
       key: "contact",
-      responsive: ['md'],
       width: 160,
       render: (text) => <span className="truncate block max-w-[140px]">{text}</span>,
     },
@@ -73,33 +71,18 @@ const GuestHostInfo = ({ dataSource }) => {
       title: "Gender",
       dataIndex: "gender",
       key: "gender",
-      responsive: ['lg'],
       width: 120,
     },
     {
       title: "Date of Birth",
       dataIndex: "age",
       key: "age",
-      responsive: ['lg'],
       width: 160,
     },
-
-    // {
-    //   title: 'Ethnicity',
-    //   dataIndex: "ethnicity",
-    //   key: "ethnicity",
-    // },
-
-    // {
-    //   title: 'Body Type',
-    //   dataIndex: "bodyType",
-    //   key: "bodyType",
-    // },
     {
       title: "City",
       dataIndex: "address",
       key: "address",
-      responsive: ['sm'],
       width: 180,
       render: (text) => <span className="truncate block max-w-[160px]">{text}</span>,
     },
@@ -145,7 +128,7 @@ const GuestHostInfo = ({ dataSource }) => {
 
       render: (_, record) => {
         return (
-          <div className="flex items-center justify-center gap-1">
+          <div className="flex gap-1 justify-center items-center">
             <button
               onClick={() => {
                 blockUnblockUser(record?.authId)
@@ -180,7 +163,7 @@ const GuestHostInfo = ({ dataSource }) => {
 
     sendMessage(data)
       .unwrap()
-      .then((payload) => {
+      .then(() => {
         toast.success("Message Send Successfully!");
         setOpenModal(false);
         form.resetFields();
@@ -195,7 +178,7 @@ const GuestHostInfo = ({ dataSource }) => {
         columns={columns}
         className="custom-pagination"
         pagination={false}
-        scroll={{ x: 900 }}
+        scroll={{ x: 1200 }}
         size="small"
       />
       <Modal
@@ -205,7 +188,7 @@ const GuestHostInfo = ({ dataSource }) => {
         onCancel={() => setOpenModal(false)}
         form={form}
       >
-        <p className="text-xl font-medium text-center pb-8">Message</p>
+        <p className="pb-8 text-xl font-medium text-center">Message</p>
         <Form layout="vertical" onFinish={handleSendMessage}>
           <Form.Item label="Send To" name={"sendTo"}>
             <Select
@@ -230,7 +213,7 @@ const GuestHostInfo = ({ dataSource }) => {
               <Radio value={"Email"}>Email</Radio>
             </Radio.Group>
           </Form.Item>
-          <div className="flex items-center gap-4 justify-center">
+          <div className="flex gap-4 justify-center items-center">
             <Button
               onClick={() => {
                 setOpenModal(false);

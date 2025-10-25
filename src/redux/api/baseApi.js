@@ -14,7 +14,6 @@ const baseQuery = fetchBaseQuery({
 })
 
 export const baseApi = createApi({
-    
     reducerPath : 'baseApi',
     baseQuery : baseQuery,
     tagTypes : ["podcastManagement", "videoManagement", "schedule", "userManagement", "subscription", "premiumSubscriber", "notification", "administrator", "support", "setting", "dashboard", "auth", "legal", "profile"],

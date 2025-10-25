@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import GuestHostInfo from "../../Components/GuestHostInfo";
 import { useGetAllUserQuery } from "../../redux/api/userManagement";
 import { Input, Pagination, Select } from "antd";
+import { Option } from "antd/es/mentions";
 
 const options = [
   "Athletic",
@@ -29,8 +30,6 @@ const ethnicityOption = [
 
 const DeliveryDetails = () => {
   const [search, setSearch] = useState("");
-  // const [minAge] = useState("");
-  // const [maxAge] = useState("");
   const [gender, setGender] = useState("");
   const [bodyType, setBodyType] = useState("");
   const [ethnicity, setEthnicity] = useState("");
@@ -38,14 +37,10 @@ const DeliveryDetails = () => {
   const { data: getAllUser } = useGetAllUserQuery({
     page,
     search,
-    // minAge,
-    // maxAge,
     gender,
     bodyType,
     ethnicity
   });
-
-  // console.log(getAllUser);
 
   const formattedTableData = Array.isArray(getAllUser?.data?.users) && getAllUser?.data?.users?.map((user, i) => {
     return {
@@ -55,7 +50,6 @@ const DeliveryDetails = () => {
       name: user?.name,
       img: user?.avatar,
       address: user?.location?.place?.split(" ").slice(0, 3).join(" ") || "N/A",
-      // dob: user?.,
       contact: user?.phoneNumber || "N/A",
       email: user?.auth?.email || "N/A",
       gender: user?.gender || "N/A",
@@ -65,19 +59,6 @@ const DeliveryDetails = () => {
       isBlocked: user?.auth?.isBlocked || false,
     };
   });
-
-  console.log(formattedTableData);
-
-
-  // Handle minimum age function
-  // const handleMinAge = (value) => {
-  //   setMinAge(value);
-  // };
-
-  // Handle maximum  age
-  // const handleMaxAge = (value) => {
-  //   setMaxAge(value);
-  // };
 
   // Handle gender function
   const handleGender = (value)=>{
@@ -105,7 +86,6 @@ const DeliveryDetails = () => {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-2">
          
           <div>
-            {/* <p> Min Age</p> */}
             <Select
               placeholder="Select Gender"
               className="w-full sm:w-[160px]"
@@ -120,7 +100,6 @@ const DeliveryDetails = () => {
             </Select>
           </div>
           <div>
-            {/* <p> Min Age</p> */}
             <Select
               placeholder="Select Body Type"
               className="w-full sm:w-[180px]"
@@ -135,7 +114,6 @@ const DeliveryDetails = () => {
             </Select>
           </div>
           <div>
-            {/* <p> Min Age</p> */}
             <Select
               placeholder="Select Ethnicity"
               className="w-full sm:w-[200px]"
