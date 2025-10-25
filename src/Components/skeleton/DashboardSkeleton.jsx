@@ -3,8 +3,8 @@ import { Skeleton } from "antd";
 const DashboardSkeletonLayout = () => {
     return (
         <div className="flex min-h-screen bg-[#FFF9F6]">
-            {/* Sidebar */}
-            <aside className="w-60 bg-[#FFA87D] text-white space-y-4">
+            {/* Sidebar (hidden on small screens) */}
+            <aside className="relative hidden md:flex md:w-60 md:flex-col bg-[#FFA87D] text-white">
                 <div className="mb-4 bg-white">
                     <Skeleton.Input active size="default" style={{ width: 250, height: 78 }} />
                 </div>
@@ -18,7 +18,7 @@ const DashboardSkeletonLayout = () => {
                         />
                     ))}
                 </div>
-                <div className="absolute bottom-8 left-4 right-4">
+                <div className="mt-auto p-4">
                     <Skeleton.Input active style={{ width: 200, height: 40 }} />
                 </div>
             </aside>
@@ -26,9 +26,15 @@ const DashboardSkeletonLayout = () => {
             {/* Main content */}
             <div className="flex-1 flex flex-col">
                 {/* Header */}
-                <header className="h-20 gap-5 bg-[#FFA87D] border-b px-6 flex items-center justify-end">
-                    <Skeleton.Avatar active size="large" />
-                    <Skeleton.Input active style={{ width: 150, height: 30 }} />
+                <header className="h-20 gap-5 bg-[#FFA87D] border-b px-6 flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                        <Skeleton.Avatar active size="large" />
+                        <Skeleton.Input active style={{ width: 120, height: 30 }} />
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <Skeleton.Input active style={{ width: 100, height: 30 }} />
+                        <Skeleton.Avatar active size="large" />
+                    </div>
                 </header>
 
                 {/* Content */}
@@ -43,7 +49,8 @@ const DashboardSkeletonLayout = () => {
                                 style={{ height: 220 }}
                             />
                         ))}
-                    </div>
+                    </div
+                    >
 
                     {/* Charts */}
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

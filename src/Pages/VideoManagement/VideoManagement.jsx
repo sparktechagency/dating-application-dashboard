@@ -78,13 +78,13 @@ const VideoManagement = () => {
     ];
 
     return (
-        <div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+        <div className="bg-white p-4 rounded-md">
+            <div className="flex flex-col gap-3 mb-4 sm:flex-row sm:items-center sm:justify-between">
                 <div className="flex items-center gap-2">
                     <Link to={-1}>
                         <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
                     </Link>
-                    <span className="font-semibold text-[20px]">Podcast Management</span>
+                    <span className="font-semibold text-[20px]">Video Management</span>
                 </div>
                 <Button type="primary" icon={<UploadOutlined />} onClick={() => setIsModalOpen(true)}>
                     Upload Video
@@ -102,6 +102,8 @@ const VideoManagement = () => {
                             current: page,
                             onChange: (page) => setPage(page),
                         }}
+                        scroll={{ x: 900 }}
+                        size="small"
                     />
                 )}
             </Spin>

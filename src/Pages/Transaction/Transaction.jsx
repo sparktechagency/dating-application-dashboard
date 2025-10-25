@@ -1,5 +1,5 @@
 import { Pagination, Table } from "antd";
-import React, { useState } from "react";
+import  { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
@@ -13,7 +13,6 @@ const Transaction = () => {
     page,
     search,
   });
-  // console.log(getAllPremiumUsers?.data?.subscriptionCounts);
   const columns = [
     {
       title: "SL no",
@@ -25,11 +24,11 @@ const Transaction = () => {
       dataIndex: "name",
       key: "name",
       render: (_, record) => (
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2 items-center">
           {record?.img ? (
-            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record.img}`} alt="" />
+            <img className="w-12 h-12 rounded-lg" src={`${imageUrl}${record.img}`} alt="" />
           ) : (
-            <img className="h-12 w-12" src={place} />
+            <img className="w-12 h-12" src={place} />
           )}
 
           <p>{record?.name}</p>
@@ -84,18 +83,16 @@ const Transaction = () => {
     };
   });
 
-  console.log(formattedData);
-
   return (
     <div className="p-5 bg-white rounded-md">
-      <div className="flex justify-between item-center ">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex gap-2 items-center">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
           <span className="font-semibold text-[20px]">Premium Subscribers</span>
         </div>
-        <div>
+        <div className="sm:w-[280px]">
           <div className="relative">
             <input
               type="text"
@@ -114,25 +111,13 @@ const Transaction = () => {
       </div>
 
       <div className="mt-5">
-        {/* <div className="grid grid-cols-3 justify-center items-center gap-5">
-          {getAllPremiumUsers?.data?.subscriptionCounts?.map((item, index) => (
-            <div
-              className="w-full h-full flex justify-center items-center  flex-col gap-3 py-10 mb-5 bg-gray-200 p-2 rounded-md"
-              key={index}
-            >
-              <p className="text-2xl  font-medium">
-                {item?._id?.split(":")?.[0]}
-              </p>
-
-              <p className="text-3xl font-semibold">{item?.count}</p>
-            </div>
-          ))}
-        </div> */}
         <Table
           dataSource={formattedData}
           columns={columns}
           className="custom-pagination"
           pagination={false}
+          scroll={{ x: 900 }}
+          size="small"
         />
       </div>
       <div className="flex justify-center mt-5">

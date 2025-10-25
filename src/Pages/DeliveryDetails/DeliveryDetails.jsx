@@ -1,12 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaArrowLeft } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import GuestHostInfo from "../../Components/GuestHostInfo";
 import { useGetAllUserQuery } from "../../redux/api/userManagement";
 import { Input, Pagination, Select } from "antd";
-
-const ageOptions = Array.from({ length: 55 - 35 + 1 }, (_, i) => 35 + i);
 
 const options = [
   "Athletic",
@@ -31,8 +29,8 @@ const ethnicityOption = [
 
 const DeliveryDetails = () => {
   const [search, setSearch] = useState("");
-  const [minAge, setMinAge] = useState("");
-  const [maxAge, setMaxAge] = useState("");
+  // const [minAge] = useState("");
+  // const [maxAge] = useState("");
   const [gender, setGender] = useState("");
   const [bodyType, setBodyType] = useState("");
   const [ethnicity, setEthnicity] = useState("");
@@ -40,8 +38,8 @@ const DeliveryDetails = () => {
   const { data: getAllUser } = useGetAllUserQuery({
     page,
     search,
-    minAge,
-    maxAge,
+    // minAge,
+    // maxAge,
     gender,
     bodyType,
     ethnicity
@@ -72,14 +70,14 @@ const DeliveryDetails = () => {
 
 
   // Handle minimum age function
-  const handleMinAge = (value) => {
-    setMinAge(value);
-  };
+  // const handleMinAge = (value) => {
+  //   setMinAge(value);
+  // };
 
   // Handle maximum  age
-  const handleMaxAge = (value) => {
-    setMaxAge(value);
-  };
+  // const handleMaxAge = (value) => {
+  //   setMaxAge(value);
+  // };
 
   // Handle gender function
   const handleGender = (value)=>{
@@ -97,20 +95,20 @@ const DeliveryDetails = () => {
 
   return (
     <div className="p-5 bg-white rounded-md">
-      <div className="flex justify-between item-center ">
-        <div className="flex items-center gap-2">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex gap-2 items-center">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
           <span className="font-semibold text-[20px]">User Management</span>
         </div>
-        <div className="flex  gap-2 ">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-2">
          
           <div>
             {/* <p> Min Age</p> */}
             <Select
               placeholder="Select Gender"
-              style={{ width: 140, marginBottom: 20 }}
+              className="w-full sm:w-[160px]"
               allowClear
               onChange={handleGender}
             >
@@ -125,7 +123,7 @@ const DeliveryDetails = () => {
             {/* <p> Min Age</p> */}
             <Select
               placeholder="Select Body Type"
-              style={{ width: 140, marginBottom: 20 }}
+              className="w-full sm:w-[180px]"
               allowClear
               onChange={handleBodyType}
             >
@@ -140,7 +138,7 @@ const DeliveryDetails = () => {
             {/* <p> Min Age</p> */}
             <Select
               placeholder="Select Ethnicity"
-              style={{ width: 140, marginBottom: 20 }}
+              className="w-full sm:w-[200px]"
               allowClear
               onChange={handleEthnicity}
             >
@@ -151,7 +149,7 @@ const DeliveryDetails = () => {
               ))}
             </Select>
           </div>
-          <div className="relative">
+          <div className="relative sm:w-[240px]">
             <Input
               onChange={(e) => {
                 setSearch(e.target.value);
@@ -159,7 +157,7 @@ const DeliveryDetails = () => {
               }}
               type="text"
               placeholder="Search here..."
-              className="w-full pl-10 pr-4"
+              className="pr-4 pl-10 w-full"
             />
             <span className="absolute left-3 top-2.5 text-gray-400">
               <CiSearch className="text-[#FFA175]" />
@@ -168,8 +166,10 @@ const DeliveryDetails = () => {
         </div>
       </div>
 
-      <div className="mt-5">
-        <GuestHostInfo dataSource={formattedTableData} />
+      <div className="overflow-x-auto mt-5">
+        <div className="min-w-full">
+          <GuestHostInfo dataSource={formattedTableData} />
+        </div>
         <div className="flex justify-center mt-5">
           <Pagination
             current={page}

@@ -1,5 +1,5 @@
 import { Checkbox, Modal, Pagination, Table } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -13,9 +13,9 @@ import { toast } from "sonner";
 const Matches = () => {
   const [page, setPage] = useState(1);
   const [openModal, setOpenModal] = useState(false);
-  const [chooseUser, setChooseUser] = useState();
+  const [chooseUser] = useState();
   const [selectedParticipantId, setSelectedParticipantId] = useState([]); 
-  const [podCastId, setPodCastId] = useState("");
+  const [podCastId] = useState("");
 
   const handleCheckboxChange = (participantId) => {
     setSelectedParticipantId((prevSelected) =>
@@ -28,11 +28,6 @@ const Matches = () => {
 
   const { data: getAllDonePodcast } = useGetAllDonePodCastQuery(page);
   const [selectedPartner] = useSelectPodCastPartnerMutation();
-
-  
-
-  // console.log(getAllDonePodcast);
-
   const formattedData = Array.isArray(getAllDonePodcast?.data?.podcasts) && getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
     return {
       key: i + 1,
@@ -85,16 +80,11 @@ const Matches = () => {
       img: chooseUser?.perticipant4Img,
     },
   ];
-
-
-  // console.log(participants);
   const handleSelectedParticipant = () => {
     const data = {
       podcastId: podCastId,
       selectedUserId: selectedParticipantId.map(id => ({ user: id }))
     };
-
-    // console.log("this is podcudt and selected user id",data);
     selectedPartner(data)
       .unwrap()
       .then((payload) => {
@@ -104,25 +94,6 @@ const Matches = () => {
       .catch((error) => toast.error(error?.data?.message));
   };
 
-  // const handleDownload = async (id) => {
-  //   try {
-  //     const token = JSON.parse(localStorage.getItem('token'));
-  //     const headers = {
-  //       'Authorization': `Bearer ${token}`,
-  //     };
-  //     const response = await fetch(`${imageUrl}/podcast/record-get-podcast/${id}`, { headers });
-  //     const result = await response.json();
-  //     if (result?.success && result?.data?.findPodcastId && result.data.findPodcastId.length > 0 && result.data.findPodcastId[0]?.recordingUrl) {
-  //       const downloadUrl = `${imageUrl}${result.data.findPodcastId[0].recordingUrl}`;
-  //       window.open(downloadUrl, '_blank');
-  //     } else {
-  //       toast.error("No recording found.");
-  //     }
-  //   } catch (error) {
-  //     console.error("Download error:", error);
-  //     toast.error("Failed to fetch recording URL.");
-  //   }
-  // };
 
   const columns = [
     {
@@ -136,11 +107,11 @@ const Matches = () => {
       dataIndex: "primaryParticipant",
       key: "primaryParticipant",
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex gap-2 items-center">
           {!!record?.primaryParticipantImg ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
+            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
           ) : (
-            <img className="h-10 w-10" src={place} alt="" />
+            <img className="w-10 h-10" src={place} alt="" />
           )}
 
           <p className="font-medium">{record?.primaryParticipantName}</p>
@@ -152,15 +123,15 @@ const Matches = () => {
       dataIndex: "perticipant1",
       key: "perticipant1",
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex gap-2 items-center">
           {!!record?.perticipant1Img ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt="" />
+            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt="" />
           ) : (
-            <img className="h-10 w-10" src={place} alt="" />
+            <img className="w-10 h-10" src={place} alt="" />
           )}
 
           <p className="font-medium">{record?.perticipant1}</p>
-          {record?.perticipant1IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
+          {record?.perticipant1IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
         </div>
       ),
     },
@@ -169,14 +140,14 @@ const Matches = () => {
       dataIndex: "perticipant2",
       key: "perticipant2",
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex gap-2 items-center">
           {!!record?.perticipant2Img ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt="" />
+            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt="" />
           ) : (
-            <img src={place} className="h-10 w-10" alt="" />
+            <img src={place} className="w-10 h-10" alt="" />
           )}
           <p className="font-medium">{record?.perticipant2}</p>
-          {record?.perticipant2IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
+          {record?.perticipant2IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
         </div>
       ),
     },
@@ -186,15 +157,15 @@ const Matches = () => {
       dataIndex: "perticipant3",
       key: "perticipant3",
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex gap-2 items-center">
           {!!record?.perticipant3Img ? (
-            <img src={`${imageUrl}${record?.perticipant3Img}`} className="h-10 w-10 rounded-lg" alt="" />
+            <img src={`${imageUrl}${record?.perticipant3Img}`} className="w-10 h-10 rounded-lg" alt="" />
           ) : (
-            <img src={place} className="h-10 w-10" alt="" />
+            <img src={place} className="w-10 h-10" alt="" />
           )}
 
           <p className="font-medium">{record?.perticipant3}</p>
-          {record?.perticipant3IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
+          {record?.perticipant3IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
         </div>
       ),
     },
@@ -203,43 +174,30 @@ const Matches = () => {
       dataIndex: "perticipant4",
       key: "perticipant4",
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex gap-2 items-center">
           {!!record?.perticipant4Img ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt="" />
+            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt="" />
           ) : (
-            <img className="h-10 w-10" src={place} alt="" />
+            <img className="w-10 h-10" src={place} alt="" />
           )}
 
           <p className="font-medium">{record?.perticipant4}</p>
-          {record?.perticipant4IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
+          {record?.perticipant4IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
         </div>
       ),
     },
-    
   ];
 
 
   return (
-    <div className="bg-white p-4 rounded-md">
-      <div className="flex justify-between item-center mb-6">
-        <div className="flex items-center gap-2">
+    <div className="p-4 bg-white rounded-md">
+      <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex gap-2 items-center">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
           <span className="font-semibold text-[20px]">Matches</span>
         </div>
-        {/* <div>
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search here..."
-              className="w-full pl-10 pr-4 py-1 rounded-md border border-[#FFA175] focus:border-[#FFA175] focus:outline-none "
-            />
-            <span className="absolute left-3 top-2.5 text-gray-400">
-              <CiSearch className="text-[#FFA175]" />
-            </span>
-          </div>
-        </div> */}
       </div>
 
       <Table
@@ -247,6 +205,8 @@ const Matches = () => {
         columns={columns}
         className="custom-pagination"
         pagination={false}
+        scroll={{ x: 900 }}
+        size="small"
       />
       <div className="flex justify-center mt-5">
         <Pagination
@@ -262,13 +222,13 @@ const Matches = () => {
         footer={false}
         onCancel={() => setOpenModal(false)}
       >
-        <p className="text-xl font-medium text-center mb-10">Choose for Date</p>
+        <p className="mb-10 text-xl font-medium text-center">Choose for Date</p>
 
         <div>
           {participants.filter((participant) => participant.id !== undefined)?.map((participant) => (
             <div
               key={participant?.id}
-              className="flex px-24 items-center gap-4 mb-4"
+              className="flex gap-4 items-center px-24 mb-4"
             >
               <Checkbox
                 checked={selectedParticipantId.includes(participant?.id)}
@@ -278,10 +238,10 @@ const Matches = () => {
                 <img
                   src={`${imageUrl}${participant?.img}`}
                   alt={participant?.name}
-                  className="h-10 w-10 rounded-lg"
+                  className="w-10 h-10 rounded-lg"
                 />
               ) : (
-                <img src={place} alt="default" className="h-10 w-10" />
+                <img src={place} alt="default" className="w-10 h-10" />
               )}
               <p>{participant?.name}</p>
             </div>

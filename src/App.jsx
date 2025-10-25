@@ -75,11 +75,11 @@ function App() {
     <div>
 
       {/*  statistics card for dashboard home page */}
-      <div className="grid grid-cols-4 justify-center items-center gap-5">
+      <div className="grid grid-cols-1 gap-5 justify-center items-center md:grid-cols-4">
         {
-          data?.map((item, index) => <div className='w-full h-full flex justify-center items-center  flex-col gap-3 py-7 bg-white p-2 rounded-md' key={index}>
-            <p className='text-2xl  font-medium'>{item?.title}</p>
-            <div className='bg-white rounded-full p-3'>
+          data?.map((item, index) => <div className='flex flex-col gap-3 justify-center items-center p-2 py-7 w-full h-full bg-white rounded-md' key={index}>
+            <p className='text-2xl font-medium'>{item?.title}</p>
+            <div className='p-3 bg-white rounded-full'>
               <img src={item?.icon} alt="" />
             </div>
             <p className='text-3xl font-semibold'>{item?.count}</p>
@@ -88,30 +88,30 @@ function App() {
       </div>
 
       {/* Chart */}
-      <div className='grid grid-cols-2 mt-5 gap-5'>
-        <div className='w-full h-full bg-white p-4 rounded-md'>
+      <div className='grid grid-cols-1 gap-5 mt-5 md:grid-cols-2'>
+        <div className='p-4 w-full h-full bg-white rounded-md'>
           <IncomeOverview />
         </div>
-        <div className='w-full h-full bg-white p-4 rounded-md'>
+        <div className='p-4 w-full h-full bg-white rounded-md'>
           <UserGrowthChart />
         </div>
       </div>
 
 
       {/* Profile update request section */}
-      <div className="mt-5 bg-[white] p-5 rounded-md">
+      <div className="mt-5 bg-[white] p-4 sm:p-5 rounded-md">
 
-        <div className='flex justify-between items-center gap-2 mb-3 p-5'>
-          <p className='text-2xl font-semibold'>Podcast Schedule Request</p>
-          <Link className='text-[#2757A6]' to={`/schedule-request`}>
+        <div className='flex flex-col gap-3 justify-between items-start p-3 mb-3 sm:flex-row sm:items-center sm:gap-2 sm:p-5'>
+          <p className='text-xl font-semibold sm:text-2xl'>Podcast Schedule Request</p>
+          <Link className='text-[#2757A6] hover:underline shrink-0' to={`/schedule-request`}>
             View all
           </Link>
         </div>
 
-        <ScheduleUpdateRequest dataSource={formattedData} />
+        <div className='overflow-x-auto'>
+          <ScheduleUpdateRequest dataSource={formattedData} />
+        </div>
       </div>
-
-
     </div>
   )
 }

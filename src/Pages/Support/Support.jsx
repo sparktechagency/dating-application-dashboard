@@ -1,5 +1,5 @@
 import { Form, Modal, Pagination, Table } from "antd";
-import React, { useState } from "react";
+import { useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import { FaArrowLeft } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
@@ -19,8 +19,6 @@ const Support = () => {
   const [singleData, setSingleData] = useState();
   const [search, setSearch] = useState("");
 
-  //   console.log(search);
-  // ALL APIs
   const { data: getAllMessage } = useGetAllSupportMessageQuery({
     page,
     name: search,
@@ -47,11 +45,11 @@ const Support = () => {
       key: "name",
       render: (_, record) => {
         return (
-          <div className="flex items-center gap-2">
+          <div className="flex gap-2 items-center">
             {!!record?.img ? (
-              <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.img}`} alt="" />
+              <img className="w-12 h-12 rounded-lg" src={`${imageUrl}${record?.img}`} alt="" />
             ) : (
-              <img className="h-12 w-12" src={place} />
+              <img className="w-12 h-12" src={place} />
             )}
             <p>{record?.name}</p>
           </div>
@@ -69,7 +67,7 @@ const Support = () => {
       dataIndex: "view",
       key: "view",
       render: (_, record) => (
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2 items-center">
           <button
             onClick={() => {
               setOpenDetailsModal(true);
@@ -88,7 +86,7 @@ const Support = () => {
       key: "reply",
       render: (_, record) => {
         return (
-          <div className="flex items-center gap-2">
+          <div className="flex gap-2 items-center">
             <button
               onClick={() => {
                 setReplyId(record?.id);
@@ -121,10 +119,9 @@ const Support = () => {
   );
 
   const handleMessageReply = (values) => {
-    // console.log(values);
     replyMessage({ id: replyId, data: values })
       .unwrap()
-      .then((payload) => {
+      .then(() => {
         toast.success("Message Send Successfully!")
         setOpenReplyModal(false)
 
@@ -133,15 +130,15 @@ const Support = () => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-md">
-      <div className="flex justify-between item-center mb-5  ">
-        <div className="flex items-center gap-2">
+    <div className="p-4 bg-white rounded-md">
+      <div className="flex flex-col gap-3 mb-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex gap-2 items-center">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
           <span className="font-semibold text-[20px]">Support</span>
         </div>
-        <div>
+        <div className="sm:w-[280px]">
           <div className="relative">
             <input
               type="text"
@@ -163,6 +160,9 @@ const Support = () => {
           columns={columns}
           dataSource={formattedTableData}
           pagination={false}
+          className="custom-pagination"
+          scroll={{ x: 900 }}
+          size="small"
         />
         <div className="flex justify-center mt-5">
           <Pagination
@@ -181,7 +181,7 @@ const Support = () => {
           open={openReplyModal}
           onCancel={() => setOpenReplyModal(false)}
         >
-          <p className="text-center text-xl font-semibold">Reply</p>
+          <p className="text-xl font-semibold text-center">Reply</p>
           <Form layout="vertical" onFinish={handleMessageReply}>
             <Form.Item name={"reply"} label="Reply">
               <TextArea rows={5} />
@@ -199,17 +199,17 @@ const Support = () => {
           open={detailsModal}
           onCancel={() => setOpenDetailsModal(false)}
         >
-          <p className="text-center text-xl font-semibold">Details</p>
+          <p className="text-xl font-semibold text-center">Details</p>
           <div>
-            <p className="flex items-center justify-between">
+            <p className="flex justify-between items-center">
               <span className="font-semibold">ID No: </span>{" "}
               <span>{singleData?.key}</span>{" "}
             </p>
-            <p className="flex items-center justify-between">
+            <p className="flex justify-between items-center">
               <span className="font-semibold">Date: </span>{" "}
               <span>{singleData?.date}</span>{" "}
             </p>
-            <p className="flex items-center justify-between">
+            <p className="flex justify-between items-center">
               <span className="font-semibold">User Name: </span>{" "}
               <span>{singleData?.name}</span>{" "}
             </p>

@@ -27,7 +27,7 @@ const FAQ = () => {
     console.log(values);
     createFaq(values)
       .unwrap()
-      .then((payload) => {
+      .then(() => {
         toast.success("FAQ added successfully");
         setIsModalOpen(false);
         form.resetFields();
@@ -39,15 +39,15 @@ const FAQ = () => {
     console.log(id);
     deleteFaq(id)
       .unwrap()
-      .then((payload) => toast.success("FAQ deleted successfully"))
+      .then(() => toast.success("FAQ deleted successfully"))
       .catch((error) => toast.error(error?.data?.message));
   };
   return (
-    <div className="bg-white rounded-md p-5">
-      <div className="flex">
+    <div className="p-5 bg-white rounded-md">
+      <div className="flex items-center gap-2">
         <Link
           to={-1}
-          className="py-1 px-2 rounded-md flex justify-start items-center gap-1  "
+          className="flex gap-1 justify-start items-center px-2 py-1 rounded-md"
         >
           <IoArrowBackSharp className="text-[var(--primary-color)]" />
         </Link>{" "}
@@ -56,10 +56,10 @@ const FAQ = () => {
 
       {/* all question and answer */}
 
-      <div className="grid grid-cols-2 gap-5 mt-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-2">
         {Array.isArray(getAllFaq?.data) && getAllFaq?.data?.map((que, i) => (
           <div key={i} className="p-2">
-            <div className="flex items-center justify-between px-2">
+            <div className="flex justify-between items-center px-2">
               <p className="pb-3">Question no: {i + 1}</p>
               <p
                 className="cursor-pointer"
@@ -78,7 +78,7 @@ const FAQ = () => {
           </div>
         ))}
       </div>
-      <div className="flex items-center justify-center mt-20">
+      <div className="flex justify-center items-center mt-20">
         <button
           onClick={() => handleAddFaq()}
           className="flex items-center gap-2 bg-[var(--primary-color)] text-white px-10 py-2 rounded-3xl"
@@ -96,7 +96,7 @@ const FAQ = () => {
         footer={false}
         onCancel={() => setIsModalOpen(false)}
       >
-        <p className="text-center font-semibold pb-5 text-xl">Add FAQ</p>
+        <p className="pb-5 text-xl font-semibold text-center">Add FAQ</p>
         <Form form={form} onFinish={handleSubmitFAQ}>
           <Form.Item name={"question"}>
             <Input placeholder="Type Answer Here.." variant="filled" />
@@ -108,7 +108,7 @@ const FAQ = () => {
               variant="filled"
             />
           </Form.Item>
-          <div className="flex items-center justify-center mt-2">
+          <div className="flex justify-center items-center mt-2">
             <button className="flex w-full items-center justify-center gap-2 bg-[var(--primary-color)] text-white px-10 py-2 text-xl rounded-3xl">
               {" "}
               Save

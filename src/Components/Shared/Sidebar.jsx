@@ -10,7 +10,7 @@ import { GrUserAdmin } from "react-icons/gr";
 import { useGetAdminProfileQuery } from "../../redux/api/AuthApi";
 import { CiLogout } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
-const Sidebar = () => {
+const Sidebar = ({ onNavigate = () => {} }) => {
   const [openIndex, setOpenIndex] = useState(null);
   const navigate = useNavigate()
   const contentRefs = useRef([]);
@@ -179,6 +179,7 @@ const Sidebar = () => {
     });
   }, [openIndex]);
   const handleLogOut = () => {
+    if (typeof onNavigate === 'function') onNavigate();
     localStorage.removeItem("token");
     navigate("/auth/login");
     window.location.reload();
@@ -224,13 +225,8 @@ const Sidebar = () => {
 
                 <div
                   ref={(el) => (contentRefs.current[index] = el)}
-                  className="accordion-content ml-8 mr-3 overflow-hidden transition-max-height duration-300 ease-in-out cursor-pointer  "
-                  style={{
-                    maxHeight:
-                      openIndex === index
-                        ? `${contentRefs.current[index]?.scrollHeight}px`
-                        : "0px",
-                  }}
+                  className="accordion-content ml-8 mr-3 overflow-hidden transition-max-height duration-300 ease-in-out cursor-pointer"
+                  style={{ maxHeight: openIndex === index ? undefined : '0px' }}
                 >
                   {item?.sub_menu?.map((sub_item, subIndex) => {
                     const isSubItemActive = sub_item.path === pathname;
@@ -242,6 +238,7 @@ const Sidebar = () => {
                             ? "bg-[#2757A6] text-white"
                             : "bg-white text-[var(--primary-color)]  "
                           }  px-2  w-full py-2 mb-[1px] cursor-pointer `}
+                        onClick={onNavigate}
                       >
                         {sub_item?.icon}
                         {sub_item?.label}
@@ -271,6 +268,7 @@ const Sidebar = () => {
                       : "bg-white text-[var(--primary-color)] "
                     }  py-[12px] px-2  rounded-tr-md rounded-br-md font-medium text-[16px]`}
                   to={item?.path}
+                  onClick={onNavigate}
                 >
                   {item?.icon}
                   {item?.label}

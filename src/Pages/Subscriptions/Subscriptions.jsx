@@ -22,7 +22,6 @@ const Subscriptions = () => {
   const { data: getAllSubscription } = useGetAllSubscriptionQuery();
   const [updatePlan, { isLoading: isUpdating }] = useUpdateSubscriptionPlanMutation();
   const [createPlan, { isLoading: isCreating }] = useCreateSubscriptionPlanMutation();
-  // const [deletePlan, { isLoading: isDeleting }] = useDeleteSubscriptionPlanMutation();
 
   const formattedData = Array.isArray(getAllSubscription?.data)
     ? getAllSubscription.data.filter(Boolean).map((sub, i) => ({
@@ -61,7 +60,7 @@ const Subscriptions = () => {
             onClick={() => {
               console.log("Clicked record description:", record?.description);
               setDescription(record?.description);
-              setPlanName(record?.name); // Set the plan name
+              setPlanName(record?.name);
               setOpenDescriptionModal(true);
             }}
             className="text-[#FFA175] cursor-pointer"
@@ -102,7 +101,7 @@ const Subscriptions = () => {
     const data = {
       ...values,
       unitAmount: Number(values.unitAmount),
-      interval: singlePlan?.interval, // Add interval from singlePlan
+      interval: singlePlan?.interval,
     };
     updatePlan({ id: singlePlan?.id, data })
       .unwrap()
@@ -125,17 +124,6 @@ const Subscriptions = () => {
       .catch((error) => toast.error(error?.data?.message));
   };
 
-  // const handleDeletePlan = (id) => {
-  //   deletePlan(id)
-  //     .unwrap()
-  //     .then((payload) => {
-  //       toast.success(payload?.message);
-  //     })
-  //     .catch((error) => {
-  //       toast.error(error?.data?.message);
-  //     });
-  // };
-
   const handleCancel = () => {
     setOpenModal(false);
     form.resetFields();
@@ -149,7 +137,7 @@ const Subscriptions = () => {
       if (typeof descriptionForForm === 'string') {
         try {
           descriptionForForm = JSON.parse(descriptionForForm);
-        } catch (e) {
+        } catch {
           descriptionForForm = [];
         }
       }
@@ -164,9 +152,9 @@ const Subscriptions = () => {
   }, [singlePlan, form]);
 
   return (
-    <div className="bg-white rounded-md p-4">
-      <div className="flex justify-between items-center gap-2 mb-6">
-        <div className="flex items-center gap-2">
+    <div className="p-4 bg-white rounded-md">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
+        <div className="flex gap-2 items-center">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
@@ -187,6 +175,9 @@ const Subscriptions = () => {
           columns={columns}
           dataSource={formattedData}
           pagination={false}
+          className="custom-pagination"
+          scroll={{ x: 700 }}
+          size="small"
         />
       </div>
       {/* edit modal */}
@@ -196,7 +187,7 @@ const Subscriptions = () => {
         open={openModal}
         onCancel={handleCancel}
       >
-        <p className="text-center text-xl font-semibold mb-5">Edit</p>
+        <p className="mb-5 text-xl font-semibold text-center">Edit</p>
         <Form layout="vertical" onFinish={handleUpdatePlan} form={form}>
           <Form.Item
             name={"name"}
@@ -249,7 +240,7 @@ const Subscriptions = () => {
               )}
             </Form.List>
           </Form.Item>
-          <div className="flex justify-center items-center gap-2 w-full">
+          <div className="flex gap-2 justify-center items-center w-full">
             <button type="button" onClick={() => setOpenModal(false)} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-md py-1 text-[16px]">
               Cancel
             </button>
@@ -270,7 +261,7 @@ const Subscriptions = () => {
           addForm.resetFields();
         }}
       >
-        <p className="text-center text-xl font-semibold mb-5">Add Subscription</p>
+        <p className="mb-5 text-xl font-semibold text-center">Add Subscription</p>
         <Form
           layout="vertical"
           onFinish={handleCreatePlan}
@@ -333,7 +324,7 @@ const Subscriptions = () => {
               )}
             </Form.List>
           </Form.Item>
-          <div className="flex justify-center items-center gap-2 w-full">
+          <div className="flex gap-2 justify-center items-center w-full">
             <Button type="button" onClick={() => { setOpenAddModal(false); addForm.resetFields(); }} className="border border-[#FFE2D4] text-[#FFA175] w-full py-1 rounded-md">
               Cancel
             </Button>
@@ -351,7 +342,7 @@ const Subscriptions = () => {
         onCancel={() => setOpenDescriptionModal(false)}
         open={openDescriptionModal}
       >
-        <p className="text-xl font-medium text-center mb-4">{planName}</p>
+        <p className="mb-4 text-xl font-medium text-center">{planName}</p>
         <div className="my-2">
           {Array.isArray(description) ? (
             <ul className="list-disc list-inside">

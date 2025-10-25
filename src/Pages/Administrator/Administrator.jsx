@@ -77,16 +77,16 @@ const Administrator = () => {
       key: "name",
       render: (_, record) => {
         return (
-          <div className="flex items-center gap-2">
+          <div className="flex gap-2 items-center">
             {/* {
               !!record?.img ? (
                 <img
-                  className="h-12 w-12 rounded-lg"
+                  className="w-12 h-12 rounded-lg"
                   src={`${imageUrl}/${record?.img}` || `${imageUrl}${record?.img}`}
                   alt=""
                 />
               ) : (
-                <img className="h-12 w-12" src={place} />
+                <img className="w-12 h-12" src={place} />
               )
             } */}
             <p>{record?.name}</p>
@@ -114,7 +114,7 @@ const Administrator = () => {
       dataIndex: "action",
       key: "action",
       render: (_, record) => (
-        <div className="flex items-center gap-2">
+        <div className="flex gap-2 items-center">
           <button
             onClick={() => {
               setOpenEditModal(true);
@@ -198,15 +198,15 @@ const Administrator = () => {
   };
 
   return (
-    <div className="bg-white p-4 rounded-md">
-      <div className="flex justify-between item-center ">
-        <div className="flex items-center gap-2">
+    <div className="p-4 bg-white rounded-md">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex gap-2 items-center">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
           <span className="font-semibold text-[20px]">Administrator</span>
         </div>
-        <div>
+        <div className="sm:w-[280px]">
           <div className="relative">
             <input
               onChange={(e) => {
@@ -225,7 +225,7 @@ const Administrator = () => {
       </div>
       <button
         onClick={() => setOpenModal(true)}
-        className="flex  items-center gap-2 bg-[#FFA175] text-white px-4 py-1 rounded-sm mt-5"
+        className="flex  items-center gap-2 bg-[#FFA175] text-white px-4 py-1 rounded mt-5"
       >
         {" "}
         <FiPlus /> New
@@ -236,6 +236,9 @@ const Administrator = () => {
           columns={columns}
           dataSource={formattedTableDate}
           pagination={false}
+          className="custom-pagination"
+          scroll={{ x: 900 }}
+          size="small"
         />
         <div className="flex justify-center items-center">
           <Pagination
@@ -255,7 +258,7 @@ const Administrator = () => {
           form.resetFields();
         }}
       >
-        <p className="text-center text-xl font-medium mb-5"> New</p>
+        <p className="mb-5 text-xl font-medium text-center"> New</p>
 
         <Form
           form={form}
@@ -275,8 +278,8 @@ const Administrator = () => {
             <Input.Password className="py-1 border-[#FFA175] hover:border-[#FFA175]" />
           </Form.Item>
 
-          <div className="max-w-md mx-auto">
-            <h3 className="text-lg font-semibold mb-2">Give Access To</h3>
+          <div className="mx-auto max-w-md">
+            <h3 className="mb-2 text-lg font-semibold">Give Access To</h3>
             <Form.Item
               name="access"
               rules={[{ required: true, message: "Please select one option!" }]}
@@ -305,7 +308,7 @@ const Administrator = () => {
           form.resetFields();
         }}
       >
-        <p className="text-center text-xl font-medium mb-5">Edit</p>
+        <p className="mb-5 text-xl font-medium text-center">Edit</p>
 
         <Form form={form} layout="vertical" onFinish={handleEditAdministrator}>
           <Form.Item name="name" label={<p className="">Name</p>}>
@@ -318,8 +321,8 @@ const Administrator = () => {
             <Input className="py-1 border-[#FFA175] hover:border-[#FFA175]" />
           </Form.Item>
 
-          <div className="max-w-md mx-auto">
-            <h3 className="text-lg font-semibold mb-2">Give Access To</h3>
+          <div className="mx-auto max-w-md">
+            <h3 className="mb-2 text-lg font-semibold">Give Access To</h3>
             <Form.Item
               name="access"
               rules={[{ required: true, message: "Please select one option!" }]}

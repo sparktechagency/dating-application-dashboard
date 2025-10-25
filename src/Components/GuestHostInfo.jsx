@@ -25,14 +25,16 @@ const GuestHostInfo = ({ dataSource }) => {
       title: "SL no",
       dataIndex: "key",
       key: "key",
+      width: 80,
     },
     {
       title: "Full Name",
       dataIndex: "name",
       key: "name",
+      width: 240,
       render: (_, record) => {
         return (
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 min-w-[200px]">
             {!!record?.img ? (
               <img
                 src={`${imageUrl}${record?.img}`}
@@ -46,7 +48,7 @@ const GuestHostInfo = ({ dataSource }) => {
                 alt=""
               />
             )}
-            <p className="font-medium">{record?.name}</p>
+            <p className="font-medium truncate max-w-[140px]">{record?.name}</p>
           </div>
         );
       },
@@ -55,21 +57,31 @@ const GuestHostInfo = ({ dataSource }) => {
       title: "Email",
       dataIndex: "email",
       key: "email",
+      responsive: ['sm'],
+      width: 240,
+      render: (text) => <span className="truncate block max-w-[200px]">{text}</span>,
     },
     {
       title: "Phone Number",
       dataIndex: "contact",
       key: "contact",
+      responsive: ['md'],
+      width: 160,
+      render: (text) => <span className="truncate block max-w-[140px]">{text}</span>,
     },
     {
       title: "Gender",
       dataIndex: "gender",
       key: "gender",
+      responsive: ['lg'],
+      width: 120,
     },
     {
       title: "Date of Birth",
       dataIndex: "age",
       key: "age",
+      responsive: ['lg'],
+      width: 160,
     },
 
     // {
@@ -87,12 +99,16 @@ const GuestHostInfo = ({ dataSource }) => {
       title: "City",
       dataIndex: "address",
       key: "address",
+      responsive: ['sm'],
+      width: 180,
+      render: (text) => <span className="truncate block max-w-[160px]">{text}</span>,
     },
 
     {
       title: <p className="flex justify-center">Survey Response</p>,
       dataIndex: "survey",
       key: "survey",
+      width: 160,
       render: (_, record) => (
         <div className="flex justify-center">
           <Link
@@ -108,6 +124,7 @@ const GuestHostInfo = ({ dataSource }) => {
       title: "Message",
       dataIndex: "message",
       key: "message",
+      width: 140,
       render: (_, record) => (
         <div
           onClick={() => {
@@ -124,6 +141,7 @@ const GuestHostInfo = ({ dataSource }) => {
       title: "Action",
       dataIndex: "action",
       key: "action",
+      width: 120,
 
       render: (_, record) => {
         return (
@@ -177,6 +195,8 @@ const GuestHostInfo = ({ dataSource }) => {
         columns={columns}
         className="custom-pagination"
         pagination={false}
+        scroll={{ x: 900 }}
+        size="small"
       />
       <Modal
         centered

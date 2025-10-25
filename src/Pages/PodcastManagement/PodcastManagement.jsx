@@ -10,10 +10,9 @@ import {
 import { imageUrl, place } from "../../redux/api/baseApi";
 
 import { toast } from "sonner";
-import { RiBarChartFill } from "react-icons/ri";
-import { BiCopy, BiLink } from "react-icons/bi";
+import { BiCopy } from "react-icons/bi";
 const PodcastManagement = () => {
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1)
   const [openModal, setOpenModal] = useState(false);
   const [isDownloadModalOpen, setIsDownloadModalOpen] = useState(false);
   const [selectedRecordings, setSelectedRecordings] = useState([]);
@@ -28,14 +27,8 @@ const PodcastManagement = () => {
         : [...prevSelected, participantId]
     );
   };
-
-
   const { data: getAllDonePodcast } = useGetAllDonePodCastQuery(page);
   const [selectedPartner, { isLoading }] = useSelectPodCastPartnerMutation();
-
-
-
-  // console.log(getAllDonePodcast);
 
   const formattedData = Array.isArray(getAllDonePodcast?.data?.podcasts) && getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
     return {
@@ -100,15 +93,12 @@ const PodcastManagement = () => {
     window.open(`https://podlove.co/ms/?roomCode=${roomCode}`, "_blank");
   };
 
-
-  // console.log(participants);
   const handleSelectedParticipant = () => {
     const data = {
       podcastId: podCastId,
       selectedUserId: selectedParticipantId.map(id => ({ user: id }))
     };
 
-    // console.log("this is podcudt and selected user id",data);
     selectedPartner(data)
       .unwrap()
       .then((payload) => {
@@ -152,8 +142,6 @@ const PodcastManagement = () => {
         },
         body: JSON.stringify({ fileUrl: videoUrl }),
       });
-
-      // parse JSON safely
       const result = await response.json().catch(() => null);
 
       if (!response.ok) {
@@ -175,13 +163,12 @@ const PodcastManagement = () => {
         return;
       }
 
-      // create link and download
       const urlObj = new URL(videoUrl);
       let filename = urlObj.pathname.split("/").pop() || "download";
       filename = filename.split("?")[0];
       try {
         filename = decodeURIComponent(filename);
-      } catch (e) {
+      } catch {
         // keep original if decode fails
       }
 
@@ -199,11 +186,6 @@ const PodcastManagement = () => {
 
 
   const columns = [
-    // {
-    //   title: "Podcast ID",
-    //   dataIndex: "key",
-    //   key: "key",
-    // },
     {
       title: "Date & Time",
       dataIndex: "date",
@@ -214,11 +196,11 @@ const PodcastManagement = () => {
       dataIndex: "primaryParticipant",
       key: "primaryParticipant",
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex gap-2 items-center">
           {!!record?.primaryParticipantImg ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
+            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
           ) : (
-            <img className="h-10 w-10" src={place} alt="" />
+            <img className="w-10 h-10" src={place} alt="" />
           )}
 
           <p className="font-medium">{record?.primaryParticipantName}</p>
@@ -230,15 +212,15 @@ const PodcastManagement = () => {
       dataIndex: "perticipant1",
       key: "perticipant1",
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex gap-2 items-center">
           {!!record?.perticipant1Img ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt="" />
+            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt="" />
           ) : (
-            <img className="h-10 w-10" src={place} alt="" />
+            <img className="w-10 h-10" src={place} alt="" />
           )}
 
           <p className="font-medium">{record?.perticipant1}</p>
-          {record?.perticipant1IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
+          {record?.perticipant1IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
         </div>
       ),
     },
@@ -247,14 +229,14 @@ const PodcastManagement = () => {
       dataIndex: "perticipant2",
       key: "perticipant2",
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex gap-2 items-center">
           {!!record?.perticipant2Img ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt="" />
+            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt="" />
           ) : (
-            <img src={place} className="h-10 w-10" alt="" />
+            <img src={place} className="w-10 h-10" alt="" />
           )}
           <p className="font-medium">{record?.perticipant2}</p>
-          {record?.perticipant2IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
+          {record?.perticipant2IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
         </div>
       ),
     },
@@ -264,15 +246,15 @@ const PodcastManagement = () => {
       dataIndex: "perticipant3",
       key: "perticipant3",
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex gap-2 items-center">
           {!!record?.perticipant3Img ? (
-            <img src={`${imageUrl}${record?.perticipant3Img}`} className="h-10 w-10 rounded-lg" alt="" />
+            <img src={`${imageUrl}${record?.perticipant3Img}`} className="w-10 h-10 rounded-lg" alt="" />
           ) : (
-            <img src={place} className="h-10 w-10" alt="" />
+            <img src={place} className="w-10 h-10" alt="" />
           )}
 
           <p className="font-medium">{record?.perticipant3}</p>
-          {record?.perticipant3IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
+          {record?.perticipant3IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
         </div>
       ),
     },
@@ -281,15 +263,15 @@ const PodcastManagement = () => {
       dataIndex: "perticipant4",
       key: "perticipant4",
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex gap-2 items-center">
           {!!record?.perticipant4Img ? (
-            <img className="h-10 w-10 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt="" />
+            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt="" />
           ) : (
-            <img className="h-10 w-10" src={place} alt="" />
+            <img className="w-10 h-10" src={place} alt="" />
           )}
 
           <p className="font-medium">{record?.perticipant4}</p>
-          {record?.perticipant4IsAllowed && <FaCheckCircle className="text-green-500 ml-1" />}
+          {record?.perticipant4IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
         </div>
       ),
     },
@@ -333,7 +315,7 @@ const PodcastManagement = () => {
         return (
           <div className="text-[#FFA175] flex gap-2 flewr p-1 rounded-md text-end">
             <Button
-              className={`px-3 py-1 rounded-md bg-green-500 text-white`}
+              className={`px-3 py-1 text-white bg-green-500 rounded-md`}
               disabled={!isEnableJoin}
               onClick={() => handleJoinPodcast(record)}
             >
@@ -356,7 +338,7 @@ const PodcastManagement = () => {
       dataIndex: "producerLink",
       key: "producerLink",
       render: (_, record) => {
-        const producerCode = record?.producerRoomCode;
+        // const producerCode = record?.producerRoomCode;
         const isEnableJoin = record.status === 'Playing' || record.status === 'StreamStart' || record.status === 'Done';
         const handleCopy = async (producerCode) => {
           if (producerCode && producerCode !== "N/A") {
@@ -400,9 +382,9 @@ const PodcastManagement = () => {
 
 
   return (
-    <div className="bg-white p-4 rounded-md">
-      <div className="flex justify-between item-center mb-6">
-        <div className="flex items-center gap-2">
+    <div className="p-4 bg-white rounded-md">
+      <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex gap-2 items-center">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
@@ -415,6 +397,8 @@ const PodcastManagement = () => {
         columns={columns}
         className="custom-pagination"
         pagination={false}
+        scroll={{ x: 1200 }}
+        size="small"
       />
       <div className="flex justify-center mt-5">
         <Pagination
@@ -430,13 +414,13 @@ const PodcastManagement = () => {
         footer={false}
         onCancel={() => setOpenModal(false)}
       >
-        <p className="text-xl font-medium text-center mb-10">Choose for Date</p>
+        <p className="mb-10 text-xl font-medium text-center">Choose for Date</p>
 
         <div>
           {participants.filter((participant) => participant.id !== undefined)?.map((participant) => (
             <div
               key={participant?.id}
-              className="flex px-24 items-center gap-4 mb-4"
+              className="flex gap-4 items-center px-4 mb-4 sm:px-24"
             >
               <Checkbox
                 checked={selectedParticipantId.includes(participant?.id)}
@@ -447,13 +431,13 @@ const PodcastManagement = () => {
                 <img
                   src={`${imageUrl}${participant?.img}`}
                   alt={participant?.name}
-                  className="h-10 w-10 rounded-lg"
+                  className="w-10 h-10 rounded-lg"
                 />
               ) : (
-                <img src={place} alt="default" className="h-10 w-10" />
+                <img src={place} alt="default" className="w-10 h-10" />
               )}
               <p>{participant?.name}</p>
-              {participant.isAllowed && <p className="text-green-500 ml-2 text-xs">(Choosed)</p>}
+              {participant.isAllowed && <p className="ml-2 text-xs text-green-500">(Choosed)</p>}
             </div>
           ))}
         </div>
@@ -472,21 +456,21 @@ const PodcastManagement = () => {
         open={isDownloadModalOpen}
         onCancel={() => setIsDownloadModalOpen(false)}
         footer={[
-          <button key="close" onClick={() => setIsDownloadModalOpen(false)} className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+          <button key="close" onClick={() => setIsDownloadModalOpen(false)} className="px-4 py-2 font-bold text-gray-800 bg-gray-300 rounded hover:bg-gray-400">
             Close
           </button>
         ]}
       >
         {selectedRecordings.length > 0 ? (
           selectedRecordings.map((rec, index) => (
-            <div key={index} className="mb-4 p-2 border rounded flex justify-between items-center">
+            <div key={index} className="flex justify-between items-center p-2 mb-4 rounded border">
               <div className="flex flex-col">
                 <p className="font-semibold bg-gray-200 px-2 rounded-md text-[10px]">{rec?.sessionId}</p>
                 <p className="font-semibold">Recording {index + 1}</p>
               </div>
               <button
                 onClick={() => handleDownloadClick(rec.video)}
-                className="bg-green-500 text-white px-3 py-1 rounded-md mt-2 ml-2"
+                className="px-3 py-1 mt-2 ml-2 text-white bg-green-500 rounded-md"
               >
                 Download
               </button>

@@ -19,15 +19,17 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       title: `Participant-${i}`,
       dataIndex: `perticipant${i}`,
       key: `perticipant${i}`,
+      responsive: i === 1 ? ['sm'] : ['lg'],
+      width: 220,
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex items-center gap-2 min-w-[200px]">
           {!!record[`perticipant${i}Img`] ? (
-            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record[`perticipant${i}Img`]}`} alt="" />
+            <img className="w-12 h-12 rounded-lg" src={`${imageUrl}${record[`perticipant${i}Img`]}`} alt="" />
           ) : (
-            <img className="h-12 w-12" src={place} alt="" />
+            <img className="w-12 h-12" src={place} alt="" />
           )}
 
-          <p className="font-medium">{record[`perticipant${i}`]}</p>
+          <p className="font-medium truncate max-w-[120px]">{record[`perticipant${i}`]}</p>
         </div>
       ),
     });
@@ -38,20 +40,23 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       title: "Podcast ID",
       dataIndex: "key",
       key: "key",
+      width: 110,
     },
     {
       title: "Primary Participant",
       dataIndex: "PrimaryParticipant",
       key: "PrimaryParticipant",
+      responsive: ['sm'],
+      width: 240,
       render: (_, record) => (
-        <div className="flex  items-center gap-2">
+        <div className="flex items-center gap-2 min-w-[220px]">
           {!!record?.PrimaryParticipant ? (
-            <img className="h-12 w-12 rounded-lg" src={`${imageUrl}${record?.PrimaryParticipant}`} alt="" /> 
+            <img className="w-12 h-12 rounded-lg" src={`${imageUrl}${record?.PrimaryParticipant}`} alt="" /> 
           ) : (
-            <img className="h-12 w-12" src={place} alt="" />
+            <img className="w-12 h-12" src={place} alt="" />
           )}
 
-          <p className="font-medium">{record?.PrimaryParticipantName}</p>
+          <p className="font-medium truncate max-w-[140px]">{record?.PrimaryParticipantName}</p>
         </div>
       ),
     },
@@ -60,8 +65,10 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       title: "Schedule Date & Time",
       dataIndex: "datetime",
       key: "datetime",
+      responsive: ['md'],
+      width: 220,
       render: (_, record) => (
-        <p>
+        <p className="truncate max-w-[200px]">
           {record?.scheduleDate || "Not Schedule"} : {record?.scheduleTime} :{" "}
           {record?.scheduleDay}
         </p>
@@ -71,6 +78,7 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       title: "Status",
       dataIndex: "status",
       key: "status",
+      width: 140,
       render: (text) => {
         if (text === "ReqScheduled") {
           return "Req Scheduled";
@@ -86,6 +94,7 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       title: "Set Schedule",
       dataIndex: "schedule",
       key: "schedule",
+      width: 120,
       render: (_, record) => (
         <div
           onClick={() => {
@@ -102,6 +111,7 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       title: "Action",
       dataIndex: "done",
       key: "done",
+      width: 120,
       render: (_, record) => (
         <SheduleDoneButton id={record?.id} />
       ),
@@ -114,6 +124,8 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
         columns={columns}
         className="custom-pagination"
         pagination={false}
+        scroll={{ x: 900 }}
+        size="small"
       />
       <ScheduleModal
         openScheduleModal={openScheduleModal}

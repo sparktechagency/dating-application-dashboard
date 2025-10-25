@@ -13,21 +13,22 @@ const TremsCondition = () => {
   const [updateTerms, { isLoading }] = useUpdateTermsMutation();
   const editor = useRef(null);
   const [content, setContent] = useState("");
-  const [initialContent, setInitialContent] = useState("");
+
+  const initialText = getTermsAndCondtion?.data?.text || "";
 
   const handleTerms = () => {
-    if (content === initialContent) {
+    const current = content || initialText;
+    if (current === initialText) {
       return toast.info("Already up to date");
     }
     const data = {
-      text: content,
+      text: current,
     };
     // console.log(data);
 
     updateTerms(data).unwrap()
       .then((payload) => {
         toast.success(payload?.message);
-        setInitialContent(content);
       })
       .catch((error) => toast.error(error?.data?.message));
   };
@@ -55,44 +56,38 @@ const TremsCondition = () => {
   }), []);
 
   useEffect(() => {
-    if (getTermsAndCondtion?.data?.text) {
-      setContent(getTermsAndCondtion?.data?.text);
-      setInitialContent(getTermsAndCondtion?.data?.text);
-    }
+    // keep for future side-effects if needed; no state sync here to avoid setState in effect
   }, [getTermsAndCondtion]);
 
   return (
-    <>
-      <div className="flex justify-start items-center gap-2 mb-3 relative m-5">
-        <div className="absolute top-6 left-2 flex items-center">
-          <Link
-            to={-1}
-            className="py-1 px-2 rounded-md flex justify-start items-center gap-1  "
-          >
+    <div className="p-4 bg-white rounded-md">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-4">
+        <div className="flex items-center gap-2">
+          <Link to={-1} className="flex items-center gap-1 px-2 py-1 rounded-md">
             <IoArrowBackSharp className="text-[var(--primary-color)]" />
-          </Link>{" "}
+          </Link>
           <p className="font-semibold">Terms & Conditions</p>
         </div>
       </div>
 
-      <div className="custom-jodit-editor mx-5 ">
+      <div className="custom-jodit-editor">
         <JoditEditor
           ref={editor}
-          value={content}
+          value={content || initialText}
           config={config}
           tabIndex={1}
           onChange={(newContent) => setContent(newContent)}
         />
-        <div className="flex items-center justify-center mt-5">
+        <div className="flex justify-center mt-5">
           <button
             onClick={handleTerms}
-            className="bg-[var(--primary-color)]  text-white px-4 py-2 rounded-full test flex items-center justify-center gap-2"
+            className="flex items-center justify-center gap-2 px-4 py-2 text-white rounded-full bg-[var(--primary-color)]"
           >
             {isLoading ? <><FiLoader className="animate-spin" /> Loading...</> : "Save Changes"}
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
