@@ -1,4 +1,4 @@
-import { Button, Checkbox, Modal, Pagination, Table } from "antd";
+import { Button, Checkbox, Modal, Pagination, Table, Popconfirm } from "antd";
 import React, { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
@@ -8,6 +8,8 @@ import {
   useSelectPodCastPartnerMutation
 } from "../../redux/api/podcastManagementApi";
 import { imageUrl, place } from "../../redux/api/baseApi";
+import { useRemoveParticipantMutation } from "../../redux/api/DahsboardHomeApi";
+import { IoCloseCircleOutline } from "react-icons/io5";
 
 import { toast } from "sonner";
 import { BiCopy } from "react-icons/bi";
@@ -29,6 +31,7 @@ const PodcastManagement = () => {
   };
   const { data: getAllDonePodcast } = useGetAllDonePodCastQuery(page);
   const [selectedPartner, { isLoading }] = useSelectPodCastPartnerMutation();
+  const [removeParticipant] = useRemoveParticipantMutation();
 
   const formattedData = Array.isArray(getAllDonePodcast?.data?.podcasts) && getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
     return {
@@ -41,18 +44,22 @@ const PodcastManagement = () => {
       perticipant1Id: pod?.participants[0]?.user?._id,
       perticipant1Img: pod?.participants[0]?.user?.avatar,
       perticipant1IsAllowed: pod?.participants[0]?.isAllow,
+      perticipant1Req: !!pod?.participants[0]?.isRequest,
       perticipant2: pod?.participants[1]?.user?.name || "N/A",
       participant2Id: pod?.participants[1]?.user?._id,
       perticipant2Img: pod?.participants[1]?.user?.avatar,
       perticipant2IsAllowed: pod?.participants[1]?.isAllow,
+      perticipant2Req: !!pod?.participants[1]?.isRequest,
       participant3Id: pod?.participants[2]?.user?._id,
       perticipant3: pod?.participants[2]?.user?.name || "N/A",
       perticipant3Img: pod?.participants[2]?.user?.avatar,
       perticipant3IsAllowed: pod?.participants[2]?.isAllow,
+      perticipant3Req: !!pod?.participants[2]?.isRequest,
       participant4Id: pod?.participants[3]?.user?._id,
       perticipant4Img: pod?.participants[3]?.user?.avatar,
       perticipant4: pod?.participants[3]?.user?.name || "N/A",
       perticipant4IsAllowed: pod?.participants[3]?.isAllow,
+      perticipant4Req: !!pod?.participants[3]?.isRequest,
       date: pod?.schedule?.date?.split("T")[0] || "NO Date",
       status: pod?.status || "N/A",
       roomCode: pod?.roomCodes ? pod.roomCodes.filter((code) => code?.role === 'broadcaster')[0]?.code : "N/A",
@@ -191,22 +198,22 @@ const PodcastManagement = () => {
       dataIndex: "date",
       key: "date",
     },
-    {
-      title: "Primary Participant",
-      dataIndex: "primaryParticipant",
-      key: "primaryParticipant",
-      render: (_, record) => (
-        <div className="flex gap-2 items-center">
-          {!!record?.primaryParticipantImg ? (
-            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
-          ) : (
-            <img className="w-10 h-10" src={place} alt="" />
-          )}
+    // {
+    //   title: "Primary Participant",
+    //   dataIndex: "primaryParticipant",
+    //   key: "primaryParticipant",
+    //   render: (_, record) => (
+    //     <div className="flex gap-2 items-center">
+    //       {!!record?.primaryParticipantImg ? (
+    //         <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
+    //       ) : (
+    //         <img className="w-10 h-10" src={place} alt="" />
+    //       )}
 
-          <p className="font-medium">{record?.primaryParticipantName}</p>
-        </div>
-      ),
-    },
+    //       <p className="font-medium">{record?.primaryParticipantName}</p>
+    //     </div>
+    //   ),
+    // },
     {
       title: "Participant-1",
       dataIndex: "perticipant1",
@@ -219,8 +226,28 @@ const PodcastManagement = () => {
             <img className="w-10 h-10" src={place} alt="" />
           )}
 
-          <p className="font-medium">{record?.perticipant1}</p>
-          {record?.perticipant1IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
+          <div className="flex gap-1 items-center group">
+            <div className="flex flex-col leading-tight">
+              <p className="font-medium">{record?.perticipant1}</p>
+              {record?.perticipant1Req && (
+                <span className="text-[10px] text-blue-600">Requested</span>
+              )}
+            </div>
+            {record?.perticipant1IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
+            {record?.perticipant1Id && (
+              <Popconfirm
+                title="Remove participant?"
+                okText="Remove"
+                okType="danger"
+                cancelText="Cancel"
+                onConfirm={async () => { try { await removeParticipant({ userId: record.perticipant1Id }).unwrap(); } catch { /* no-op */ } }}
+              >
+                <button type="button" title="Remove participant" className="opacity-0 transition-opacity group-hover:opacity-100">
+                  <IoCloseCircleOutline className="text-red-500" size={16} />
+                </button>
+              </Popconfirm>
+            )}
+          </div>
         </div>
       ),
     },
@@ -235,8 +262,28 @@ const PodcastManagement = () => {
           ) : (
             <img src={place} className="w-10 h-10" alt="" />
           )}
-          <p className="font-medium">{record?.perticipant2}</p>
-          {record?.perticipant2IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
+          <div className="flex gap-1 items-center group">
+            <div className="flex flex-col leading-tight">
+              <p className="font-medium">{record?.perticipant2}</p>
+              {record?.perticipant2Req && (
+                <span className="text-[10px] text-blue-600">Requested</span>
+              )}
+            </div>
+            {record?.perticipant2IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
+            {record?.participant2Id && (
+              <Popconfirm
+                title="Remove participant?"
+                okText="Remove"
+                okType="danger"
+                cancelText="Cancel"
+                onConfirm={async () => { try { await removeParticipant({ userId: record.participant2Id }).unwrap(); } catch { /* no-op */ } }}
+              >
+                <button type="button" title="Remove participant" className="opacity-0 transition-opacity group-hover:opacity-100">
+                  <IoCloseCircleOutline className="text-red-500" size={16} />
+                </button>
+              </Popconfirm>
+            )}
+          </div>
         </div>
       ),
     },
@@ -253,8 +300,28 @@ const PodcastManagement = () => {
             <img src={place} className="w-10 h-10" alt="" />
           )}
 
-          <p className="font-medium">{record?.perticipant3}</p>
-          {record?.perticipant3IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
+          <div className="flex gap-1 items-center group">
+            <div className="flex flex-col leading-tight">
+              <p className="font-medium">{record?.perticipant3}</p>
+              {record?.perticipant3Req && (
+                <span className="text-[10px] text-blue-600">Requested</span>
+              )}
+            </div>
+            {record?.perticipant3IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
+            {record?.participant3Id && (
+              <Popconfirm
+                title="Remove participant?"
+                okText="Remove"
+                okType="danger"
+                cancelText="Cancel"
+                onConfirm={async () => { try { await removeParticipant({ userId: record.participant3Id }).unwrap(); } catch { /* no-op */ } }}
+              >
+                <button type="button" title="Remove participant" className="opacity-0 transition-opacity group-hover:opacity-100">
+                  <IoCloseCircleOutline className="text-red-500" size={16} />
+                </button>
+              </Popconfirm>
+            )}
+          </div>
         </div>
       ),
     },
@@ -270,8 +337,28 @@ const PodcastManagement = () => {
             <img className="w-10 h-10" src={place} alt="" />
           )}
 
-          <p className="font-medium">{record?.perticipant4}</p>
-          {record?.perticipant4IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
+          <div className="flex gap-1 items-center group">
+            <div className="flex flex-col leading-tight">
+              <p className="font-medium">{record?.perticipant4}</p>
+              {record?.perticipant4Req && (
+                <span className="text-[10px] text-blue-600">Requested</span>
+              )}
+            </div>
+            {record?.perticipant4IsAllowed && <FaCheckCircle className="ml-1 text-green-500" />}
+            {record?.participant4Id && (
+              <Popconfirm
+                title="Remove participant?"
+                okText="Remove"
+                okType="danger"
+                cancelText="Cancel"
+                onConfirm={async () => { try { await removeParticipant({ userId: record.participant4Id }).unwrap(); } catch { /* no-op */ } }}
+              >
+                <button type="button" title="Remove participant" className="opacity-0 transition-opacity group-hover:opacity-100">
+                  <IoCloseCircleOutline className="text-red-500" size={16} />
+                </button>
+              </Popconfirm>
+            )}
+          </div>
         </div>
       ),
     },

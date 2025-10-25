@@ -7,12 +7,13 @@ import medal from './assets/images/medal.png'
 import profit from './assets/images/profits.png'
 import mic from './assets/images/microphone.png'
 import UserGrowthChart from './Components/UserGrowthChart/UserGrowthChart'
-import { useGetAllNewPodcastQuery, useGetAnalyticsQuery } from './redux/api/DahsboardHomeApi'
+import { useGetAllNewPodcastQuery, useGetAnalyticsQuery, useRemoveParticipantMutation } from './redux/api/DahsboardHomeApi'
 import ScheduleUpdateRequest from './Components/ScheduleUpdateRequest/ScheduleUpdateRequest'
 function App() {
   // All APIs
   const { data: getAnalytics } = useGetAnalyticsQuery()
   const { data: getAllPodcast } = useGetAllNewPodcastQuery()
+  const [removeParticipant] = useRemoveParticipantMutation()
 
 
   // 
@@ -48,15 +49,19 @@ function App() {
         PrimaryParticipantName: pod?.primaryUser?.name,
         PrimaryParticipant: pod?.primaryUser?.avatar,
         perticipant1: pod?.participants[0]?.user?.name || "N/A",
+        perticipant1Id: pod?.participants[0]?.user?._id || "",
         perticipant1Img: pod?.participants[0]?.user?.avatar || "",
         perticipant1Req: !!pod?.participants[0]?.isRequest,
         perticipant2: pod?.participants[1]?.user?.name || "N/A",
+        perticipant2Id: pod?.participants[1]?.user?._id || "",
         perticipant2Img: pod?.participants[1]?.user?.avatar || "",
         perticipant2Req: !!pod?.participants[1]?.isRequest,
         perticipant3: pod?.participants[2]?.user?.name || "N/A",
+        perticipant3Id: pod?.participants[2]?.user?._id || "",
         perticipant3Img: pod?.participants[2]?.user?.avatar || "",
         perticipant3Req: !!pod?.participants[2]?.isRequest,
         perticipant4: pod?.participants[3]?.user?.name || "N/A",
+        perticipant4Id: pod?.participants[3]?.user?._id || "",
         perticipant4Img: pod?.participants[3]?.user?.avatar || "",
         perticipant4Req: !!pod?.participants[3]?.isRequest,
         scheduleDate: pod?.schedule?.date,
@@ -113,7 +118,16 @@ function App() {
         </div>
 
         <div className='overflow-x-auto'>
-          <ScheduleUpdateRequest dataSource={formattedData} />
+          <ScheduleUpdateRequest
+            dataSource={formattedData}
+            onRemoveParticipant={async ({ participantId }) => {
+              try {
+                await removeParticipant({ userId: participantId }).unwrap()
+              } catch {
+                // ignore
+              }
+            }}
+          />
         </div>
       </div>
     </div>
