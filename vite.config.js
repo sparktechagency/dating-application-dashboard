@@ -13,7 +13,7 @@ export default defineConfig({
     allowedHosts: ['dashboard.podlove.co', 'www.dashboard.podlove.co'],
   },
   build: {
-    chunkSizeWarningLimit: 1600, // raise limit to quiet warnings
+    chunkSizeWarningLimit: 1600,
     rollupOptions: {
       output: {
         manualChunks: {
@@ -24,19 +24,7 @@ export default defineConfig({
         },
       },
     },
-    onwarn(warning, warn) {
-      // Ignore module-level directive warnings for "use client"
-      if (
-        warning.code === 'MODULE_LEVEL_DIRECTIVE' &&
-        /use client/.test(warning.message)
-      ) {
-        return;
-      }
-      warn(warning);
-    },
   },
-  // optionally lower verbosity
-  logLevel: 'warn',
   plugins: [react()],
 })
 

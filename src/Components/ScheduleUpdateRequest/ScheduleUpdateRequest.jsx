@@ -1,17 +1,23 @@
-import { Table } from "antd";
-import React, { useState } from "react";
+import { Table, Popconfirm } from "antd";
+import { useState } from "react";
 import { LuCalendarClock } from "react-icons/lu";
+import { IoCheckmarkCircle } from "react-icons/io5";
+import { IoCloseCircleOutline } from "react-icons/io5";
 import ScheduleModal from "../ScheduleModal/ScheduleModal";
 import { imageUrl, place } from "../../redux/api/baseApi";
 import SheduleDoneButton from "../Button/SheduleDoneButton";
 
-const ScheduleUpdateRequest = ({ dataSource }) => {
+const ScheduleUpdateRequest = ({ dataSource, onRemoveParticipant = () => {} }) => {
   const [openScheduleModal, setScheduleModal] = useState(false);
   const [podCastId, setPodCastId] = useState("");
 
-  const maxParticipants = dataSource ? Math.max(...dataSource.map(d => 
-    Object.keys(d).filter(key => key.startsWith('perticipant') && !key.endsWith('Img')).length
-  )) : 0;
+  const maxParticipants = dataSource
+    ? Math.max(
+        ...dataSource.map((d) =>
+          Object.keys(d).filter((key) => /^perticipant\d+$/.test(key)).length
+        )
+      )
+    : 0;
 
   const participantColumns = [];
   for (let i = 1; i <= maxParticipants; i++) {
@@ -19,17 +25,39 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       title: `Participant-${i}`,
       dataIndex: `perticipant${i}`,
       key: `perticipant${i}`,
-      responsive: i === 1 ? ['sm'] : ['lg'],
       width: 220,
       render: (_, record) => (
-        <div className="flex items-center gap-2 min-w-[200px]">
+        <div className="group flex items-center gap-2 min-w-[200px]">
           {!!record[`perticipant${i}Img`] ? (
-            <img className="w-12 h-12 rounded-lg" src={`${imageUrl}${record[`perticipant${i}Img`]}`} alt="" />
+            <img className="w-12 h-12 rounded-full" src={`${imageUrl}${record[`perticipant${i}Img`]}`} alt="" />
           ) : (
             <img className="w-12 h-12" src={place} alt="" />
           )}
 
-          <p className="font-medium truncate max-w-[120px]">{record[`perticipant${i}`]}</p>
+          <div className="flex items-center gap-1 max-w-[140px]">
+            <p className="font-medium truncate max-w-[120px]">{record[`perticipant${i}`]}</p>
+            {record[`perticipant${i}Req`] && (
+              <IoCheckmarkCircle className="text-blue-500 min-w-4" size={14} title="Requested" />
+            )}
+            {record[`perticipant${i}Id`] && (
+              <Popconfirm
+                title="Remove participant?"
+                description={`Remove ${record[`perticipant${i}`]} from this podcast?`}
+                okText="Remove"
+                okType="danger"
+                cancelText="Cancel"
+                onConfirm={() => onRemoveParticipant({ participantId: record[`perticipant${i}Id`] })}
+              >
+                <button
+                  type="button"
+                  title="Remove participant"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity ml-1 shrink-0"
+                >
+                  <IoCloseCircleOutline className="text-red-500" size={16} />
+                </button>
+              </Popconfirm>
+            )}
+          </div>
         </div>
       ),
     });
@@ -42,30 +70,29 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
       key: "key",
       width: 110,
     },
-    {
-      title: "Primary Participant",
-      dataIndex: "PrimaryParticipant",
-      key: "PrimaryParticipant",
-      responsive: ['sm'],
-      width: 240,
-      render: (_, record) => (
-        <div className="flex items-center gap-2 min-w-[220px]">
-          {!!record?.PrimaryParticipant ? (
-            <img className="w-12 h-12 rounded-lg" src={`${imageUrl}${record?.PrimaryParticipant}`} alt="" /> 
-          ) : (
-            <img className="w-12 h-12" src={place} alt="" />
-          )}
+    // {
+    //   title: "Primary Participant",
+    //   dataIndex: "PrimaryParticipant",
+    //   key: "PrimaryParticipant",
+    //   responsive: ['sm'],
+    //   width: 240,
+    //   render: (_, record) => (
+    //     <div className="flex items-center gap-2 min-w-[220px]">
+    //       {!!record?.PrimaryParticipant ? (
+    //         <img className="w-12 h-12 rounded-lg" src={`${imageUrl}${record?.PrimaryParticipant}`} alt="" /> 
+    //       ) : (
+    //         <img className="w-12 h-12" src={place} alt="" />
+    //       )}
 
-          <p className="font-medium truncate max-w-[140px]">{record?.PrimaryParticipantName}</p>
-        </div>
-      ),
-    },
+    //       <p className="font-medium truncate max-w-[140px]">{record?.PrimaryParticipantName}</p>
+    //     </div>
+    //   ),
+    // },
     ...participantColumns,
     {
       title: "Schedule Date & Time",
       dataIndex: "datetime",
       key: "datetime",
-      responsive: ['md'],
       width: 220,
       render: (_, record) => (
         <p className="truncate max-w-[200px]">
@@ -119,14 +146,16 @@ const ScheduleUpdateRequest = ({ dataSource }) => {
   ];
   return (
     <div className="">
-      <Table
-        dataSource={dataSource}
-        columns={columns}
-        className="custom-pagination"
-        pagination={false}
-        scroll={{ x: 900 }}
-        size="small"
-      />
+      <div className="overflow-x-auto">
+        <Table
+          dataSource={dataSource}
+          columns={columns}
+          className="custom-pagination"
+          pagination={false}
+          scroll={{ x: 'max-content' }}
+          size="small"
+        />
+      </div>
       <ScheduleModal
         openScheduleModal={openScheduleModal}
         setScheduleModal={setScheduleModal}
