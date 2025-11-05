@@ -23,7 +23,7 @@ const Login = () => {
           toast.success(payload?.message);
           localStorage.setItem(
             "token",
-            JSON.stringify(payload?.data?.accessToken)
+            payload?.data?.accessToken
           );
           window.location.href = "/";
         }
