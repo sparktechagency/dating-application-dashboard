@@ -102,28 +102,28 @@ const Matches = () => {
       key: "key",
     },
     
-    {
-      title: "Primary User",
-      dataIndex: "primaryParticipant",
-      key: "primaryParticipant",
-      render: (_, record) => (
-        <div className="flex gap-2 items-center">
-          {!!record?.primaryParticipantImg ? (
-            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
-          ) : (
-            <img className="w-10 h-10" src={place} alt="" />
-          )}
+    // {
+    //   title: "Primary User",
+    //   dataIndex: "primaryParticipant",
+    //   key: "primaryParticipant",
+    //   render: (_, record) => (
+    //     <div className="flex items-center gap-2">
+    //       {!!record?.primaryParticipantImg ? (
+    //         <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
+    //       ) : (
+    //         <img className="w-10 h-10" src={place} alt="" />
+    //       )}
 
-          <p className="font-medium">{record?.primaryParticipantName}</p>
-        </div>
-      ),
-    },
+    //       <p className="font-medium">{record?.primaryParticipantName}</p>
+    //     </div>
+    //   ),
+    // },
     {
       title: "Match-1",
       dataIndex: "perticipant1",
       key: "perticipant1",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {!!record?.perticipant1Img ? (
             <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt="" />
           ) : (
@@ -140,7 +140,7 @@ const Matches = () => {
       dataIndex: "perticipant2",
       key: "perticipant2",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {!!record?.perticipant2Img ? (
             <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt="" />
           ) : (
@@ -157,7 +157,7 @@ const Matches = () => {
       dataIndex: "perticipant3",
       key: "perticipant3",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {!!record?.perticipant3Img ? (
             <img src={`${imageUrl}${record?.perticipant3Img}`} className="w-10 h-10 rounded-lg" alt="" />
           ) : (
@@ -174,7 +174,7 @@ const Matches = () => {
       dataIndex: "perticipant4",
       key: "perticipant4",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {!!record?.perticipant4Img ? (
             <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt="" />
           ) : (
@@ -192,7 +192,7 @@ const Matches = () => {
   return (
     <div className="p-4 bg-white rounded-md">
       <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
@@ -228,7 +228,7 @@ const Matches = () => {
           {participants.filter((participant) => participant.id !== undefined)?.map((participant) => (
             <div
               key={participant?.id}
-              className="flex gap-4 items-center px-24 mb-4"
+              className="flex items-center gap-4 px-24 mb-4"
             >
               <Checkbox
                 checked={selectedParticipantId.includes(participant?.id)}
