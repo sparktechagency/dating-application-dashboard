@@ -45,7 +45,7 @@ const Support = () => {
       key: "name",
       render: (_, record) => {
         return (
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             {!!record?.img ? (
               <img className="w-12 h-12 rounded-lg" src={`${imageUrl}${record?.img}`} alt="" />
             ) : (
@@ -67,7 +67,7 @@ const Support = () => {
       dataIndex: "view",
       key: "view",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <button
             onClick={() => {
               setOpenDetailsModal(true);
@@ -86,7 +86,7 @@ const Support = () => {
       key: "reply",
       render: (_, record) => {
         return (
-          <div className="flex gap-2 items-center">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => {
                 setReplyId(record?.id);
@@ -132,7 +132,7 @@ const Support = () => {
   return (
     <div className="p-4 bg-white rounded-md">
       <div className="flex flex-col gap-3 mb-5 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
@@ -201,20 +201,20 @@ const Support = () => {
         >
           <p className="text-xl font-semibold text-center">Details</p>
           <div>
-            <p className="flex justify-between items-center">
+            <p className="flex items-center justify-between">
               <span className="font-semibold">ID No: </span>{" "}
               <span>{singleData?.key}</span>{" "}
             </p>
-            <p className="flex justify-between items-center">
+            <p className="flex items-center justify-between">
               <span className="font-semibold">Date: </span>{" "}
               <span>{singleData?.date}</span>{" "}
             </p>
-            <p className="flex justify-between items-center">
+            <p className="flex items-center justify-between">
               <span className="font-semibold">User Name: </span>{" "}
               <span>{singleData?.name}</span>{" "}
             </p>
             <p className="my-2">
-              <span className="font-semibold">Description oht the issue: </span>{" "}
+              <span className="font-semibold">Description of the issue: </span>{" "}
             </p>
             <p className="">
               <span>{singleData?.description}</span>{" "}
