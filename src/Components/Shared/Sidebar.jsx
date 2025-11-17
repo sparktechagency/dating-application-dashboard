@@ -7,6 +7,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import img from "../../assets/images/logo.png";
 import { FiAward } from "react-icons/fi";
 import { GrUserAdmin } from "react-icons/gr";
+import { CiCalendar } from "react-icons/ci";
 import { useGetAdminProfileQuery } from "../../redux/api/AuthApi";
 import { CiLogout } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
@@ -59,6 +60,17 @@ const Sidebar = ({ onNavigate = () => {} }) => {
       path: "/podcast-management",
       label: "Podcast Management",
       icon: <MdPodcasts size={25} />,
+      sub_menu: false,
+    });
+  }
+  if (
+    getProfile?.data?.access === "ALL" ||
+    getProfile?.data?.access === "SCHEDULE_REQUEST"
+  ) {
+    links.push({
+      path: "/schedule-request",
+      label: "Schedule Request",
+      icon: <CiCalendar size={25} />,
       sub_menu: false,
     });
   }
@@ -187,7 +199,7 @@ const Sidebar = ({ onNavigate = () => {} }) => {
 
   return (
     <div id="sidebar" className="pb-4">
-      <div className="bg-white mb-5 sticky top-0">
+      <div className="sticky top-0 mb-5 bg-white">
         <img
           src={img}
           className="w-[150px] h-[80px] mx-auto object-contain"
@@ -225,7 +237,7 @@ const Sidebar = ({ onNavigate = () => {} }) => {
 
                 <div
                   ref={(el) => (contentRefs.current[index] = el)}
-                  className="accordion-content ml-8 mr-3 overflow-hidden transition-max-height duration-300 ease-in-out cursor-pointer"
+                  className="ml-8 mr-3 overflow-hidden duration-300 ease-in-out cursor-pointer accordion-content transition-max-height"
                   style={{ maxHeight: openIndex === index ? undefined : '0px' }}
                 >
                   {item?.sub_menu?.map((sub_item, subIndex) => {
