@@ -24,7 +24,7 @@ const Transaction = () => {
       dataIndex: "name",
       key: "name",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {record?.img ? (
             <img className="w-12 h-12 rounded-lg" src={`${imageUrl}${record.img}`} alt="" />
           ) : (
@@ -86,7 +86,7 @@ const Transaction = () => {
   return (
     <div className="p-5 bg-white rounded-md">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
@@ -123,7 +123,7 @@ const Transaction = () => {
       <div className="flex justify-center mt-5">
         <Pagination
           page={getAllPremiumUsers?.data?.pagination?.page}
-          total={getAllPremiumUsers?.data?.pagination?.totalUsers}
+          total={getAllPremiumUsers?.data?.pagination?.total}
           pageSize={getAllPremiumUsers?.data?.pagination?.limit}
           onChange={(page) => setPage(page)}
         />
