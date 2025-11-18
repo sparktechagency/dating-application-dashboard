@@ -30,7 +30,7 @@ const videoManagementApi = baseApi.injectEndpoints({
                     method: 'DELETE'
                 }
             },
-            invalidatesTags: ['video']
+            invalidatesTags: ['videoManagement']
         })
     })
 })
