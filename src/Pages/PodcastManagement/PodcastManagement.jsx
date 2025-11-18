@@ -62,7 +62,7 @@ const PodcastManagement = () => {
       perticipant4Req: !!pod?.participants[3]?.isRequest,
       date: pod?.schedule?.date?.split("T")[0] || "NO Date",
       status: pod?.status || "N/A",
-      roomCode: pod?.roomCodes ? pod.roomCodes.filter((code) => code?.role === 'broadcaster')[0]?.code : "N/A",
+      roomCode: pod?.roomCodes ? pod.roomCodes.filter((code) => code?.role === 'host')[0]?.code : "N/A",
       producerRoomCode: pod?.roomCodes ? pod.roomCodes.filter((code) => code?.role === 'producer')[0]?.code : "N/A"
     };
   });
@@ -203,7 +203,7 @@ const PodcastManagement = () => {
     //   dataIndex: "primaryParticipant",
     //   key: "primaryParticipant",
     //   render: (_, record) => (
-    //     <div className="flex gap-2 items-center">
+    //     <div className="flex items-center gap-2">
     //       {!!record?.primaryParticipantImg ? (
     //         <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
     //       ) : (
@@ -219,14 +219,14 @@ const PodcastManagement = () => {
       dataIndex: "perticipant1",
       key: "perticipant1",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {!!record?.perticipant1Img ? (
             <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant1Img}`} alt="" />
           ) : (
             <img className="w-10 h-10" src={place} alt="" />
           )}
 
-          <div className="flex gap-1 items-center group">
+          <div className="flex items-center gap-1 group">
             <div className="flex flex-col leading-tight">
               <p className="font-medium">{record?.perticipant1}</p>
               {record?.perticipant1Req && (
@@ -242,7 +242,7 @@ const PodcastManagement = () => {
                 cancelText="Cancel"
                 onConfirm={async () => { try { await removeParticipant({ userId: record.perticipant1Id }).unwrap(); } catch { /* no-op */ } }}
               >
-                <button type="button" title="Remove participant" className="opacity-0 transition-opacity group-hover:opacity-100">
+                <button type="button" title="Remove participant" className="transition-opacity opacity-0 group-hover:opacity-100">
                   <IoCloseCircleOutline className="text-red-500" size={16} />
                 </button>
               </Popconfirm>
@@ -256,13 +256,13 @@ const PodcastManagement = () => {
       dataIndex: "perticipant2",
       key: "perticipant2",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {!!record?.perticipant2Img ? (
             <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant2Img}`} alt="" />
           ) : (
             <img src={place} className="w-10 h-10" alt="" />
           )}
-          <div className="flex gap-1 items-center group">
+          <div className="flex items-center gap-1 group">
             <div className="flex flex-col leading-tight">
               <p className="font-medium">{record?.perticipant2}</p>
               {record?.perticipant2Req && (
@@ -278,7 +278,7 @@ const PodcastManagement = () => {
                 cancelText="Cancel"
                 onConfirm={async () => { try { await removeParticipant({ userId: record.participant2Id }).unwrap(); } catch { /* no-op */ } }}
               >
-                <button type="button" title="Remove participant" className="opacity-0 transition-opacity group-hover:opacity-100">
+                <button type="button" title="Remove participant" className="transition-opacity opacity-0 group-hover:opacity-100">
                   <IoCloseCircleOutline className="text-red-500" size={16} />
                 </button>
               </Popconfirm>
@@ -293,14 +293,14 @@ const PodcastManagement = () => {
       dataIndex: "perticipant3",
       key: "perticipant3",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {!!record?.perticipant3Img ? (
             <img src={`${imageUrl}${record?.perticipant3Img}`} className="w-10 h-10 rounded-lg" alt="" />
           ) : (
             <img src={place} className="w-10 h-10" alt="" />
           )}
 
-          <div className="flex gap-1 items-center group">
+          <div className="flex items-center gap-1 group">
             <div className="flex flex-col leading-tight">
               <p className="font-medium">{record?.perticipant3}</p>
               {record?.perticipant3Req && (
@@ -316,7 +316,7 @@ const PodcastManagement = () => {
                 cancelText="Cancel"
                 onConfirm={async () => { try { await removeParticipant({ userId: record.participant3Id }).unwrap(); } catch { /* no-op */ } }}
               >
-                <button type="button" title="Remove participant" className="opacity-0 transition-opacity group-hover:opacity-100">
+                <button type="button" title="Remove participant" className="transition-opacity opacity-0 group-hover:opacity-100">
                   <IoCloseCircleOutline className="text-red-500" size={16} />
                 </button>
               </Popconfirm>
@@ -330,14 +330,14 @@ const PodcastManagement = () => {
       dataIndex: "perticipant4",
       key: "perticipant4",
       render: (_, record) => (
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           {!!record?.perticipant4Img ? (
             <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.perticipant4Img}`} alt="" />
           ) : (
             <img className="w-10 h-10" src={place} alt="" />
           )}
 
-          <div className="flex gap-1 items-center group">
+          <div className="flex items-center gap-1 group">
             <div className="flex flex-col leading-tight">
               <p className="font-medium">{record?.perticipant4}</p>
               {record?.perticipant4Req && (
@@ -353,7 +353,7 @@ const PodcastManagement = () => {
                 cancelText="Cancel"
                 onConfirm={async () => { try { await removeParticipant({ userId: record.participant4Id }).unwrap(); } catch { /* no-op */ } }}
               >
-                <button type="button" title="Remove participant" className="opacity-0 transition-opacity group-hover:opacity-100">
+                <button type="button" title="Remove participant" className="transition-opacity opacity-0 group-hover:opacity-100">
                   <IoCloseCircleOutline className="text-red-500" size={16} />
                 </button>
               </Popconfirm>
@@ -471,7 +471,7 @@ const PodcastManagement = () => {
   return (
     <div className="p-4 bg-white rounded-md">
       <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-2 items-center">
+        <div className="flex items-center gap-2">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
@@ -507,7 +507,7 @@ const PodcastManagement = () => {
           {participants.filter((participant) => participant.id !== undefined)?.map((participant) => (
             <div
               key={participant?.id}
-              className="flex gap-4 items-center px-4 mb-4 sm:px-24"
+              className="flex items-center gap-4 px-4 mb-4 sm:px-24"
             >
               <Checkbox
                 checked={selectedParticipantId.includes(participant?.id)}
@@ -550,7 +550,7 @@ const PodcastManagement = () => {
       >
         {selectedRecordings.length > 0 ? (
           selectedRecordings.map((rec, index) => (
-            <div key={index} className="flex justify-between items-center p-2 mb-4 rounded border">
+            <div key={index} className="flex items-center justify-between p-2 mb-4 border rounded">
               <div className="flex flex-col">
                 <p className="font-semibold bg-gray-200 px-2 rounded-md text-[10px]">{rec?.sessionId}</p>
                 <p className="font-semibold">Recording {index + 1}</p>
