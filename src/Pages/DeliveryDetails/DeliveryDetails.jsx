@@ -76,75 +76,76 @@ const DeliveryDetails = () => {
 
   return (
     <div className="p-5 bg-white rounded-md">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex gap-2 items-center">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex items-center gap-2">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
-          <span className="font-semibold text-[20px]">User Management</span>
+          <span className="font-semibold text-[18px] sm:text-[20px]">User Management</span>
         </div>
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-2">
-         
-          <div>
-            <Select
-              placeholder="Select Gender"
-              className="w-full sm:w-[160px]"
-              allowClear
-              onChange={handleGender}
-            >
-              <Option value={"female"}>Female</Option>
-              <Option value={"Male"}>Male</Option>
-              <Option value={"non-binary"}>Non-binary</Option>
-              <Option value={"transgender"}>Transgender</Option>
-              <Option value={"gender-fluid"}>Gender Fluid</Option>
-            </Select>
-          </div>
-          <div>
-            <Select
-              placeholder="Select Body Type"
-              className="w-full sm:w-[180px]"
-              allowClear
-              onChange={handleBodyType}
-            >
-             {options.map((age) => (
-                <Option key={age} value={age}>
-                  {age}
-                </Option>
-              ))}
-            </Select>
-          </div>
-          <div>
-            <Select
-              placeholder="Select Ethnicity"
-              className="w-full sm:w-[200px]"
-              allowClear
-              onChange={handleEthnicity}
-            >
-             {ethnicityOption.map((age) => (
-                <Option key={age} value={age}>
-                  {age}
-                </Option>
-              ))}
-            </Select>
-          </div>
-          <div className="relative sm:w-[240px]">
-            <Input
-              onChange={(e) => {
-                setSearch(e.target.value);
-                setPage(1);
-              }}
-              type="text"
-              placeholder="Search here..."
-              className="pr-4 pl-10 w-full"
-            />
-            <span className="absolute left-3 top-2.5 text-gray-400">
-              <CiSearch className="text-[#FFA175]" />
-            </span>
+        <div className="w-full lg:w-auto">
+          <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4 lg:gap-3">
+            <div className="w-full">
+              <Select
+                placeholder="Select Gender"
+                className="w-full"
+                allowClear
+                onChange={handleGender}
+              >
+                <Option value={"female"}>Female</Option>
+                <Option value={"Male"}>Male</Option>
+                <Option value={"non-binary"}>Non-binary</Option>
+                <Option value={"transgender"}>Transgender</Option>
+                <Option value={"gender-fluid"}>Gender Fluid</Option>
+              </Select>
+            </div>
+            <div className="w-full">
+              <Select
+                placeholder="Select Body Type"
+                className="w-full"
+                allowClear
+                onChange={handleBodyType}
+              >
+               {options.map((age) => (
+                  <Option key={age} value={age}>
+                    {age}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            <div className="w-full">
+              <Select
+                placeholder="Select Ethnicity"
+                className="w-full"
+                allowClear
+                onChange={handleEthnicity}
+              >
+               {ethnicityOption.map((age) => (
+                  <Option key={age} value={age}>
+                    {age}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            <div className="relative w-full">
+              <Input
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  setPage(1);
+                }}
+                type="text"
+                placeholder="Search here..."
+                className="w-full pl-10 pr-4"
+              />
+              <span className="absolute left-3 top-2.5 text-gray-400">
+                <CiSearch className="text-[#FFA175]" />
+              </span>
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="overflow-x-auto mt-5">
+      <div className="mt-5 overflow-x-auto">
         <div className="min-w-full">
           <GuestHostInfo dataSource={formattedTableData} />
         </div>
