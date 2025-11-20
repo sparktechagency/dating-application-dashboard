@@ -116,8 +116,9 @@ const PodcastManagement = () => {
   };
 
   const handleOpenDownloadModal = async (id) => {
+    console.log(id)
     try {
-      const token = JSON.parse(localStorage.getItem('token'));
+      const token = localStorage.getItem('token');
       const headers = {
         'Authorization': `Bearer ${token}`,
       };
@@ -457,7 +458,7 @@ const PodcastManagement = () => {
         return (
           <Button
             onClick={() => handleCopy(record?.producerRoomCode)}
-            disabled= {!isEnableJoin}
+            disabled={!isEnableJoin}
             className="bg-[#2757A6] inline-block text-white p-1 rounded-md cursor-pointer"
           >
             <BiCopy size={22} />
