@@ -12,10 +12,10 @@ const dashboardApi = baseApi.injectEndpoints({
             },
             providesTags: ['dashboard']
         }),
-        incomeGrowth: builder.query({
+        userGrowth: builder.query({
             query: (year) => {
                 return {
-                    url: `/analytics/income/${year}`,
+                    url: `/analytics/user-growth/${year}`,
                     method: 'GET'
                 }
             },
@@ -64,7 +64,7 @@ const dashboardApi = baseApi.injectEndpoints({
 })
 export const {
     useGetAnalyticsQuery,
-    useIncomeGrowthQuery,
+    useUserGrowthQuery,
     useSubscriptionGrowthQuery,
     useGetAllPodcastQuery,
     useGetAllNewPodcastQuery,

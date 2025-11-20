@@ -2,12 +2,12 @@
 import { Select } from 'antd';
 import { useState } from 'react';
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { useIncomeGrowthQuery } from '../../redux/api/DahsboardHomeApi';
+import { useUserGrowthQuery } from '../../redux/api/DahsboardHomeApi';
 
 const IncomeOverview = () => {
     const [year , setYear] = useState("2025")
-    const {data : incomeGrowth} = useIncomeGrowthQuery(year)
-    // console.log(incomeGrowth);
+    const {data : userGrowth} = useUserGrowthQuery(year)
+
     const items = [
        
         {
@@ -28,11 +28,11 @@ const IncomeOverview = () => {
         },
     ];
 
-    const dataMonth = incomeGrowth?.data?.map((mon , i)=>{
+    const dataMonth = userGrowth?.data?.map((mon) => {
         return (
             {
-                name : mon?.month,
-                uv: mon?.income
+                name: mon?.month,
+                uv: mon?.count
             }
         )
     })
@@ -42,9 +42,9 @@ const IncomeOverview = () => {
     };
     return (
         <>
-            <div className='flex justify-between items-center'>
+            <div className='flex items-center justify-between'>
                 <div className='ml-6'>
-                    <p className='text-xl font-semibold mb-2 '>User Growth</p>
+                    <p className='mb-2 text-xl font-semibold '>User Growth</p>
                    
                 </div>
                 <Select
