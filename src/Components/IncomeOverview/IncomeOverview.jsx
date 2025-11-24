@@ -32,7 +32,7 @@ const IncomeOverview = () => {
         return (
             {
                 name: mon?.month,
-                uv: mon?.count
+                user: mon?.count
             }
         )
     })
@@ -71,7 +71,7 @@ const IncomeOverview = () => {
                         <XAxis dataKey="name" />
                         <YAxis />
                         <Tooltip />
-                        <Area type="monotone" dataKey="uv" stroke="#FFA175" opacity={1} fillOpacity={1} fill="#FFA175" />
+                        <Area type="monotone" dataKey="user" stroke="#FFA175" opacity={1} fillOpacity={1} fill="#FFA175" />
                     </AreaChart>
                 </ResponsiveContainer>
             </div>
