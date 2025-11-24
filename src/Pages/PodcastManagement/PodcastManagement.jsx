@@ -140,7 +140,8 @@ const PodcastManagement = () => {
   };
 
   const handleDownloadClick = async (videoUrl) => {
-    const token = JSON.parse(localStorage.getItem('token'));
+    // alert("download button clicked")
+    const token = localStorage.getItem('token');
     try {
       const response = await fetch(`${imageUrl}/podcast/download`, {
         method: "POST",
