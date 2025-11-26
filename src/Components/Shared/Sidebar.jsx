@@ -11,7 +11,7 @@ import { CiCalendar } from "react-icons/ci";
 import { useGetAdminProfileQuery } from "../../redux/api/AuthApi";
 import { CiLogout } from "react-icons/ci";
 import { FaRegHeart } from "react-icons/fa";
-const Sidebar = ({ onNavigate = () => {} }) => {
+const Sidebar = ({ onNavigate = () => { } }) => {
   const [openIndex, setOpenIndex] = useState(null);
   const navigate = useNavigate()
   const contentRefs = useRef([]);
@@ -41,28 +41,7 @@ const Sidebar = ({ onNavigate = () => {} }) => {
       sub_menu: false,
     });
   }
-  if (
-    getProfile?.data?.access === "ALL" ||
-    getProfile?.data?.access === "PODCAST_MANAGEMENT"
-  ) {
-    links.push({
-      path: "/matches",
-      label: "Matches",
-      icon: <FaRegHeart size={25} />,
-      sub_menu: false,
-    });
-  }
-  if (
-    getProfile?.data?.access === "ALL" ||
-    getProfile?.data?.access === "PODCAST_MANAGEMENT"
-  ) {
-    links.push({
-      path: "/podcast-management",
-      label: "Podcast Management",
-      icon: <MdPodcasts size={25} />,
-      sub_menu: false,
-    });
-  }
+
   if (
     getProfile?.data?.access === "ALL" ||
     getProfile?.data?.access === "SCHEDULE_REQUEST"
@@ -74,6 +53,31 @@ const Sidebar = ({ onNavigate = () => {} }) => {
       sub_menu: false,
     });
   }
+
+  if (
+    getProfile?.data?.access === "ALL" ||
+    getProfile?.data?.access === "PODCAST_MANAGEMENT"
+  ) {
+    links.push({
+      path: "/podcast-management",
+      label: "Podcast Management",
+      icon: <MdPodcasts size={25} />,
+      sub_menu: false,
+    });
+  }
+
+  if (
+    getProfile?.data?.access === "ALL" ||
+    getProfile?.data?.access === "PODCAST_MANAGEMENT"
+  ) {
+    links.push({
+      path: "/matches",
+      label: "Matches",
+      icon: <FaRegHeart size={25} />,
+      sub_menu: false,
+    });
+  }
+
   if (
     getProfile?.data?.access === "ALL" ||
     getProfile?.data?.access === "VIDEO_MANAGEMENT"
@@ -247,8 +251,8 @@ const Sidebar = ({ onNavigate = () => {} }) => {
                         to={sub_item?.path}
                         key={subIndex}
                         className={`flex justify-center items-center ${isSubItemActive
-                            ? "bg-[#2757A6] text-white"
-                            : "bg-white text-[var(--primary-color)]  "
+                          ? "bg-[#2757A6] text-white"
+                          : "bg-white text-[var(--primary-color)]  "
                           }  px-2  w-full py-2 mb-[1px] cursor-pointer `}
                         onClick={onNavigate}
                       >
@@ -276,8 +280,8 @@ const Sidebar = ({ onNavigate = () => {} }) => {
 
                 <NavLink
                   className={`cursor-pointer flex justify-start ml-8 mr-3 gap-2 items-center ${isActive
-                      ? "bg-[#2757A6] text-white "
-                      : "bg-white text-[var(--primary-color)] "
+                    ? "bg-[#2757A6] text-white "
+                    : "bg-white text-[var(--primary-color)] "
                     }  py-[12px] px-2  rounded-tr-md rounded-br-md font-medium text-[16px]`}
                   to={item?.path}
                   onClick={onNavigate}
