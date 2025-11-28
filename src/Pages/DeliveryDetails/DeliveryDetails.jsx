@@ -43,8 +43,9 @@ const DeliveryDetails = () => {
   });
 
   const formattedTableData = Array.isArray(getAllUser?.data?.users) && getAllUser?.data?.users?.map((user, i) => {
+    const pageSize = getAllUser?.data?.pagination?.limit || 10; // Default to 10 if limit is not available
     return {
-      key: i + 1,
+      key: (page - 1) * pageSize + i + 1,
       id: user?._id,
       authId: user?.auth?._id,
       name: user?.name,
