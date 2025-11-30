@@ -200,22 +200,22 @@ const PodcastManagement = () => {
       dataIndex: "date",
       key: "date",
     },
-    // {
-    //   title: "Primary Participant",
-    //   dataIndex: "primaryParticipant",
-    //   key: "primaryParticipant",
-    //   render: (_, record) => (
-    //     <div className="flex items-center gap-2">
-    //       {!!record?.primaryParticipantImg ? (
-    //         <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
-    //       ) : (
-    //         <img className="w-10 h-10" src={place} alt="" />
-    //       )}
+    {
+      title: "Primary Participant",
+      dataIndex: "primaryParticipant",
+      key: "primaryParticipant",
+      render: (_, record) => (
+        <div className="flex items-center gap-2">
+          {!!record?.primaryParticipantImg ? (
+            <img className="w-10 h-10 rounded-lg" src={`${imageUrl}${record?.primaryParticipantImg}`} alt="" />
+          ) : (
+            <img className="w-10 h-10" src={place} alt="" />
+          )}
 
-    //       <p className="font-medium">{record?.primaryParticipantName}</p>
-    //     </div>
-    //   ),
-    // },
+          <p className="font-medium">{record?.primaryParticipantName}</p>
+        </div>
+      ),
+    },
     {
       title: "Participant-1",
       dataIndex: "perticipant1",
