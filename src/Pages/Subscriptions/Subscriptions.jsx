@@ -153,8 +153,8 @@ const Subscriptions = () => {
 
   return (
     <div className="p-4 bg-white rounded-md">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6">
-        <div className="flex gap-2 items-center">
+      <div className="flex flex-col gap-4 mb-6 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-2">
           <Link to={-1}>
             <FaArrowLeft size={18} className="text-[var(--primary-color)] " />
           </Link>
@@ -232,7 +232,7 @@ const Subscriptions = () => {
                     </div>
                   ))}
                   <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block>
+                    <Button type="dashed" htmlType="button" onClick={() => add()} block>
                       Add Description Field
                     </Button>
                   </Form.Item>
@@ -240,7 +240,7 @@ const Subscriptions = () => {
               )}
             </Form.List>
           </Form.Item>
-          <div className="flex gap-2 justify-center items-center w-full">
+          <div className="flex items-center justify-center w-full gap-2">
             <button type="button" onClick={() => setOpenModal(false)} className="border border-[#FFE2D4] text-[#FFA175] w-full rounded-md py-1 text-[16px]">
               Cancel
             </button>
@@ -312,11 +312,11 @@ const Subscriptions = () => {
                       >
                         <Input placeholder="E.g. Get 5 matches daily" />
                       </Form.Item>
-                      <Button type="dashed" onClick={() => remove(name)} >Remove</Button>
+                      <Button type="dashed" htmlType="button" onClick={() => remove(name)} >Remove</Button>
                     </div>
                   ))}
                   <Form.Item>
-                    <Button type="dashed" onClick={() => add()} block>
+                    <Button type="dashed" htmlType="button" onClick={() => add()} block>
                       Add Description Field
                     </Button>
                   </Form.Item>
@@ -324,11 +324,11 @@ const Subscriptions = () => {
               )}
             </Form.List>
           </Form.Item>
-          <div className="flex gap-2 justify-center items-center w-full">
-            <Button type="button" onClick={() => { setOpenAddModal(false); addForm.resetFields(); }} className="border border-[#FFE2D4] text-[#FFA175] w-full py-1 rounded-md">
+          <div className="flex items-center justify-center w-full gap-2">
+            <Button htmlType="button" onClick={() => { setOpenAddModal(false); addForm.resetFields(); }} className="border border-[#FFE2D4] text-[#FFA175] w-full py-1 rounded-md">
               Cancel
             </Button>
-            <Button className="w-full bg-[#FFA175] py-[5px] text-white rounded-md" disabled={isCreating}>
+            <Button htmlType="submit" className="w-full bg-[#FFA175] py-[5px] text-white rounded-md" disabled={isCreating}>
               {isCreating ? "Creating..." : "Create"}
             </Button>
           </div>
