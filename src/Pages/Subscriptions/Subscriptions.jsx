@@ -189,12 +189,17 @@ const Subscriptions = () => {
       >
         <p className="mb-5 text-xl font-semibold text-center">Edit</p>
         <Form layout="vertical" onFinish={handleUpdatePlan} form={form}>
-          <Form.Item
-            name={"name"}
-            label={<p className="text-[18px]">Subscription Name</p>}
-          >
-            <Input/>
-          </Form.Item>
+            <Form.Item
+              name={"name"}
+              label={<p className="text-[18px]">Subscription Name</p>}
+              rules={[{ required: true, message: 'Please select a subscription name!' }]}
+            >
+              <Select placeholder="Select a plan">
+                {['Sampler', 'Seeker', 'Scout'].map((plan) => (
+                  <Select.Option key={plan} value={plan}>{plan}</Select.Option>
+                ))}
+              </Select>
+            </Form.Item>
           <Form.Item
             name={"unitAmount"}
             label={<p className="text-[18px]">Subscription Fee</p>}
@@ -270,8 +275,13 @@ const Subscriptions = () => {
           <Form.Item
             name={"name"}
             label={<p className="text-[18px]">Subscription Name</p>}
+            rules={[{ required: true, message: 'Please select a subscription name!' }]}
           >
-            <Input placeholder="E.g. Premium Plan" />
+            <Select placeholder="Select a plan">
+              {['Sampler', 'Seeker', 'Scout'].map((plan) => (
+                <Select.Option key={plan} value={plan}>{plan}</Select.Option>
+              ))}
+            </Select>
           </Form.Item>
           <Form.Item
             name={"unitAmount"}
