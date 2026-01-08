@@ -201,7 +201,7 @@ const PodcastManagement = () => {
       key: "date",
     },
     {
-      title: "Primary Participant",
+      title: "Spotlight",
       dataIndex: "primaryParticipant",
       key: "primaryParticipant",
       render: (_, record) => (
@@ -217,7 +217,7 @@ const PodcastManagement = () => {
       ),
     },
     {
-      title: "Participant-1",
+      title: "Spark-1",
       dataIndex: "perticipant1",
       key: "perticipant1",
       render: (_, record) => (
@@ -254,7 +254,7 @@ const PodcastManagement = () => {
       ),
     },
     {
-      title: "Participant-2",
+      title: "Spark-2",
       dataIndex: "perticipant2",
       key: "perticipant2",
       render: (_, record) => (
@@ -291,7 +291,7 @@ const PodcastManagement = () => {
     },
 
     {
-      title: "Participant-3",
+      title: "Spark-3",
       dataIndex: "perticipant3",
       key: "perticipant3",
       render: (_, record) => (
@@ -328,7 +328,7 @@ const PodcastManagement = () => {
       ),
     },
     {
-      title: "Participant-4",
+      title: "Spark-4",
       dataIndex: "perticipant4",
       key: "perticipant4",
       render: (_, record) => (
