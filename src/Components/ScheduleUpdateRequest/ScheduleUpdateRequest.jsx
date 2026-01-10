@@ -22,7 +22,7 @@ const ScheduleUpdateRequest = ({ dataSource, onRemoveParticipant = () => {} }) =
   const participantColumns = [];
   for (let i = 1; i <= maxParticipants; i++) {
     participantColumns.push({
-      title: `Participant-${i}`,
+      title: i === 1 ? "Spotlight" : `Spark-${i - 1}`,
       dataIndex: `perticipant${i}`,
       key: `perticipant${i}`,
       width: 220,
