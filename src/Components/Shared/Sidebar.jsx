@@ -10,7 +10,7 @@ import { GrUserAdmin } from "react-icons/gr";
 import { CiCalendar } from "react-icons/ci";
 import { useGetAdminProfileQuery } from "../../redux/api/AuthApi";
 import { CiLogout } from "react-icons/ci";
-import { FaRegHeart } from "react-icons/fa";
+// import { FaRegHeart } from "react-icons/fa";
 const Sidebar = ({ onNavigate = () => { } }) => {
   const [openIndex, setOpenIndex] = useState(null);
   const navigate = useNavigate()
@@ -66,17 +66,17 @@ const Sidebar = ({ onNavigate = () => { } }) => {
     });
   }
 
-  if (
-    getProfile?.data?.access === "ALL" ||
-    getProfile?.data?.access === "PODCAST_MANAGEMENT"
-  ) {
-    links.push({
-      path: "/matches",
-      label: "Matches",
-      icon: <FaRegHeart size={25} />,
-      sub_menu: false,
-    });
-  }
+  // if (
+  //   getProfile?.data?.access === "ALL" ||
+  //   getProfile?.data?.access === "PODCAST_MANAGEMENT"
+  // ) {
+  //   links.push({
+  //     path: "/matches",
+  //     label: "Matches",
+  //     icon: <FaRegHeart size={25} />,
+  //     sub_menu: false,
+  //   });
+  // }
 
   if (
     getProfile?.data?.access === "ALL" ||
