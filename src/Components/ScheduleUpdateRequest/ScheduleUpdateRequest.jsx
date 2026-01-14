@@ -27,7 +27,7 @@ const ScheduleUpdateRequest = ({ dataSource, onRemoveParticipant = () => {} }) =
       key: `perticipant${i}`,
       width: 220,
       render: (_, record) => (
-        <div className="group flex items-center gap-2 min-w-[200px]">
+        <div className="group flex items-center gap-2 min-w-[300px]">
           {!!record[`perticipant${i}Img`] ? (
             <img className="w-12 h-12 rounded-full" src={`${imageUrl}${record[`perticipant${i}Img`]}`} alt="" />
           ) : (
