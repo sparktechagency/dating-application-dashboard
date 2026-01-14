@@ -7,19 +7,62 @@ import ScheduleModal from "../ScheduleModal/ScheduleModal";
 import { imageUrl, place } from "../../redux/api/baseApi";
 import SheduleDoneButton from "../Button/SheduleDoneButton";
 
-const ScheduleUpdateRequest = ({ dataSource, onRemoveParticipant = () => {} }) => {
+const ScheduleUpdateRequest = ({ dataSource, onRemoveParticipant = () => { } }) => {
   const [openScheduleModal, setScheduleModal] = useState(false);
   const [podCastId, setPodCastId] = useState("");
 
   const maxParticipants = dataSource
     ? Math.max(
-        ...dataSource.map((d) =>
-          Object.keys(d).filter((key) => /^perticipant\d+$/.test(key)).length
-        )
+      ...dataSource.map((d) =>
+        Object.keys(d).filter((key) => /^perticipant\d+$/.test(key)).length
       )
+    )
     : 0;
 
   const participantColumns = [];
+  // for (let i = 1; i <= maxParticipants; i++) {
+  //   participantColumns.push({
+  //     title: i === 1 ? "Spotlight" : `Spark-${i - 1}`,
+  //     dataIndex: `perticipant${i}`,
+  //     key: `perticipant${i}`,
+  //     width: 220,
+  //     render: (_, record) => (
+  //       <div className="group flex items-center gap-2 min-w-[300px]">
+  //         {!!record[`perticipant${i}Img`] ? (
+  //           <img className="w-12 h-12 rounded-full" src={`${imageUrl}${record[`perticipant${i}Img`]}`} alt="" />
+  //         ) : (
+  //           <img className="w-12 h-12" src={place} alt="" />
+  //         )}
+
+  //         <div className="flex items-center gap-1 max-w-[140px]">
+  //           <p className="font-medium truncate max-w-[120px]">{record[`perticipant${i}`]}</p>
+  //           {record[`perticipant${i}Req`] && (
+  //             <IoCheckmarkCircle className="text-blue-500 min-w-4" size={14} title="Requested" />
+  //           )}
+  //           {record[`perticipant${i}Id`] && (
+  //             <Popconfirm
+  //               title="Remove participant?"
+  //               description={`Remove ${record[`perticipant${i}`]} from this podcast?`}
+  //               okText="Remove"
+  //               okType="danger"
+  //               cancelText="Cancel"
+  //               onConfirm={() => onRemoveParticipant({ participantId: record[`perticipant${i}Id`] })}
+  //             >
+  //               <button
+  //                 type="button"
+  //                 title="Remove participant"
+  //                 className="opacity-0 group-hover:opacity-100 transition-opacity ml-1 shrink-0"
+  //               >
+  //                 <IoCloseCircleOutline className="text-red-500" size={16} />
+  //               </button>
+  //             </Popconfirm>
+  //           )}
+  //         </div>
+  //       </div>
+  //     ),
+  //   });
+  // }
+
   for (let i = 1; i <= maxParticipants; i++) {
     participantColumns.push({
       title: i === 1 ? "Spotlight" : `Spark-${i - 1}`,
@@ -27,19 +70,24 @@ const ScheduleUpdateRequest = ({ dataSource, onRemoveParticipant = () => {} }) =
       key: `perticipant${i}`,
       width: 220,
       render: (_, record) => (
-        <div className="group flex items-center gap-2 min-w-[300px]">
-          {!!record[`perticipant${i}Img`] ? (
-            <img className="w-12 h-12 rounded-full" src={`${imageUrl}${record[`perticipant${i}Img`]}`} alt="" />
-          ) : (
-            <img className="w-12 h-12" src={place} alt="" />
-          )}
-
-          <div className="flex items-center gap-1 max-w-[140px]">
-            <p className="font-medium truncate max-w-[120px]">{record[`perticipant${i}`]}</p>
-            {record[`perticipant${i}Req`] && (
-              <IoCheckmarkCircle className="text-blue-500 min-w-4" size={14} title="Requested" />
+        <div className="group flex items-center justify-between gap-2 w-full pr-1">
+          <div className="flex items-center gap-2 min-w-0">
+            {!!record[`perticipant${i}Img`] ? (
+              <img className="w-10 h-10 rounded-full shrink-0 object-cover" src={`${imageUrl}${record[`perticipant${i}Img`]}`} alt="" />
+            ) : (
+              <img className="w-10 h-10 shrink-0" src={place} alt="" />
             )}
-            {record[`perticipant${i}Id`] && (
+
+            <div className="flex items-center gap-1 min-w-0">
+              <p className="font-medium truncate text-sm">{record[`perticipant${i}`]}</p>
+              {record[`perticipant${i}Req`] && (
+                <IoCheckmarkCircle className="text-blue-500 shrink-0" size={14} title="Requested" />
+              )}
+            </div>
+          </div>
+
+          {record[`perticipant${i}Id`] && (
+            <div className="shrink-0 flex items-center">
               <Popconfirm
                 title="Remove participant?"
                 description={`Remove ${record[`perticipant${i}`]} from this podcast?`}
@@ -50,14 +98,14 @@ const ScheduleUpdateRequest = ({ dataSource, onRemoveParticipant = () => {} }) =
               >
                 <button
                   type="button"
+                  className="opacity-100 lg:opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-red-50 rounded-full duration-200"
                   title="Remove participant"
-                  className="opacity-0 group-hover:opacity-100 transition-opacity ml-1 shrink-0"
                 >
-                  <IoCloseCircleOutline className="text-red-500" size={16} />
+                  <IoCloseCircleOutline className="text-red-500" size={18} />
                 </button>
               </Popconfirm>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       ),
     });
