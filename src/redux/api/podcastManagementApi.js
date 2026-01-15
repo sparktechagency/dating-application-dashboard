@@ -11,6 +11,15 @@ const podcastManagement = baseApi.injectEndpoints({
             },
             providesTags : ['schedule']
         }),
+        getMatchedPodCast : builder.query({
+            query : (page)=>{
+                return {
+                    url : `/podcast?&page=${page}&limit=10`,
+                    method : 'GET'
+                }
+            },
+            providesTags : ['schedule']
+        }),
         selectPodCastPartner : builder.mutation({ 
             query : (data)=>{
                 return {
@@ -63,4 +72,4 @@ const podcastManagement = baseApi.injectEndpoints({
     })
 })
 
-export const { useGetAllDonePodCastQuery , useSelectPodCastPartnerMutation , useSchedulePodCastMutation , usePodcastDoneMutation , useGetPodcastRecordingQuery, usePodcastRecordingDownloadQuery } = podcastManagement;
+export const { useGetAllDonePodCastQuery , useGetMatchedPodCastQuery , useSelectPodCastPartnerMutation , useSchedulePodCastMutation , usePodcastDoneMutation , useGetPodcastRecordingQuery, usePodcastRecordingDownloadQuery } = podcastManagement;

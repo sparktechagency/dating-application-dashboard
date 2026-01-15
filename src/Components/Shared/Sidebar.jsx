@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegHeart, FaRegUserCircle } from "react-icons/fa";
 import { IoIosArrowForward } from "react-icons/io";
 import { IoSettingsOutline } from "react-icons/io5";
 import { MdOutlineDashboard, MdOutlineWorkspacePremium, MdPodcasts, MdSupport, MdVideoCall } from "react-icons/md";
@@ -66,17 +66,17 @@ const Sidebar = ({ onNavigate = () => { } }) => {
     });
   }
 
-  // if (
-  //   getProfile?.data?.access === "ALL" ||
-  //   getProfile?.data?.access === "PODCAST_MANAGEMENT"
-  // ) {
-  //   links.push({
-  //     path: "/matches",
-  //     label: "Matches",
-  //     icon: <FaRegHeart size={25} />,
-  //     sub_menu: false,
-  //   });
-  // }
+  if (
+    getProfile?.data?.access === "ALL" ||
+    getProfile?.data?.access === "PODCAST_MANAGEMENT"
+  ) {
+    links.push({
+      path: "/matches",
+      label: "Matches",
+      icon: <FaRegHeart size={25} />,
+      sub_menu: false,
+    });
+  }
 
   if (
     getProfile?.data?.access === "ALL" ||
