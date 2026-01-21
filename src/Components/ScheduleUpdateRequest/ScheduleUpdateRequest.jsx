@@ -6,6 +6,10 @@ import { IoCloseCircleOutline } from "react-icons/io5";
 import ScheduleModal from "../ScheduleModal/ScheduleModal";
 import { imageUrl, place } from "../../redux/api/baseApi";
 import SheduleDoneButton from "../Button/SheduleDoneButton";
+import dayjs from "dayjs";
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
 
 const ScheduleUpdateRequest = ({ dataSource, onRemoveParticipant = () => { } }) => {
   const [openScheduleModal, setScheduleModal] = useState(false);
@@ -142,12 +146,25 @@ const ScheduleUpdateRequest = ({ dataSource, onRemoveParticipant = () => { } }) 
       dataIndex: "datetime",
       key: "datetime",
       width: 220,
-      render: (_, record) => (
-        <p className="truncate max-w-[200px]">
-          {record?.scheduleDate || "Not Schedule"} : {record?.scheduleTime} :{" "}
-          {record?.scheduleDay}
-        </p>
-      ),
+      render: (_, record) => {
+        let displayTime = record?.scheduleTime;
+
+        if (record?.scheduleDate && record?.scheduleTime) {
+          const utcDateTime = `${record.scheduleDate}T${record.scheduleTime}:00Z`;
+          displayTime = dayjs.utc(utcDateTime).local().format("hh:mm A");
+        }
+
+        return (
+          <div className="flex flex-col gap-1">
+            <p className="text-sm font-medium">
+              {record?.scheduleDate || "Not Schedule"} • {displayTime}
+            </p>
+            <p className="text-xs text-gray-500">
+              {record?.scheduleDay}
+            </p>
+          </div>
+        );
+      },
     },
     {
       title: "Status",

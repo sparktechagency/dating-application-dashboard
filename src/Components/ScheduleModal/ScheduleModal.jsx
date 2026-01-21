@@ -8,6 +8,10 @@ import { toast } from "sonner";
 const ScheduleModal = ({ openScheduleModal, setScheduleModal, podCastId }) => {
   const [form] = Form.useForm();
   const [schedulePodCast] = useSchedulePodCastMutation();
+  
+  // Get device timezone
+  const deviceTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  
   const onFinish = (values) => {
     const selectedDateTime = values.scheduleDateTime;
     const formattedDate = dayjs(selectedDateTime).format("MM/DD/YYYY");
@@ -21,9 +25,9 @@ const ScheduleModal = ({ openScheduleModal, setScheduleModal, podCastId }) => {
       status: "Scheduled",
       date: formattedDate,
       time: formattedTime,
-      day : dayName
+      day: dayName,
+      timezone: deviceTimezone
     };
-
 
     schedulePodCast(data)
       .unwrap()
@@ -43,6 +47,11 @@ const ScheduleModal = ({ openScheduleModal, setScheduleModal, podCastId }) => {
         onCancel={() => setScheduleModal(false)}
       >
         <p className="text-center text-xl font-semibold mb-5">Set Schedule</p>
+        <div className="mb-4 p-3 bg-blue-50 rounded-md border border-blue-200">
+          <p className="text-sm text-gray-600">
+            <span className="font-semibold text-blue-700">🌍 Your Timezone:</span> <span className="text-blue-600">{deviceTimezone}</span>
+          </p>
+        </div>
         <Form form={form} layout="vertical" onFinish={onFinish}>
           <Form.Item
             name="scheduleDateTime"
