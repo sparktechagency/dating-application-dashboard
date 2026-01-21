@@ -1,18 +1,19 @@
-import { Button, Checkbox, Modal, Pagination, Table, Popconfirm } from "antd";
-import React, { useState } from "react";
+import { Button, Checkbox, Modal, Pagination, Table, Popconfirm, Dropdown } from "antd";
+import { useState } from "react";
 import { FaArrowLeft } from "react-icons/fa";
 import { FaCheckCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import {
   useGetAllDonePodCastQuery,
-  useSelectPodCastPartnerMutation
+  useSelectPodCastPartnerMutation,
+  useChangePodcastStatusMutation
 } from "../../redux/api/podcastManagementApi";
 import { imageUrl, place } from "../../redux/api/baseApi";
 import { useRemoveParticipantMutation } from "../../redux/api/DahsboardHomeApi";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
 import { toast } from "sonner";
-import { BiCopy } from "react-icons/bi";
+import { MdMoreVert } from "react-icons/md";
 const PodcastManagement = () => {
   const [page, setPage] = useState(1)
   const [openModal, setOpenModal] = useState(false);
@@ -32,6 +33,7 @@ const PodcastManagement = () => {
   const { data: getAllDonePodcast } = useGetAllDonePodCastQuery(page);
   const [selectedPartner, { isLoading }] = useSelectPodCastPartnerMutation();
   const [removeParticipant] = useRemoveParticipantMutation();
+  const [changePodcastStatus] = useChangePodcastStatusMutation();
 
   const formattedData = Array.isArray(getAllDonePodcast?.data?.podcasts) && getAllDonePodcast?.data?.podcasts?.map((pod, i) => {
     return {
@@ -113,6 +115,18 @@ const PodcastManagement = () => {
         setOpenModal(false);
       })
       .catch((error) => toast.error(error?.data?.message));
+  };
+
+  const handleChangeStatus = async (podcastId, newStatus) => {
+    try {
+      const response = await changePodcastStatus({
+        podcastId,
+        status: newStatus
+      }).unwrap();
+      toast.success(response?.message || `Status changed to ${newStatus}`);
+    } catch (error) {
+      toast.error(error?.data?.message || "Failed to change status");
+    }
   };
 
   const handleOpenDownloadModal = async (id) => {
@@ -399,36 +413,8 @@ const PodcastManagement = () => {
       key: "recording",
       render: (_, record) => {
         const isDownloadable = record.status === 'Done' || record.status === 'Finished';
-        // const isFinished = record.status === 'Finished';
         const isEnableJoin = record.status === 'Playing' || record.status === 'StreamStart' || record.status === 'Done';
-        return (
-          <div className="text-[#FFA175] flex gap-2 flewr p-1 rounded-md text-end">
-            <Button
-              className={`px-3 py-1 text-white bg-green-500 rounded-md`}
-              disabled={!isEnableJoin}
-              onClick={() => handleJoinPodcast(record)}
-            >
-              Join
-            </Button>
-
-            <Button
-              onClick={() => handleOpenDownloadModal(record.id)}
-              disabled={!isDownloadable}
-              className={`text-white px-3 py-1 rounded-md ${isDownloadable ? 'bg-blue-500 cursor-pointer' : 'bg-gray-400 cursor-not-allowed'}`}>
-              Download
-            </Button>
-          </div>
-        );
-      },
-    },
-
-    {
-      title: "Producer Link",
-      dataIndex: "producerLink",
-      key: "producerLink",
-      render: (_, record) => {
-        // const producerCode = record?.producerRoomCode;
-        const isEnableJoin = record.status === 'Playing' || record.status === 'StreamStart' || record.status === 'Done';
+        
         const handleCopy = async (producerCode) => {
           if (producerCode && producerCode !== "N/A") {
             const textToCopy = `https://podlove.co/ms/?roomCode=${producerCode}`;
@@ -436,7 +422,6 @@ const PodcastManagement = () => {
               if (navigator.clipboard && navigator.clipboard.writeText) {
                 await navigator.clipboard.writeText(textToCopy);
               } else {
-                // fallback
                 const textArea = document.createElement("textarea");
                 textArea.value = textToCopy;
                 textArea.style.position = "fixed";
@@ -446,27 +431,69 @@ const PodcastManagement = () => {
                 document.execCommand("copy");
                 document.body.removeChild(textArea);
               }
-              toast.success("Producer link copied to clipboard");
+              toast.success("Producer link copied!");
             } catch (err) {
               console.error("Clipboard copy failed:", err);
-              toast.error("Failed to copy producer link");
+              toast.error("Failed to copy link");
             }
           } else {
-            toast.error("No producer link found");
+            toast.error("No producer link available");
           }
         };
+        
+        const actionItems = [
+          {
+            key: '1',
+            label: `Join Podcast ${isEnableJoin ? '' : '(Unavailable)'}`,
+            onClick: () => handleJoinPodcast(record),
+            disabled: !isEnableJoin,
+          },
+          {
+            key: '2',
+            label: `Download ${isDownloadable ? '' : '(Unavailable)'}`,
+            onClick: () => handleOpenDownloadModal(record.id),
+            disabled: !isDownloadable,
+          },
+          {
+            type: 'divider',
+          },
+          {
+            key: '3',
+            label: 'Copy Link',
+            onClick: () => handleCopy(record?.producerRoomCode),
+          },
+          {
+            type: 'divider',
+          },
+          {
+            key: '4',
+            label: `Playing ${record.status === 'Playing' ? '✓' : ''}`,
+            onClick: () => handleChangeStatus(record.id, 'Playing'),
+          },
+          {
+            key: '5',
+            label: `Finished ${record.status === 'Finished' ? '✓' : ''}`,
+            onClick: () => handleChangeStatus(record.id, 'Finished'),
+          },
+        ];
 
         return (
-          <Button
-            onClick={() => handleCopy(record?.producerRoomCode)}
-            disabled={!isEnableJoin}
-            className="bg-[#2757A6] inline-block text-white p-1 rounded-md cursor-pointer"
+          <Dropdown
+            menu={{ items: actionItems }}
+            trigger={['click']}
+            placement="bottomRight"
           >
-            <BiCopy size={22} />
-          </Button>
+            <Button 
+              type="primary"
+              className="bg-[#FFA175] text-white hover:bg-[#ff8c5a] flex items-center justify-center"
+              icon={<MdMoreVert size={18} />}
+            >
+            </Button>
+          </Dropdown>
         );
       },
-    }
+    },
+
   ];
 
 
